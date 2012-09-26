@@ -4,6 +4,8 @@
  */
 package dominio;
 
+import java.util.Random;
+
 /**
  *
  * @author Ruben
@@ -29,12 +31,12 @@ public class Individuo {
         {14, 0, 0, 21, 11, 6, 19, 26}
     };
     private static final byte[] Utilidad = {90, 115, 120, 100};
-    
     private float aptitud;
     private int p1;
     private int p2;
     private int p3;
     private int p4;
+    private Random suerte = new Random();
 
     public Individuo(int p1, int p2, int p3, int p4) {
         this.aptitud = 0f;
@@ -110,11 +112,50 @@ public class Individuo {
         return nuevaAptitud;
     }
 
-    public Individuo cruzarse(Individuo unIndividuo) {
+    /**
+     * Cruza simple entre dos individuos. La posicion de los genes empieza en el
+     * 0 y puede valer hasta 2. Este metodo devuelve un arreglo con los dos hijos de la cruza
+     *
+     * @param unIndividuo Individuo con el cual cruzarse.
+     * @param posicion posicion a la cual cruzar [0..2].
+     * @return un arreglo con los dos hijos de la cruza.
+     */
+    public Individuo[] cruzaSimple(Individuo unIndividuo, byte posicion) {
+        Individuo[] hijos = new Individuo[2];
+        
+        hijos[0] = new Individuo(getP1(),getP2(),getP3(),getP4());
+        hijos[0].setProducto(posicion, unIndividuo.getProducto(posicion));
+        
+        hijos[1] = new Individuo(unIndividuo.getP1(),unIndividuo.getP2(),
+                unIndividuo.getP3(),unIndividuo.getP4());
+        hijos[1].setProducto(posicion, getProducto(posicion));
+        
+        return hijos;
+    }
+    
+    /**
+     * Cruza multi punto entre dos individuos. Este metodo recibe como parametro
+     * los multiples puntos en los que se van a cruzar los individuos. Estos
+     * puntos pueden valer hasta 2 y pueden ser hasta 3 cortes.
+     * @param unIndividuo Individuo con el que se va a cruzar.
+     * @param cortes valre de corte [0..2]
+     * @return un arreglo con los dos hijos de la cruza.
+     */
+    public Individuo[] cruzaMultiPunto(Individuo unIndividuo, byte... cortes) {
+        Individuo[] hijos = new Individuo[2];
+        
+        
+        return hijos;
+    }
+
+    public Individuo[] cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
         return null;
     }
 
-    public void mutarse() {
+    public void mutacionXTempAsc() {
+    }
+
+    public void mutacionXTempDesc() {
     }
 
     public boolean eficienteConRecursos(int[] matIngs) {
@@ -184,6 +225,58 @@ public class Individuo {
 
     public float getAptitud() {
         return aptitud;
+    }
+
+    /**
+     * Devuelve el valor del gen (producto) que se indica mediante el valor del
+     * parametro recibido.
+     * 
+     * @param nroProducto 
+     * @return Especifica el gen que se va a setear.
+     */
+    public int getProducto(byte nroProducto) {
+        int var;
+        switch (nroProducto) {
+            case 0:
+                var = getP1();
+                break;
+            case 1:
+                var = getP2();
+                break;
+            case 2:
+                var = getP3();
+                break;
+            default:
+                var = getP4();
+                break;
+        }
+        return var;
+    }
+
+    /**
+     * El metodo setProducto recibe el nro del prducto al que se le va a asignar
+     * el valor. Los valores de nro de prducto son: 0 para P1, 1 para P2, 2 para
+     * P3 y 3 para P4. En el caso de que se agregue cualquier otro nro el valor
+     * no sera seteado.
+     * @param nroProducto Especifica el gen que se va a setear.
+     * @param valor El nuevo valor que se va a setear.
+     */
+    public void setProducto(byte nroProducto, int valor) {
+        int var;
+        switch (nroProducto) {
+            case 0:
+                setP1(valor);
+                break;
+            case 1:
+                setP2(valor);
+                break;
+            case 2:
+                setP3(valor);
+                break;
+            case 3:
+                setP4(valor);
+                break;
+        }
     }
 
     public int getP1() {
