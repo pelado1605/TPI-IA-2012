@@ -4,13 +4,16 @@
  */
 package dominio;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import sun.font.TrueTypeFont;
 
 /**
  *
  * @author Ruben
  */
-public class Individuo {
+public class Individuo implements Comparable<Individuo> {
 
     private static final byte[][] MMinimos = {
         {80, 0, 44, 72, 0, 55, 22, 0},
@@ -38,12 +41,29 @@ public class Individuo {
     private int p4;
     private Random suerte = new Random();
 
+    public Individuo() {
+        this.aptitud = 0f;
+        this.p1 = 0;
+        this.p2 = 0;
+        this.p3 = 0;
+        this.p4 = 0;
+    }
+
     public Individuo(int p1, int p2, int p3, int p4) {
         this.aptitud = 0f;
         this.p1 = p1;
         this.p2 = p2;
         this.p3 = p3;
         this.p4 = p4;
+    }
+
+//    ESTE ESTA POR PRUEBA NOMAS
+    public Individuo(float aptitud) {
+        this.aptitud = aptitud;
+        this.p1 = 0;
+        this.p2 = 0;
+        this.p3 = 0;
+        this.p4 = 0;
     }
 
     public float evaluarAptitud(int[] matIngs) {
@@ -114,37 +134,85 @@ public class Individuo {
 
     /**
      * Cruza simple entre dos individuos. La posicion de los genes empieza en el
-     * 0 y puede valer hasta 2. Este metodo devuelve un arreglo con los dos hijos de la cruza
+     * 0 y puede valer hasta 3. Este metodo devuelve un arreglo con los dos
+     * hijos de la cruza
      *
      * @param unIndividuo Individuo con el cual cruzarse.
-     * @param posicion posicion a la cual cruzar [0..2].
+     * @param posicion posicion a la cual cruzar [0..3].
      * @return un arreglo con los dos hijos de la cruza.
      */
     public Individuo[] cruzaSimple(Individuo unIndividuo, byte posicion) {
         Individuo[] hijos = new Individuo[2];
-        
-        hijos[0] = new Individuo(getP1(),getP2(),getP3(),getP4());
+
+        hijos[0] = new Individuo(getP1(), getP2(), getP3(), getP4());
         hijos[0].setProducto(posicion, unIndividuo.getProducto(posicion));
-        
-        hijos[1] = new Individuo(unIndividuo.getP1(),unIndividuo.getP2(),
-                unIndividuo.getP3(),unIndividuo.getP4());
+
+        hijos[1] = new Individuo(unIndividuo.getP1(), unIndividuo.getP2(),
+                unIndividuo.getP3(), unIndividuo.getP4());
         hijos[1].setProducto(posicion, getProducto(posicion));
-        
+
         return hijos;
     }
-    
+
     /**
      * Cruza multi punto entre dos individuos. Este metodo recibe como parametro
      * los multiples puntos en los que se van a cruzar los individuos. Estos
      * puntos pueden valer hasta 2 y pueden ser hasta 3 cortes.
+     *
      * @param unIndividuo Individuo con el que se va a cruzar.
      * @param cortes valre de corte [0..2]
      * @return un arreglo con los dos hijos de la cruza.
      */
-    public Individuo[] cruzaMultiPunto(Individuo unIndividuo, byte... cortes) {
-        Individuo[] hijos = new Individuo[2];
+    public Individuo[] cruzaMultiPunto(Individuo unIndividuo, List<Integer> cortesList) {
+        Individuo[] hijos = {new Individuo(), new Individuo()};
+//        Collections.sort(cortesList);
+//        boolean bandera = true;
+//        for (int i = 0; i < cortesList.size(); i++) {
+//            
+//            for (int j = cortesList.get(i); j < 4; j++) {
+//                if (bandera) {
+//                    hijos[0].setProducto(j, getProducto(j));
+//                    hijos[1].setProducto(j, unIndividuo.getProducto(j));
+//                } else {
+//                    hijos[1].setProducto(j, getProducto(j));
+//                    hijos[0].setProducto(j, unIndividuo.getProducto(j));
+//                }
+//            }
+//            bandera = bandera ? false : true;
+//        }
+
+        Individuo mascara = new Individuo(1, 1, 1, 1);
+        int cont = 0;
+        for (int i = 0; i < 4; i++) {
+            boolean flag = false;
+            for (Integer valor : cortesList) {
+                if (valor == i) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                cont++;
+            }
+            if (cont % 2 == 0) {
+                mascara.setProducto(i, 0);
+            }
+        }
+        Individuo mascara2 = new Individuo();
+        for (int i = 0; i < 4; i++) {
+            mascara2.setProducto(i, mascara.getProducto(i) ^ 1);
+        }
+        for (int i = 0; i < 4; i++) {
+            int valor = (this.getProducto(i) * mascara.getProducto(i))
+                    + (unIndividuo.getProducto(i) * mascara2.getProducto(i));
+            hijos[0].setProducto(i, valor);
         
-        
+        };
+        for (int i = 0; i < 4; i++) {
+            int valor = (this.getProducto(i) * mascara2.getProducto(i))
+                    + (unIndividuo.getProducto(i) * mascara.getProducto(i));
+            hijos[1].setProducto(i, valor);
+        };
+
         return hijos;
     }
 
@@ -230,11 +298,11 @@ public class Individuo {
     /**
      * Devuelve el valor del gen (producto) que se indica mediante el valor del
      * parametro recibido.
-     * 
-     * @param nroProducto 
+     *
+     * @param nroProducto
      * @return Especifica el gen que se va a setear.
      */
-    public int getProducto(byte nroProducto) {
+    public int getProducto(int nroProducto) {
         int var;
         switch (nroProducto) {
             case 0:
@@ -258,10 +326,11 @@ public class Individuo {
      * el valor. Los valores de nro de prducto son: 0 para P1, 1 para P2, 2 para
      * P3 y 3 para P4. En el caso de que se agregue cualquier otro nro el valor
      * no sera seteado.
+     *
      * @param nroProducto Especifica el gen que se va a setear.
      * @param valor El nuevo valor que se va a setear.
      */
-    public void setProducto(byte nroProducto, int valor) {
+    public void setProducto(int nroProducto, int valor) {
         int var;
         switch (nroProducto) {
             case 0:
@@ -309,5 +378,10 @@ public class Individuo {
 
     public void setP4(int p4) {
         this.p4 = p4;
+    }
+
+    @Override
+    public int compareTo(Individuo otroIndividuo) {
+        return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
     }
 }
