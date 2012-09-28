@@ -4,10 +4,7 @@
  */
 package dominio;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-import sun.font.TrueTypeFont;
 
 /**
  *
@@ -155,31 +152,52 @@ public class Individuo implements Comparable<Individuo> {
     }
 
     /**
-     * Cruza multi punto entre dos individuos. Este metodo recibe como parametro
-     * los multiples puntos en los que se van a cruzar los individuos. Estos
-     * puntos pueden valer hasta 2 y pueden ser hasta 3 cortes.
-     *
+     * Cruza multi punto entre dos individuos. Este metodo recibe como
+     * parametro un valor entero del cual se lo analiza de manera binaria para
+     * determinar las posiciones de corte para la cruza.
+     * <br/>
+     * <i>Ejemplo: para realizar un corte en posiciones 2 y 3, se deberá pasar 
+     * el entero 6 (0110 en binario).
+     * </i>
+     * <br/>
+     * Como se ve, los 1 determinan el punto de corte y el cero donde mantiene 
+     * el valor del padre. Los valores 0 y 15 no se incluyen, ya que no 
+     * producirían corte alguno, solo copia de los padres.
      * @param unIndividuo Individuo con el que se va a cruzar.
-     * @param cortes valre de corte [0..2]
+     * @param cortes entero entre 1 y 14.
      * @return un arreglo con los dos hijos de la cruza.
      */
-    public Individuo[] cruzaMultiPunto(Individuo unIndividuo, List<Integer> cortesList) {
+    public Individuo[] cruzaMultiPunto(Individuo unIndividuo, int cortes) {
         Individuo[] hijos = {new Individuo(), new Individuo()};
-//        Collections.sort(cortesList);
-//        boolean bandera = true;
-//        for (int i = 0; i < cortesList.size(); i++) {
-//            
-//            for (int j = cortesList.get(i); j < 4; j++) {
-//                if (bandera) {
-//                    hijos[0].setProducto(j, getProducto(j));
-//                    hijos[1].setProducto(j, unIndividuo.getProducto(j));
-//                } else {
-//                    hijos[1].setProducto(j, getProducto(j));
-//                    hijos[0].setProducto(j, unIndividuo.getProducto(j));
-//                }
-//            }
-//            bandera = bandera ? false : true;
-//        }
+      
+        for (byte i = 0; i<4; i++) {
+            int posicion = (int) Math.pow(2, i);
+            int valor = (int) (cortes & posicion);
+            if ((valor ^ posicion) == 0) {
+                hijos[0].setProducto(3-i, this.getProducto(3-i));
+                hijos[1].setProducto(3-i, unIndividuo.getProducto(3-i));
+            } else {
+                hijos[1].setProducto(3-i, this.getProducto(3-i));
+                hijos[0].setProducto(3-i, unIndividuo.getProducto(3-i));
+            }
+        }
+        return hijos;
+        /*
+        Collections.sort(cortesList);
+        boolean bandera = true;
+        for (int i = 0; i < cortesList.size(); i++) {
+            
+            for (int j = cortesList.get(i); j < 4; j++) {
+                if (bandera) {
+                    hijos[0].setProducto(j, getProducto(j));
+                    hijos[1].setProducto(j, unIndividuo.getProducto(j));
+                } else {
+                    hijos[1].setProducto(j, getProducto(j));
+                    hijos[0].setProducto(j, unIndividuo.getProducto(j));
+                }
+            }
+            bandera = bandera ? false : true;
+        }
 
         Individuo mascara = new Individuo(1, 1, 1, 1);
         int cont = 0;
@@ -213,9 +231,25 @@ public class Individuo implements Comparable<Individuo> {
             hijos[1].setProducto(i, valor);
         };
 
-        return hijos;
+        for (int i = 0; i < 4; i++) {
+            if (cortesList.get(i)) {
+                hijos[0].setProducto(i, this.getProducto(i));
+                hijos[1].setProducto(i, unIndividuo.getProducto(i));
+            } else {
+                hijos[1].setProducto(i, this.getProducto(i));
+                hijos[0].setProducto(i, unIndividuo.getProducto(i));
+            }
+        }
+        */
+
     }
 
+    /**
+     * 
+     * @param unIndividuo
+     * @param probUnIndividuo
+     * @return 
+     */
     public Individuo[] cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
         return null;
     }
@@ -226,6 +260,11 @@ public class Individuo implements Comparable<Individuo> {
     public void mutacionXTempDesc() {
     }
 
+    /**
+     *
+     * @param matIngs
+     * @return
+     */
     public boolean eficienteConRecursos(int[] matIngs) {
         /*
          * Devuelve verdadero si (diferencia - rango*cantDeProductos)<=0 Si es

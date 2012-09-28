@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import javax.swing.event.ListSelectionEvent;
 
 /**
@@ -32,7 +33,7 @@ public class TpiIA2012 {
 //        for (Object e : cortesList) {
 //            System.out.print(e+",");
 //        }
-        
+//        
 //        Individuo ind1 = new Individuo(0.4f);
 //        Individuo ind2 = new Individuo(-20f);
 //        Individuo ind3 = new Individuo(16.9f);
@@ -51,11 +52,11 @@ public class TpiIA2012 {
 //        for (Individuo individuo : lista) {
 //            System.out.println(individuo.getAptitud());
 //        }
-        
-        Individuo ind1 = new Individuo(1,1,1,1);
-        Individuo ind2 = new Individuo(3, 3, 3, 3);
-        List<Integer> lista = new ArrayList(Arrays.asList());
-        Individuo[] hijos = ind1.cruzaMultiPunto(ind2, lista);
+        Random r = new Random();
+        Individuo ind1 = new Individuo(0,0,0,0);
+        Individuo ind2 = new Individuo(1,1,1,1);
+        List<Boolean> lista = new ArrayList(Arrays.asList(r.nextBoolean(),r.nextBoolean(),r.nextBoolean(),r.nextBoolean()));
+        Individuo[] hijos = ind1.cruzaMultiPunto(ind2,12);
         for (int i = 0; i < hijos.length; i++) {
             System.out.print(hijos[i].getP1()+",");
             System.out.print(hijos[i].getP2()+",");
