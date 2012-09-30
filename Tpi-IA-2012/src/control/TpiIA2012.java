@@ -55,14 +55,18 @@ public class TpiIA2012 {
         Random r = new Random();
         Individuo ind1 = new Individuo(0,0,0,0);
         Individuo ind2 = new Individuo(1,1,1,1);
-        List<Boolean> lista = new ArrayList(Arrays.asList(r.nextBoolean(),r.nextBoolean(),r.nextBoolean(),r.nextBoolean()));
-        Individuo[] hijos = ind1.cruzaMultiPunto(ind2,12);
-        for (int i = 0; i < hijos.length; i++) {
-            System.out.print(hijos[i].getP1()+",");
-            System.out.print(hijos[i].getP2()+",");
-            System.out.print(hijos[i].getP3()+",");
-            System.out.print(hijos[i].getP4()+",");
-            System.out.println();
-        }
+//        List<Boolean> lista = new ArrayList(Arrays.asList(r.nextBoolean(),r.nextBoolean(),r.nextBoolean(),r.nextBoolean()));
+//        Individuo[] hijos = ind1.cruzaBinomial(ind2,0.5f);
+//        for (int i = 0; i < hijos.length; i++) {
+//            System.out.print(hijos[i].getP1()+",");
+//            System.out.print(hijos[i].getP2()+",");
+//            System.out.print(hijos[i].getP3()+",");
+//            System.out.print(hijos[i].getP4()+",");
+//            System.out.println();
+//        }
+        ind1.mutar();
+        ind2.mutar();
+        System.out.println(ind1.mostrarProductos());
+        System.out.println(ind2.mostrarProductos());
     }
 }

@@ -152,87 +152,106 @@ public class Individuo implements Comparable<Individuo> {
     }
 
     /**
-     * Cruza multi punto entre dos individuos. Este metodo recibe como
-     * parametro un valor entero del cual se lo analiza de manera binaria para
-     * determinar las posiciones de corte para la cruza.
-     * <br/>
-     * <i>Ejemplo: para realizar un corte en posiciones 2 y 3, se deberá pasar 
-     * el entero 6 (0110 en binario).
-     * </i>
-     * <br/>
-     * Como se ve, los 1 determinan el punto de corte y el cero donde mantiene 
-     * el valor del padre. Los valores 0 y 15 no se incluyen, ya que no 
+     * Cruza multi punto entre dos individuos. Este metodo recibe como parametro
+     * un valor entero del cual se lo analiza de manera binaria para determinar
+     * las posiciones de corte para la cruza. <br/> <i>Ejemplo: para realizar un
+     * corte en posiciones 2 y 3, se deberá pasar el entero 6 (0110 en binario).
+     * </i> <br/> Como se ve, los 1 determinan el punto de corte y el cero donde
+     * mantiene el valor del padre. Los valores 0 y 15 no se incluyen, ya que no
      * producirían corte alguno, solo copia de los padres.
+     *
      * @param unIndividuo Individuo con el que se va a cruzar.
      * @param cortes entero entre 1 y 14.
      * @return un arreglo con los dos hijos de la cruza.
      */
     public Individuo[] cruzaMultiPunto(Individuo unIndividuo, int cortes) {
         Individuo[] hijos = {new Individuo(), new Individuo()};
-      
-        for (byte i = 0; i<4; i++) {
+
+        for (byte i = 0; i < 4; i++) {
             int posicion = (int) Math.pow(2, i);
             int valor = (int) (cortes & posicion);
             if ((valor ^ posicion) == 0) {
-                hijos[0].setProducto(3-i, this.getProducto(3-i));
-                hijos[1].setProducto(3-i, unIndividuo.getProducto(3-i));
+                hijos[0].setProducto(3 - i, this.getProducto(3 - i));
+                hijos[1].setProducto(3 - i, unIndividuo.getProducto(3 - i));
             } else {
-                hijos[1].setProducto(3-i, this.getProducto(3-i));
-                hijos[0].setProducto(3-i, unIndividuo.getProducto(3-i));
+                hijos[1].setProducto(3 - i, this.getProducto(3 - i));
+                hijos[0].setProducto(3 - i, unIndividuo.getProducto(3 - i));
             }
         }
         return hijos;
         /*
-        Collections.sort(cortesList);
-        boolean bandera = true;
-        for (int i = 0; i < cortesList.size(); i++) {
+         Collections.sort(cortesList);
+         boolean bandera = true;
+         for (int i = 0; i < cortesList.size(); i++) {
             
-            for (int j = cortesList.get(i); j < 4; j++) {
-                if (bandera) {
-                    hijos[0].setProducto(j, getProducto(j));
-                    hijos[1].setProducto(j, unIndividuo.getProducto(j));
-                } else {
-                    hijos[1].setProducto(j, getProducto(j));
-                    hijos[0].setProducto(j, unIndividuo.getProducto(j));
-                }
-            }
-            bandera = bandera ? false : true;
-        }
+         for (int j = cortesList.get(i); j < 4; j++) {
+         if (bandera) {
+         hijos[0].setProducto(j, getProducto(j));
+         hijos[1].setProducto(j, unIndividuo.getProducto(j));
+         } else {
+         hijos[1].setProducto(j, getProducto(j));
+         hijos[0].setProducto(j, unIndividuo.getProducto(j));
+         }
+         }
+         bandera = bandera ? false : true;
+         }
 
-        Individuo mascara = new Individuo(1, 1, 1, 1);
-        int cont = 0;
-        for (int i = 0; i < 4; i++) {
-            boolean flag = false;
-            for (Integer valor : cortesList) {
-                if (valor == i) {
-                    flag = true;
-                }
-            }
-            if (flag) {
-                cont++;
-            }
-            if (cont % 2 == 0) {
-                mascara.setProducto(i, 0);
-            }
-        }
-        Individuo mascara2 = new Individuo();
-        for (int i = 0; i < 4; i++) {
-            mascara2.setProducto(i, mascara.getProducto(i) ^ 1);
-        }
-        for (int i = 0; i < 4; i++) {
-            int valor = (this.getProducto(i) * mascara.getProducto(i))
-                    + (unIndividuo.getProducto(i) * mascara2.getProducto(i));
-            hijos[0].setProducto(i, valor);
+         Individuo mascara = new Individuo(1, 1, 1, 1);
+         int cont = 0;
+         for (int i = 0; i < 4; i++) {
+         boolean flag = false;
+         for (Integer valor : cortesList) {
+         if (valor == i) {
+         flag = true;
+         }
+         }
+         if (flag) {
+         cont++;
+         }
+         if (cont % 2 == 0) {
+         mascara.setProducto(i, 0);
+         }
+         }
+         Individuo mascara2 = new Individuo();
+         for (int i = 0; i < 4; i++) {
+         mascara2.setProducto(i, mascara.getProducto(i) ^ 1);
+         }
+         for (int i = 0; i < 4; i++) {
+         int valor = (this.getProducto(i) * mascara.getProducto(i))
+         + (unIndividuo.getProducto(i) * mascara2.getProducto(i));
+         hijos[0].setProducto(i, valor);
         
-        };
-        for (int i = 0; i < 4; i++) {
-            int valor = (this.getProducto(i) * mascara2.getProducto(i))
-                    + (unIndividuo.getProducto(i) * mascara.getProducto(i));
-            hijos[1].setProducto(i, valor);
-        };
+         };
+         for (int i = 0; i < 4; i++) {
+         int valor = (this.getProducto(i) * mascara2.getProducto(i))
+         + (unIndividuo.getProducto(i) * mascara.getProducto(i));
+         hijos[1].setProducto(i, valor);
+         };
 
+         for (int i = 0; i < 4; i++) {
+         if (cortesList.get(i)) {
+         hijos[0].setProducto(i, this.getProducto(i));
+         hijos[1].setProducto(i, unIndividuo.getProducto(i));
+         } else {
+         hijos[1].setProducto(i, this.getProducto(i));
+         hijos[0].setProducto(i, unIndividuo.getProducto(i));
+         }
+         }
+         */
+
+    }
+
+    /**
+     *
+     * @param unIndividuo
+     * @param probUnIndividuo
+     * @return
+     */
+    public Individuo[] cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
+        Individuo[] hijos = {new Individuo(), new Individuo()};
         for (int i = 0; i < 4; i++) {
-            if (cortesList.get(i)) {
+            float nroAleatorio = suerte.nextFloat();
+            if (nroAleatorio <= probUnIndividuo) {
                 hijos[0].setProducto(i, this.getProducto(i));
                 hijos[1].setProducto(i, unIndividuo.getProducto(i));
             } else {
@@ -240,26 +259,16 @@ public class Individuo implements Comparable<Individuo> {
                 hijos[0].setProducto(i, unIndividuo.getProducto(i));
             }
         }
-        */
-
+        return hijos;
     }
 
-    /**
-     * 
-     * @param unIndividuo
-     * @param probUnIndividuo
-     * @return 
-     */
-    public Individuo[] cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
-        return null;
+    public void mutar() {
+        for (int i = 0; i < 4; i++) {
+            int nuevoValor = suerte.nextInt(this.getProducto(i) + 500); //una manera absurda de controlar que no se vaya a la puta la mutacion
+            this.setProducto(i, nuevoValor);
+        }
     }
-
-    public void mutacionXTempAsc() {
-    }
-
-    public void mutacionXTempDesc() {
-    }
-
+    
     /**
      *
      * @param matIngs
@@ -323,6 +332,13 @@ public class Individuo implements Comparable<Individuo> {
             diferencia[i] = matIngs[i] - matMinimos[i];
         }
         return diferencia;
+    }
+
+    public String mostrarProductos() {
+
+        return "(" + this.getP1() + "," + this.getP2() + ","
+                + this.getP3() + "," + this.getP4() + ")";
+
     }
 
     public int getUtilidad() {
