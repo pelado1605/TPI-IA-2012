@@ -5,12 +5,10 @@
 package control;
 
 import dominio.Individuo;
+import dominio.Poblacion;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-import javax.swing.event.ListSelectionEvent;
 
 /**
  *
@@ -23,7 +21,7 @@ public class TpiIA2012 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+
 //        byte cortes[] = {3,1,5,2,6,7,2};
 //         ArrayList cortesList = new ArrayList();
 //        for (int i = 0; i < cortes.length; i++) {
@@ -52,9 +50,9 @@ public class TpiIA2012 {
 //        for (Individuo individuo : lista) {
 //            System.out.println(individuo.getAptitud());
 //        }
-        Random r = new Random();
-        Individuo ind1 = new Individuo(0,0,0,0);
-        Individuo ind2 = new Individuo(1,1,1,1);
+//        Random r = new Random();
+//        Individuo ind1 = new Individuo(0,0,0,0);
+//        Individuo ind2 = new Individuo(1,1,1,1);
 //        List<Boolean> lista = new ArrayList(Arrays.asList(r.nextBoolean(),r.nextBoolean(),r.nextBoolean(),r.nextBoolean()));
 //        Individuo[] hijos = ind1.cruzaBinomial(ind2,0.5f);
 //        for (int i = 0; i < hijos.length; i++) {
@@ -64,9 +62,53 @@ public class TpiIA2012 {
 //            System.out.print(hijos[i].getP4()+",");
 //            System.out.println();
 //        }
-        ind1.mutar();
-        ind2.mutar();
-        System.out.println(ind1.mostrarProductos());
-        System.out.println(ind2.mostrarProductos());
-    }
+//        ind1.mutar();
+//        ind2.mutar();
+//        System.out.println(ind1.mostrarProductos());
+//        System.out.println(ind2.mostrarProductos());
+
+//        Random r = new Random();
+//        ArrayList<Individuo> nombre = new ArrayList<>(1000);
+//        for (int i = 0; i < 1000; i++) {
+//            nombre.add(new Individuo(r.nextFloat()));
+//        }
+//        Poblacion poblacion = new Poblacion(nombre, 0.5f);
+//        ArrayList<Individuo> laElite = poblacion.seleccionElitista(12);
+//        int cont = 0;
+//        for (Individuo individuo : laElite) {
+//            System.out.println(individuo.getAptitud());
+//            cont++;
+//        }
+//        System.out.println("/////////////"+cont);
+        Random suerte = new Random();
+        ArrayList<Integer> seleccionados = new ArrayList<>();
+   
+
+        ArrayList<Integer> rangos = new ArrayList<>();
+        rangos.add(5);
+        rangos.add(10);
+        rangos.add(14);
+        rangos.add(16);
+        rangos.add(17);
+        rangos.add(21);
+        rangos.add(35);
+
+        for (int i = 0; i < 3; i++) {
+            int nroAleatorio = suerte.nextInt(435);
+            System.out.println(nroAleatorio);
+            int valor = Collections.binarySearch(rangos, nroAleatorio);
+            if (valor < 0) {
+                valor = Math.abs(valor + 1);
+            }
+            if (valor >= rangos.size()) {
+                valor = rangos.size()-1; //parche puesto por German, ver: 1.0.
+            }
+            seleccionados.add(valor);
+        }    
+//        for (Integer integer : seleccionados) {
+//            System.out.println(integer);
+//                    
+//        }
+        System.out.println(seleccionados);
+        }
 }

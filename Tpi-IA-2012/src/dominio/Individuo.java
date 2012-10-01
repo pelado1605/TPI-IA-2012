@@ -264,11 +264,13 @@ public class Individuo implements Comparable<Individuo> {
 
     public void mutar() {
         for (int i = 0; i < 4; i++) {
-            int nuevoValor = suerte.nextInt(this.getProducto(i) + 500); //una manera absurda de controlar que no se vaya a la puta la mutacion
-            this.setProducto(i, nuevoValor);
+            if (suerte.nextBoolean()) {
+                int nuevoValor = suerte.nextInt(this.getProducto(i) + 500); //una manera absurda de controlar que no se vaya a la puta la mutacion
+                this.setProducto(i, nuevoValor);
+            };
         }
     }
-    
+
     /**
      *
      * @param matIngs
