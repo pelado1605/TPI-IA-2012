@@ -4,6 +4,7 @@
  */
 package dominio;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -30,6 +31,9 @@ public class Individuo implements Comparable<Individuo> {
         {0, 15, 0, 21, 16, 8, 22, 0},
         {14, 0, 0, 21, 11, 6, 19, 26}
     };
+    public static final int CRUZA_SIMPLE = 0;
+    public static final int CRUZA_MULTIPUNTO = 1;
+    public static final int CRUZA_BINOMIAL = 2;
     private static final byte[] Utilidad = {90, 115, 120, 100};
     private float aptitud;
     private int p1;
@@ -138,15 +142,14 @@ public class Individuo implements Comparable<Individuo> {
      * @param posicion posicion a la cual cruzar [0..3].
      * @return un arreglo con los dos hijos de la cruza.
      */
-    public Individuo[] cruzaSimple(Individuo unIndividuo, byte posicion) {
-        Individuo[] hijos = new Individuo[2];
-
-        hijos[0] = new Individuo(getP1(), getP2(), getP3(), getP4());
-        hijos[0].setProducto(posicion, unIndividuo.getProducto(posicion));
-
-        hijos[1] = new Individuo(unIndividuo.getP1(), unIndividuo.getP2(),
-                unIndividuo.getP3(), unIndividuo.getP4());
-        hijos[1].setProducto(posicion, getProducto(posicion));
+    public ArrayList<Individuo> cruzaSimple(Individuo unIndividuo, byte posicion) {
+        ArrayList<Individuo> hijos = new ArrayList<>();
+        hijos.add(new Individuo(getP1(), getP2(), getP3(), getP4()));
+        hijos.add(new Individuo(unIndividuo.getP1(), unIndividuo.getP2(),
+                unIndividuo.getP3(), unIndividuo.getP4()));
+        
+        hijos.get(0).setProducto(posicion, unIndividuo.getProducto(posicion));
+        hijos.get(1).setProducto(posicion, getProducto(posicion));
 
         return hijos;
     }
@@ -164,18 +167,19 @@ public class Individuo implements Comparable<Individuo> {
      * @param cortes entero entre 1 y 14.
      * @return un arreglo con los dos hijos de la cruza.
      */
-    public Individuo[] cruzaMultiPunto(Individuo unIndividuo, int cortes) {
-        Individuo[] hijos = {new Individuo(), new Individuo()};
-
+    public ArrayList<Individuo> cruzaMultiPunto(Individuo unIndividuo, int cortes) {
+        ArrayList<Individuo> hijos = new ArrayList<>();
+        hijos.add(new Individuo());
+        hijos.add(new Individuo());
         for (byte i = 0; i < 4; i++) {
             int posicion = (int) Math.pow(2, i);
             int valor = (int) (cortes & posicion);
             if ((valor ^ posicion) == 0) {
-                hijos[0].setProducto(3 - i, this.getProducto(3 - i));
-                hijos[1].setProducto(3 - i, unIndividuo.getProducto(3 - i));
+                hijos.get(0).setProducto(3 - i, this.getProducto(3 - i));
+                hijos.get(1).setProducto(3 - i, unIndividuo.getProducto(3 - i));
             } else {
-                hijos[1].setProducto(3 - i, this.getProducto(3 - i));
-                hijos[0].setProducto(3 - i, unIndividuo.getProducto(3 - i));
+                hijos.get(1).setProducto(3 - i, this.getProducto(3 - i));
+                hijos.get(0).setProducto(3 - i, unIndividuo.getProducto(3 - i));
             }
         }
         return hijos;
@@ -247,17 +251,32 @@ public class Individuo implements Comparable<Individuo> {
      * @param probUnIndividuo
      * @return
      */
-    public Individuo[] cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
-        Individuo[] hijos = {new Individuo(), new Individuo()};
+    public ArrayList<Individuo> cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
+        ArrayList<Individuo> hijos = new ArrayList<>();
+        hijos.add(new Individuo());
+        hijos.add(new Individuo());
         for (int i = 0; i < 4; i++) {
             float nroAleatorio = suerte.nextFloat();
             if (nroAleatorio <= probUnIndividuo) {
-                hijos[0].setProducto(i, this.getProducto(i));
-                hijos[1].setProducto(i, unIndividuo.getProducto(i));
+                hijos.get(0).setProducto(i, this.getProducto(i));
+                hijos.get(1).setProducto(i, unIndividuo.getProducto(i));
             } else {
-                hijos[1].setProducto(i, this.getProducto(i));
-                hijos[0].setProducto(i, unIndividuo.getProducto(i));
+                hijos.get(1).setProducto(i, this.getProducto(i));
+                hijos.get(0).setProducto(i, unIndividuo.getProducto(i));
             }
+        }
+        return hijos;
+    }
+
+    public ArrayList<Individuo> cruza(int typoCruza, Individuo unIndividuo) {
+        ArrayList<Individuo> hijos = new ArrayList<>();
+        switch (typoCruza) {
+            case CRUZA_SIMPLE:
+                hijos = this.cruzaSimple(unIndividuo, (byte) suerte.nextInt(4));
+            case CRUZA_MULTIPUNTO:
+                hijos = this.cruzaMultiPunto(unIndividuo, suerte.nextInt(14) + 1);
+            case CRUZA_BINOMIAL:
+                hijos = this.cruzaBinomial(unIndividuo, suerte.nextFloat());
         }
         return hijos;
     }
@@ -268,7 +287,7 @@ public class Individuo implements Comparable<Individuo> {
             int posicion = aleatorio & (int) Math.pow(2, i);
             if (posicion != 0) {
                 int nuevoValor = suerte.nextInt(this.getProducto(i) + 500);//probar despues con el mismo nro de la generacion inicial
-                this.setProducto(3-i, nuevoValor);
+                this.setProducto(3 - i, nuevoValor);
             }
         }
     }
