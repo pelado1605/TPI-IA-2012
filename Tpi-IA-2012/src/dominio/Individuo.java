@@ -263,11 +263,13 @@ public class Individuo implements Comparable<Individuo> {
     }
 
     public void mutar() {
+        int aleatorio = suerte.nextInt(15) + 1;
         for (int i = 0; i < 4; i++) {
-            if (suerte.nextBoolean()) {
-                int nuevoValor = suerte.nextInt(this.getProducto(i) + 500); //una manera absurda de controlar que no se vaya a la puta la mutacion
-                this.setProducto(i, nuevoValor);
-            };
+            int posicion = aleatorio & (int) Math.pow(2, i);
+            if (posicion != 0) {
+                int nuevoValor = suerte.nextInt(this.getProducto(i) + 500);//probar despues con el mismo nro de la generacion inicial
+                this.setProducto(3-i, nuevoValor);
+            }
         }
     }
 

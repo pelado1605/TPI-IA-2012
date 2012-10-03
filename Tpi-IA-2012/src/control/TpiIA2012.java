@@ -82,7 +82,7 @@ public class TpiIA2012 {
 //        System.out.println("/////////////"+cont);
         Random suerte = new Random();
         ArrayList<Integer> seleccionados = new ArrayList<>();
-   
+
 
         ArrayList<Integer> rangos = new ArrayList<>();
         rangos.add(5);
@@ -91,24 +91,24 @@ public class TpiIA2012 {
         rangos.add(16);
         rangos.add(17);
         rangos.add(21);
-        rangos.add(35);
+        rangos.add(24);
+        
 
-        for (int i = 0; i < 3; i++) {
-            int nroAleatorio = suerte.nextInt(435);
+        
+//        System.out.println(Collections.binarySearch(rangos, 1000));
+
+        for (int i = 0; i < 8; i++) {
+            int nroAleatorio = suerte.nextInt(Collections.max(rangos) + 1);
             System.out.println(nroAleatorio);
             int valor = Collections.binarySearch(rangos, nroAleatorio);
             if (valor < 0) {
                 valor = Math.abs(valor + 1);
             }
             if (valor >= rangos.size()) {
-                valor = rangos.size()-1; //parche puesto por German, ver: 1.0.
+                valor = rangos.size() - 1; //parche puesto por German, ver: 1.0.
             }
             seleccionados.add(valor);
-        }    
-//        for (Integer integer : seleccionados) {
-//            System.out.println(integer);
-//                    
-//        }
-        System.out.println(seleccionados);
         }
+        System.out.println(seleccionados);
+    }
 }
