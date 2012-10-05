@@ -14,19 +14,26 @@ import java.util.Random;
  */
 public class Poblacion {
 
+    public static final int SELECCION_ELITISTA = 0;
+    public static final int SELECCION_POR_RULETA = 1;
+    public static final int SELECCION_RANKING = 2;
+    public static final int SELECCION_POR_COPIAS_ESPERADAS = 3;
+    public static final int SELECCION_POR_TORNEO = 4;
     private ArrayList<Individuo> poblado;
     private Random suerte = new Random();
     private float aptitud = 0f;
     private float probMutacion;
+    private float rMin;
 
     /**
      *
      * @param poblado
      */
-    public Poblacion(ArrayList<Individuo> poblado, float probMutacion) {
+    public Poblacion(ArrayList<Individuo> poblado, float probMutacion, float rMin) {
         this.poblado = poblado;
         this.probMutacion = probMutacion;
-        evaluarAptitud();
+        this.rMin = rMin;
+        getAptitudPoblacion();
     }
 
     public ArrayList<Individuo> seleccionElitista(int cantidad, ArrayList<Individuo> entrada) {
@@ -47,7 +54,7 @@ public class Poblacion {
 
         ArrayList<Integer> rangos = new ArrayList<>();
         int acum = 0;
-        float aptitudEntrada = evaluarAptitud(entrada);
+        float aptitudEntrada = getAptitudPoblacion(entrada);
         for (Individuo ind : entrada) {
             acum += Math.round((ind.getAptitud() / aptitudEntrada) * entrada.size() * 10);
             rangos.add(acum);
@@ -118,7 +125,7 @@ public class Poblacion {
     }
 
     public ArrayList<Individuo> seleccionContCopiasEsp(int cantidad, ArrayList<Individuo> entrada) {
-        float aptitudPromedio = evaluarAptitud(entrada) / entrada.size();
+        float aptitudPromedio = getAptitudPoblacion(entrada) / entrada.size();
         ArrayList<Individuo> seleccionados = new ArrayList();
         int i = 0, cont = 0;
         while (cont < cantidad) {
@@ -137,13 +144,14 @@ public class Poblacion {
     public ArrayList<Individuo> seleccionContCopiasEsp(int cantidad) {
         return seleccionContCopiasEsp(cantidad, this.poblado);
     }
-/**
- * 
- * @param cantidad la cantidad total de individuos que se van a seleccionar.
- * @param cantGrupos
- * @param entrada
- * @return 
- */
+
+    /**
+     *
+     * @param cantidad la cantidad total de individuos que se van a seleccionar.
+     * @param cantGrupos
+     * @param entrada
+     * @return
+     */
     public ArrayList<Individuo> seleccionXTorneo(int cantidad, int cantGrupos, ArrayList<Individuo> entrada) {
         ArrayList<Individuo> seleccionados = new ArrayList<>();
         ArrayList<ArrayList<Individuo>> grupos = getSubGrupos(entrada.size(), cantGrupos, entrada);
@@ -158,7 +166,31 @@ public class Poblacion {
              * hacer case para ver que seleccion se usa en cada subgrupo
              * Tener en cuenta si cantidad no es multiplo de cantGrupos
              */
-            
+            int cantidadXGrupo = cantidad / cantGrupos;
+            int tipoSeleccion = suerte.nextInt(4); //el 4 no entra porque es seleccion x torneo.
+            seleccionados.addAll(seleccionXTipo(cantidadXGrupo, subgrupo, tipoSeleccion));
+        }
+        if (seleccionados.size() < cantidad) {
+            seleccionados.addAll(seleccionElitista(cantidad - seleccionados.size()));
+        }
+        return seleccionados;
+    }
+
+    public ArrayList<Individuo> seleccionXTipo(int cantidad, ArrayList<Individuo> grupo, int tipoDeSeleccion) {
+        ArrayList<Individuo> seleccionados = new ArrayList<>();
+        switch (tipoDeSeleccion) {
+            case SELECCION_ELITISTA:
+                seleccionados.addAll(seleccionElitista(cantidad, grupo));
+                break;
+            case SELECCION_POR_COPIAS_ESPERADAS:
+                seleccionados.addAll(seleccionContCopiasEsp(cantidad, grupo));
+                break;
+            case SELECCION_POR_RULETA:
+                seleccionados.addAll(seleccionRuleta(cantidad, grupo));
+                break;
+            case SELECCION_RANKING:
+                seleccionados.addAll(seleccionRanking(cantidad, rMin,  grupo));
+                break;
         }
         return seleccionados;
     }
@@ -209,13 +241,14 @@ public class Poblacion {
         }
         return cruzados;
     }
+
     /**
-     * 
+     *
      * @param cantidad un nuro de 0 a 2. (Ver en Individuo los tipos)
-     * @return 
+     * @return
      */
-    public ArrayList<Individuo> cruzarPoblacion(int cantidad){
-        return cruzarPoblacion(cantidad,suerte.nextInt(3));
+    public ArrayList<Individuo> cruzarPoblacion(int cantidad) {
+        return cruzarPoblacion(cantidad, suerte.nextInt(3));
     }
 
     public ArrayList<Individuo> mutarPoblacion(int cantidad) {
@@ -223,7 +256,7 @@ public class Poblacion {
         ArrayList<Individuo> mutados = new ArrayList<>();
         int cont = 0;
         int i = 0;
-        while (cont < cantidad) {
+        while (cont < cantidad && i < poblado.size()) {
             if (suerte.nextFloat() <= probMutacion) {
                 Individuo aMutar = poblado.get(i);
                 aMutar.mutar();
@@ -231,19 +264,26 @@ public class Poblacion {
                 cont++;
             }
             i++;
-            if (i == poblado.size()) {
-                i=0; //jajajaja
-            }
+        }
+
+        if (cont < cantidad) {
+            mutados.addAll(seleccionElitista(cantidad - cont));
+        }
+        //BORRAR ESTO DESPUES
+        if (cantidad > mutados.size()) {
+            System.err.println("ERRROR EN MUTARPOBLACION()");
+        } else {
+            System.out.println("borrar esto. El metodo mutacion anda");
         }
         return mutados;
     }
 
-    public float evaluarAptitud() {
-        aptitud = evaluarAptitud(poblado);
+    public float getAptitudPoblacion() {
+        aptitud = getAptitudPoblacion(poblado);
         return aptitud;
     }
 
-    public float evaluarAptitud(ArrayList<Individuo> entrada) {
+    public float getAptitudPoblacion(ArrayList<Individuo> entrada) {
         float sumatoria = 0f;
         for (Individuo individuo : entrada) {
             sumatoria += individuo.getAptitud();
@@ -253,8 +293,18 @@ public class Poblacion {
 
     public float getAptitudPromedio() {
         float aptitudPromedio = 0;
-        aptitudPromedio = evaluarAptitud() / getPoblado().size();
+        aptitudPromedio = getAptitudPoblacion() / getPoblado().size();
         return aptitudPromedio;
+    }
+
+    public Poblacion() {
+    }
+    public float evaluarAptitud(int[] materialesIng){
+        float sumatoria = 0f;
+        for (Individuo individuo : poblado) {
+            sumatoria += individuo.evaluarAptitud(materialesIng);
+        }
+        return sumatoria;
     }
 
     public ArrayList<Individuo> getPoblado() {
@@ -269,7 +319,8 @@ public class Poblacion {
         return probMutacion;
     }
 
-    public Poblacion() {
+    public float getrMin() {
+        return rMin;
     }
 
     public static void main(String[] args) {
@@ -286,5 +337,14 @@ public class Poblacion {
         lista.remove(3);
         System.out.println(lista.get(3));
         System.out.println(lista);
+
+        Random r = new Random();
+
+        for (int i = 0; i < 1000; i++) {
+            if (r.nextFloat() <= 0.02) {
+                System.out.println(i);
+            }
+
+        }
     }
 }
