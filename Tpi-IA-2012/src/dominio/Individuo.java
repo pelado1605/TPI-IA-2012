@@ -13,35 +13,93 @@ import java.util.Random;
  */
 public class Individuo implements Comparable<Individuo> {
 
-    private static final byte[][] MMinimos = {
+    /**
+     * Materiales mínimos necesarios para realizar un producto de p1, p2, p3 y
+     * p4. Está formado por un array de dos dimensiones, cuyo primer índice
+     * apunta al producto, y el segundo índice apunta al material de ese
+     * producto.
+     */
+    public static final byte[][] MMinimos = {
         {80, 0, 44, 72, 0, 55, 22, 0},
         {15, 49, 12, 0, 50, 21, 0, 70},
         {0, 84, 0, 34, 62, 62, 43, 0},
         {41, 0, 0, 74, 24, 82, 55, 52}
     };
-    private static final byte[][] MMaximos = {
+    /**
+     * Materiales máximos necesarios para realizar un producto de p1, p2, p3 y
+     * p4. Está formado por un array de dos dimensiones, cuyo primer índice
+     * apunta al producto, y el segundo índice apunta al material de ese
+     * producto.
+     */
+    public static final byte[][] MMaximos = {
         {95, 0, 65, 88, 0, 77, 50, 0},
         {35, 55, 28, 0, 60, 44, 0, 91},
         {0, 99, 0, 55, 78, 70, 65, 0},
         {55, 0, 0, 95, 35, 88, 74, 78}
     };
-    private static final byte[][] Rangos = {
+    /**
+     * Rangos de cantidad de productos (entre mínimo y máximo) necesarios de p1,
+     * p2, p3 y p4. Está formado por un array de dos dimensiones, cuyo primer
+     * índice apunta al producto, y el segundo apunta al material de ese
+     * producto.
+     */
+    public static final byte[][] Rangos = {
         {15, 0, 21, 16, 0, 22, 28, 0},
         {20, 6, 16, 0, 10, 23, 0, 21},
         {0, 15, 0, 21, 16, 8, 22, 0},
         {14, 0, 0, 21, 11, 6, 19, 26}
     };
+    /**
+     * Constante de clase para la cruza simple.
+     */
     public static final int CRUZA_SIMPLE = 0;
+    /**
+     * Constante de clase para la cruza multipunto.
+     */
     public static final int CRUZA_MULTIPUNTO = 1;
+    /**
+     * Constante de clase para la cruza binomial.
+     */
     public static final int CRUZA_BINOMIAL = 2;
-    private static final byte[] Utilidad = {90, 115, 120, 100};
+    /**
+     * Array constante de los valores de la utilidad para p1, p2, p3 y p4. Son
+     * los valores definidos por la consigna del problema.
+     */
+    public static final byte[] Utilidad = {90, 115, 120, 100};
+    /**
+     * Aptitud del individuo. Float mayor a cero, calculado a partir del método
+     * * <i>evaluarAptitud()</i>
+     */
     private float aptitud;
+    /**
+     * Cantidad de productos p1. Entero positivo indicando la cantidad del
+     * producto 1 para el individuo.
+     */
     private int p1;
+    /**
+     * Cantidad de productos p2. Entero positivo indicando la cantidad del
+     * producto 2 para el individuo.
+     */
     private int p2;
+    /**
+     * Cantidad de productos p3. Entero positivo indicando la cantidad del
+     * producto 3 para el individuo.
+     */
     private int p3;
+    /**
+     * Cantidad de productos p4. Entero positivo indicando la cantidad del
+     * producto 4 para el individuo.
+     */
     private int p4;
+    /**
+     * Generador de números aleatorios de uso general. Se utiliza para distintos
+     * métodos que necesiten de numeros aleatorios.
+     */
     private Random suerte = new Random();
 
+    /**
+     * Constructor por defecto. Aplica todos los valores en cero.
+     */
     public Individuo() {
         this.aptitud = 0f;
         this.p1 = 0;
@@ -50,6 +108,15 @@ public class Individuo implements Comparable<Individuo> {
         this.p4 = 0;
     }
 
+    /**
+     * Constructor con valores pasados por parámetro. Permite ingresar la
+     * combinación de productos para el individuo.
+     *
+     * @param p1 Cantidad de productos p1.
+     * @param p2 Cantidad de productos p2.
+     * @param p3 Cantidad de productos p3.
+     * @param p4 Cantidad de productos p4.
+     */
     public Individuo(int p1, int p2, int p3, int p4) {
         this.aptitud = 0f;
         this.p1 = p1;
@@ -59,6 +126,13 @@ public class Individuo implements Comparable<Individuo> {
     }
 
 //    ESTE ESTA POR PRUEBA NOMAS
+    /**
+     * Constructor de prueba. <b>¡¡¡ATENCIÓN!!!</b> Solo para pruebas de los
+     * métodos. NO USAR. Permite definir manualmente la aptitud del individuo,
+     * sin realizar el cálculo correspondiente.
+     *
+     * @param aptitud Valor de la aptitud del individuo.
+     */
     public Individuo(float aptitud) {
         this.aptitud = aptitud;
         this.p1 = 0;
@@ -67,6 +141,20 @@ public class Individuo implements Comparable<Individuo> {
         this.p4 = 0;
     }
 
+    /**
+     * Evalúa la aptitud del individuo con respecto a los materiales ingresados.
+     * Dicha función está dividida en 3 partes: <br/> - Factibilidad: Verifica
+     * si es posible construir dicha combinación de productos con respecto a los
+     * materiales ingresados. <br/> - Utilidad: Calcula la utilidad obtenida al
+     * realizar dicha combinación de productos. <br/> - Eficiencia de
+     * utilización de materiales: Castigan a los individuos cuya combinación de
+     * productos desperdicie materiales. <br/>
+     *
+     * @param matIngs Array de materiales ingresados por el usuario en el inicio
+     * de la ejecución de la aplicación.
+     * @return Un valor en float (mayor a cero) que identifica la aptitud de
+     * dicho individuo, permitiendo usarlo como comparación frente a otros.
+     */
     public float evaluarAptitud(int[] matIngs) {
 
         float nuevaAptitud = 0;
@@ -147,7 +235,7 @@ public class Individuo implements Comparable<Individuo> {
         hijos.add(new Individuo(getP1(), getP2(), getP3(), getP4()));
         hijos.add(new Individuo(unIndividuo.getP1(), unIndividuo.getP2(),
                 unIndividuo.getP3(), unIndividuo.getP4()));
-        
+
         hijos.get(0).setProducto(posicion, unIndividuo.getProducto(posicion));
         hijos.get(1).setProducto(posicion, getProducto(posicion));
 
@@ -246,10 +334,16 @@ public class Individuo implements Comparable<Individuo> {
     }
 
     /**
+     * Cruza binomial entre dos individuos. Permite la realización de la cruza
+     * mediante una probabilidad ingresada por parámetro (probabilidad de tomar
+     * del padre o de la madre). Por cada producto se genera un número aleatorio
+     * para determinar si va a tomar el gen del padre o de la madre. (el segundo
+     * hijo tomara del otro progenitor)
      *
-     * @param unIndividuo
-     * @param probUnIndividuo
-     * @return
+     * @param unIndividuo Individuo con el cual se realizará la cruza binomial.
+     * @param probUnIndividuo Probabilidad de tomar los genes del padre o de la
+     * madre.
+     * @return Array de dos individuos hijos, generados por la cruza binomial.
      */
     public ArrayList<Individuo> cruzaBinomial(Individuo unIndividuo, float probUnIndividuo) {
         ArrayList<Individuo> hijos = new ArrayList<>();
@@ -268,19 +362,35 @@ public class Individuo implements Comparable<Individuo> {
         return hijos;
     }
 
+    /**
+     * Despachador de tipo de cruza. Permite realizar la cruza deseada según el
+     * tipo ingresado.
+     *
+     * @param typoCruza Permite elegir entre los 3 tipos de cruza:</br> - Cruza
+     * simple</br> - Cruza multipunto</br> - Cruza binomial</br>
+     * @param unIndividuo Devuelve los hijos generados por la cruza.
+     * @return
+     */
     public ArrayList<Individuo> cruza(int typoCruza, Individuo unIndividuo) {
         ArrayList<Individuo> hijos = new ArrayList<>();
         switch (typoCruza) {
             case CRUZA_SIMPLE:
                 hijos = this.cruzaSimple(unIndividuo, (byte) suerte.nextInt(4));
+                break;
             case CRUZA_MULTIPUNTO:
                 hijos = this.cruzaMultiPunto(unIndividuo, suerte.nextInt(14) + 1);
+                break;
             case CRUZA_BINOMIAL:
                 hijos = this.cruzaBinomial(unIndividuo, suerte.nextFloat());
+                break;
         }
         return hijos;
     }
 
+    /**
+     * Realiza la mutación del individuo. Método automático para la realización
+     * de la mutación. Puede mutar varios productos del individuo.
+     */
     public void mutar() {
         int aleatorio = suerte.nextInt(15) + 1;
         for (int i = 0; i < 4; i++) {
@@ -293,9 +403,13 @@ public class Individuo implements Comparable<Individuo> {
     }
 
     /**
+     * Determina la eficiencia del individuo con los recursos ingresados. Es
+     * utilizado para determinar la aptitud del individuo, tomando como dato la
+     * cantidad de materiales.
      *
-     * @param matIngs
-     * @return
+     * @param matIngs Cantidad de materiales ingresados por el usuario al inicio
+     * de la ejecución del programa.
+     * @return Un booleano indicando si es eficiente o no.
      */
     public boolean eficienteConRecursos(int[] matIngs) {
         /*
@@ -318,6 +432,13 @@ public class Individuo implements Comparable<Individuo> {
         return valor;
     }
 
+    /**
+     * Determina la cantidad mínima de materiales necesarios para el individuo.
+     * Calcula la cantidad de materiales mínimos según la combinación de
+     * productos del individuo.
+     *
+     * @return Array indicando la cantidad de materiales m1..m8.
+     */
     public int[] calcularMaterialesMinimos() {
         int[] materiales = new int[8];
         for (int i = 0; i < materiales.length; i++) {
@@ -327,6 +448,14 @@ public class Individuo implements Comparable<Individuo> {
         return materiales;
     }
 
+    /**
+     * Determina el rango de materiales para el individuo, sobre el mínimo, para
+     * llegar al valor máximo. Calcula la cantidad de materiales para llegar al
+     * valor máximo de la "receta".
+     *
+     * @return Array indicando el rango por encima del mínimo de los materiales
+     * m1..m8.
+     */
     public int[] calcularMaterialesRango() {
         int[] materiales = new int[8];
         for (int i = 0; i < materiales.length; i++) {
@@ -336,6 +465,16 @@ public class Individuo implements Comparable<Individuo> {
         return materiales;
     }
 
+    /**
+     * Determina si la producción de la combinación de productos es factible.
+     * Permite determinar si es factible producir la combinación según la
+     * cantidad de materiales m1..m8 ingresados por el usuario al inicio de la
+     * ejecución del programa.
+     *
+     * @param matIngs Cantidad de materiales m1..m8 ingresados por el usuario.
+     * @return Booleano determinando si es (o no) factible la producción de
+     * dicha combinación.
+     */
     public boolean factibilidad(int[] matIngs) {
 
         int[] diferencia = calcDiferencia(matIngs);
@@ -348,6 +487,14 @@ public class Individuo implements Comparable<Individuo> {
         return valor;
     }
 
+    /**
+     * Determina la diferencia materiales con respecto al mínimo. Compara la
+     * cantidad mínima necesaria para realizar la combinación de productos con
+     * respecto a la cantidad ingresada por el usuario.
+     *
+     * @param matIngs Cantidad de materiales m1..m8 ingresados por el usuario.
+     * @return Array de enteros con las diferencias entre ingresado y mínimo.
+     */
     private int[] calcDiferencia(int[] matIngs) {
         int[] matMinimos = calcularMaterialesMinimos();
         int[] diferencia = new int[8];
@@ -357,6 +504,13 @@ public class Individuo implements Comparable<Individuo> {
         return diferencia;
     }
 
+    /**
+     * Devuelve String para mostrar en consola la cantidad de productos del
+     * individuo. Concatena de manera agradable a la vista la cantidad de
+     * p1..p4.
+     *
+     * @return String listo para ser mostrado en consola.
+     */
     public String mostrarProductos() {
 
         return "(" + this.getP1() + "," + this.getP2() + ","
@@ -364,21 +518,36 @@ public class Individuo implements Comparable<Individuo> {
 
     }
 
+    /**
+     * Devuelve la utilidad del individuo. Utilizado para obtener la ganancia,
+     * útil para calcular la aptitud.
+     *
+     * @return Entero indicando la utilidad del individuo.
+     */
     public int getUtilidad() {
 
-        return 0;
+        int utilidad = this.getP1() * Utilidad[0] + this.getP2() * Utilidad[1]
+                + this.getP3() * Utilidad[2] + this.getP4() * Utilidad[3];
+        return utilidad;
     }
 
+    /**
+     * Devuelve la aptitud del individuo. Solo devuelve el atributo aptitud, no
+     * lo calcula.
+     *
+     * @return Float positivo indicando la aptitud del individuo.
+     */
     public float getAptitud() {
         return aptitud;
     }
 
     /**
-     * Devuelve el valor del gen (producto) que se indica mediante el valor del
-     * parametro recibido.
+     * Devuelve el valor del gen (producto) deseado. Para obtener la cantidad de
+     * p1, elegir parámetro 0; para p2, 1; para p3, 2 y para p4 poner cualquier
+     * otra cosa (preferiblemente 3).
      *
-     * @param nroProducto
-     * @return Especifica el gen que se va a setear.
+     * @param nroProducto Entero para determinar el producto deseado a obtener.
+     * @return La cantidad del producto que se desea obtener.
      */
     public int getProducto(int nroProducto) {
         int var;
@@ -395,6 +564,7 @@ public class Individuo implements Comparable<Individuo> {
             default:
                 var = getP4();
                 break;
+
         }
         return var;
     }
@@ -426,14 +596,29 @@ public class Individuo implements Comparable<Individuo> {
         }
     }
 
+    /**
+     * Devuelve la cantidad de p1 del individuo. (Simple getter)
+     *
+     * @return Entero con la cantidad de p1.
+     */
     public int getP1() {
         return p1;
     }
 
+    /**
+     * Devuelve la cantidad de p2 del individuo. (Simple getter)
+     * 
+     * @return Entero con la cantidad de p2. 
+     */
     public int getP2() {
         return p2;
     }
 
+    /**
+     * Devuelve la cantidad de p3 del individuo. (Simple getter)
+     * 
+     * @return Entero con la cantidad de p3. 
+     */
     public int getP3() {
         return p3;
     }
