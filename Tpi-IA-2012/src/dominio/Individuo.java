@@ -607,8 +607,8 @@ public class Individuo implements Comparable<Individuo> {
 
     /**
      * Devuelve la cantidad de p2 del individuo. (Simple getter)
-     * 
-     * @return Entero con la cantidad de p2. 
+     *
+     * @return Entero con la cantidad de p2.
      */
     public int getP2() {
         return p2;
@@ -616,33 +616,65 @@ public class Individuo implements Comparable<Individuo> {
 
     /**
      * Devuelve la cantidad de p3 del individuo. (Simple getter)
-     * 
-     * @return Entero con la cantidad de p3. 
+     *
+     * @return Entero con la cantidad de p3.
      */
     public int getP3() {
         return p3;
     }
 
+    /**
+     * Devuelve la cantidad de p4 del individuo. (Simple getter)
+     *
+     * @return Entero con la cantidad de p4.
+     */
     public int getP4() {
         return p4;
     }
 
+    /**
+     * Asigna el valor de p1 con lo deseado. (Simple setter)
+     *
+     * @param p1 Entero deseado a ingresar para p1.
+     */
     public void setP1(int p1) {
         this.p1 = p1;
     }
 
+    /**
+     * Asigna el valor de p2 con lo deseado. (Simple setter)
+     *
+     * @param p2 Entero deseado a ingresar para p1.
+     */
     public void setP2(int p2) {
         this.p2 = p2;
     }
 
+    /**
+     * Asigna el valor de p3 con lo deseado. (Simple setter)
+     *
+     * @param p3 Entero deseado a ingresar para p3.
+     */
     public void setP3(int p3) {
         this.p3 = p3;
     }
 
+    /**
+     * Asigna el valor de p4 con lo deseado. (Simple setter)
+     *
+     * @param p4 Entero deseado a ingresar para p4.
+     */
     public void setP4(int p4) {
         this.p4 = p4;
     }
 
+    /**
+     * Permite comparar con otros individuos en un array con respecto a la
+     * aptitud. Es un metodo sobrescrito necesario por la interfaz Comparable.
+     *
+     * @param otroIndividuo El otro individuo con el que se quiere comparar.
+     * @return La comparación de los individuos.
+     */
     @Override
     public int compareTo(Individuo otroIndividuo) {
         return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
