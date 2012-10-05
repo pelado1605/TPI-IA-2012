@@ -30,22 +30,21 @@ public class Generaciones {
         this.cCruza = convertPorcentACant(pCruza);
         this.cMutacion = cantPoblacion - cCruza - cSeleccion;
         this.materiales = materiales;
-        
+
     }
-    
-    private void calcularMaximoIndividuo(){
+
+    private void calcularMaximoIndividuo() {
         Individuo indi = new Individuo();
-       
-        
+
+
     }
-    
+
     private int convertPorcentACant(float porciento) {
         int cantidad = (int) (porciento * CANTIDAD_POBLACION);
         return cantidad;
     }
 
     public void ejecutar() {
-
 //        generaciones.add(new Poblacion(null, cMutacion, cCruza));
 //        Generaciones.get(0).evaluarAptitud(mIngresados);
 //        while (!condicionParada(cantidadIteraciones)) {
@@ -78,11 +77,15 @@ public class Generaciones {
 //            System.out.println();
 //        }
     }
-    
-    public ArrayList<Individuo> generarPoblacionInicial(int cantidad){
+
+    public ArrayList<Individuo> generarPoblacionInicial(int cantidad) {
         ArrayList<Individuo> nueva = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
-            suerte.nextInt();
+            Individuo nuevo = new Individuo(suerte.nextInt(cantidadesMaximas[0]),
+                    suerte.nextInt(cantidadesMaximas[1]),
+                    suerte.nextInt(cantidadesMaximas[2]),
+                    suerte.nextInt(cantidadesMaximas[3]));
+            nueva.add(nuevo);
         }
         return nueva;
     }
