@@ -26,7 +26,6 @@ public class Generaciones {
     
     private int convertPorcentACant(float porciento){
         int cantidad = (int) (porciento * cantPoblacion);
-        
         return cantidad;
     }
 

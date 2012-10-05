@@ -137,15 +137,28 @@ public class Poblacion {
     public ArrayList<Individuo> seleccionContCopiasEsp(int cantidad) {
         return seleccionContCopiasEsp(cantidad, this.poblado);
     }
-
+/**
+ * 
+ * @param cantidad la cantidad total de individuos que se van a seleccionar.
+ * @param cantGrupos
+ * @param entrada
+ * @return 
+ */
     public ArrayList<Individuo> seleccionXTorneo(int cantidad, int cantGrupos, ArrayList<Individuo> entrada) {
         ArrayList<Individuo> seleccionados = new ArrayList<>();
-        ArrayList<ArrayList<Individuo>> grupos = getSubGrupos(cantidad, cantGrupos, entrada);
+        ArrayList<ArrayList<Individuo>> grupos = getSubGrupos(entrada.size(), cantGrupos, entrada);
         for (int i = 0; i < cantGrupos; i++) {
-            ArrayList<Individuo> individuos = grupos.get(i);
-            for (Individuo individuo : individuos) {
-                seleccionados.add(individuo);
-            }
+            ArrayList<Individuo> subgrupo = grupos.get(i);
+            //ejecutar seleccion a este grupo. La cantidad va a ser "cantidad/cantGrupos"
+            /*
+             *Si quiero para la seleccion de 200 individuos el 10% (20),
+             * y tengo 4 subgrupos, hago una seleccion de 5 individuos por cada 
+             * subgrupo.
+             * 
+             * hacer case para ver que seleccion se usa en cada subgrupo
+             * Tener en cuenta si cantidad no es multiplo de cantGrupos
+             */
+            
         }
         return seleccionados;
     }
@@ -185,20 +198,44 @@ public class Poblacion {
         return getSubGrupos(cantidad, 1, grupo).get(0);
     }
 
-    public ArrayList<Individuo> cruzarPoblacion(int cantidad) {
+    public ArrayList<Individuo> cruzarPoblacion(int cantidad, int tipo) {
         ArrayList<Individuo> cruzados = new ArrayList<>();
         while (cruzados.size() < cantidad) {
             ArrayList<Individuo> aCruzarse = getSubGrupos(2, poblado);
-            cruzados.addAll(aCruzarse.get(0).cruza(suerte.nextInt(3), aCruzarse.get(1)));
+            cruzados.addAll(aCruzarse.get(0).cruza(tipo, aCruzarse.get(1)));
         }
         if (cruzados.size() > cantidad) {
             cruzados.remove(cruzados.size() - 1);
         }
         return cruzados;
     }
+    /**
+     * 
+     * @param cantidad un nuro de 0 a 2. (Ver en Individuo los tipos)
+     * @return 
+     */
+    public ArrayList<Individuo> cruzarPoblacion(int cantidad){
+        return cruzarPoblacion(cantidad,suerte.nextInt(3));
+    }
 
-    public Individuo[] mutarPoblacion(int cantidad) {
-        return null;
+    public ArrayList<Individuo> mutarPoblacion(int cantidad) {
+        //que sentido tiene poner probabilidad de mutar si tenes una cantidad que cumplir por mutación.
+        ArrayList<Individuo> mutados = new ArrayList<>();
+        int cont = 0;
+        int i = 0;
+        while (cont < cantidad) {
+            if (suerte.nextFloat() <= probMutacion) {
+                Individuo aMutar = poblado.get(i);
+                aMutar.mutar();
+                mutados.add(aMutar);
+                cont++;
+            }
+            i++;
+            if (i == poblado.size()) {
+                i=0; //jajajaja
+            }
+        }
+        return mutados;
     }
 
     public float evaluarAptitud() {
