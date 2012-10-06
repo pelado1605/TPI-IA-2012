@@ -5,6 +5,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -15,7 +16,7 @@ public class Generaciones {
 
     public static final int CANTIDAD_POBLACION = 1000;
     public static final int CANTIDAD_ITERACIONES = 1000;
-    public int[] cantidadesMaximas;
+    public int[] cantidadesMaximas = new int[4];
     public float aptitudMaxima;
     private int cSeleccion;
     private int cCruza;
@@ -30,13 +31,31 @@ public class Generaciones {
         this.cCruza = convertPorcentACant(pCruza);
         this.cMutacion = cantPoblacion - cCruza - cSeleccion;
         this.materiales = materiales;
-
+        calcularCantMaximas();
     }
-
-    private void calcularMaximoIndividuo() {
-        Individuo indi = new Individuo();
-
-
+    /**
+     * Calcula la cantidad máxima posible de cada producto. Esto se utiliza para 
+     * realizar la generación inicial, y que los números aleatorios no superen
+     * los máximos. Debido a que esta combinación no es factible, no se estará
+     * sesgando alguna posible solución. <br/>
+     * El cálculo se realiza considerando a cada producto como único para la
+     * utilización de los materiales ingresados. De esta manera obtenemos un
+     * valor máximo que no podrá ser alcanzado, ya que en realidad, la utilizacion
+     * de los materiales se comparte para todos los productos.
+     */
+    private void calcularCantMaximas() {
+        Individuo individuoMaximo = new Individuo();
+        for (int i = 0; i < 4; i++) {
+            ArrayList<Integer> minimos = new ArrayList<>();
+            for (int j = 0; j < 8; j++) {
+                if (Individuo.MMinimos[i][j] != 0)
+                    minimos.add(materiales.get(j) / Individuo.MMinimos[i][j]);
+            }
+            individuoMaximo.setProducto(i, Collections.min(minimos));
+        }
+        for (int i = 0; i < 4; i++) {
+            cantidadesMaximas[i] = individuoMaximo.getProducto(i);
+        }
     }
 
     private int convertPorcentACant(float porciento) {
@@ -45,7 +64,6 @@ public class Generaciones {
     }
 
     public void ejecutar() {
-//        generaciones.add(new Poblacion(null, cMutacion, cCruza));
 //        Generaciones.get(0).evaluarAptitud(mIngresados);
 //        while (!condicionParada(cantidadIteraciones)) {
 //            Poblacion actual = Generaciones.get(iteracionActual);
