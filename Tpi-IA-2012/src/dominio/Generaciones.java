@@ -16,46 +16,48 @@ public class Generaciones {
 
     public static final int CANTIDAD_POBLACION = 1000;
     public static final int CANTIDAD_ITERACIONES = 1000;
-    public int[] cantidadesMaximas = new int[4];
+    public static Individuo gokuFase4;
     public float aptitudMaxima;
     private int cSeleccion;
     private int cCruza;
     private int cMutacion;
     private ArrayList<Poblacion> generaciones = new ArrayList();
-    private ArrayList<Integer> materiales;
+    private int[] materiales;
     private Random suerte = new Random();
 
-    public Generaciones(float pSeleccion, float pCruza, int cantPoblacion, int cantIteraciones,
-            ArrayList<Integer> materiales) {
+    public Generaciones(float pSeleccion, float pCruza,
+            int[] materiales) {
         this.cSeleccion = convertPorcentACant(pSeleccion);
         this.cCruza = convertPorcentACant(pCruza);
-        this.cMutacion = cantPoblacion - cCruza - cSeleccion;
+        this.cMutacion = CANTIDAD_POBLACION - cCruza - cSeleccion;
         this.materiales = materiales;
-        calcularCantMaximas();
+        crearAGoku();
     }
+
     /**
-     * Calcula la cantidad máxima posible de cada producto. Esto se utiliza para 
+     * Calcula la cantidad máxima posible de cada producto. Esto se utiliza para
      * realizar la generación inicial, y que los números aleatorios no superen
      * los máximos. Debido a que esta combinación no es factible, no se estará
-     * sesgando alguna posible solución. <br/>
-     * El cálculo se realiza considerando a cada producto como único para la
-     * utilización de los materiales ingresados. De esta manera obtenemos un
-     * valor máximo que no podrá ser alcanzado, ya que en realidad, la utilizacion
-     * de los materiales se comparte para todos los productos.
+     * sesgando alguna posible solución. <br/> El cálculo se realiza
+     * considerando a cada producto como único para la utilización de los
+     * materiales ingresados. De esta manera obtenemos un valor máximo que no
+     * podrá ser alcanzado, ya que en realidad, la utilizacion de los materiales
+     * se comparte para todos los productos.
      */
-    private void calcularCantMaximas() {
-        Individuo individuoMaximo = new Individuo();
+    public void crearAGoku() {
+        Individuo superSayayin = new Individuo();
         for (int i = 0; i < 4; i++) {
             ArrayList<Integer> minimos = new ArrayList<>();
             for (int j = 0; j < 8; j++) {
-                if (Individuo.MMinimos[i][j] != 0)
-                    minimos.add(materiales.get(j) / Individuo.MMinimos[i][j]);
+                if (Individuo.MMinimos[i][j] != 0) {
+                    minimos.add(materiales[j] / Individuo.MMinimos[i][j]);
+                }
             }
-            individuoMaximo.setProducto(i, Collections.min(minimos));
+            superSayayin.setProducto(i, Collections.min(minimos));
+
         }
-        for (int i = 0; i < 4; i++) {
-            cantidadesMaximas[i] = individuoMaximo.getProducto(i);
-        }
+        superSayayin.evaluarAptitud(materiales, true);
+        gokuFase4 = superSayayin;
     }
 
     private int convertPorcentACant(float porciento) {
@@ -99,12 +101,14 @@ public class Generaciones {
     public ArrayList<Individuo> generarPoblacionInicial(int cantidad) {
         ArrayList<Individuo> nueva = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
-            Individuo nuevo = new Individuo(suerte.nextInt(cantidadesMaximas[0]),
-                    suerte.nextInt(cantidadesMaximas[1]),
-                    suerte.nextInt(cantidadesMaximas[2]),
-                    suerte.nextInt(cantidadesMaximas[3]));
+            Individuo nuevo = new Individuo(suerte.nextInt(gokuFase4.getP1()),
+                    suerte.nextInt(gokuFase4.getP2()),
+                    suerte.nextInt(gokuFase4.getP3()),
+                    suerte.nextInt(gokuFase4.getP4()));
             nueva.add(nuevo);
         }
+        Poblacion nuevaPob = new Poblacion(nueva, 0f, 0);
+        generaciones.add(nuevaPob);
         return nueva;
     }
 
@@ -118,5 +122,9 @@ public class Generaciones {
 
     public int getcMutacion() {
         return cMutacion;
+    }
+
+    public ArrayList<Poblacion> getGeneraciones() {
+        return generaciones;
     }
 }

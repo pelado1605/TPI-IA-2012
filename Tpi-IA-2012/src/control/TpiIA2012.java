@@ -4,11 +4,10 @@
  */
 package control;
 
+import dominio.Generaciones;
 import dominio.Individuo;
 import dominio.Poblacion;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 /**
  *
@@ -21,94 +20,26 @@ public class TpiIA2012 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-
-//        byte cortes[] = {3,1,5,2,6,7,2};
-//         ArrayList cortesList = new ArrayList();
-//        for (int i = 0; i < cortes.length; i++) {
-//            cortesList.add(cortes[i]);
-//        }
-//        Collections.sort(cortesList);
-//        for (Object e : cortesList) {
-//            System.out.print(e+",");
-//        }
-//        
-//        Individuo ind1 = new Individuo(0.4f);
-//        Individuo ind2 = new Individuo(-20f);
-//        Individuo ind3 = new Individuo(16.9f);
-//        Individuo ind4 = new Individuo(0.4f);
-//        Individuo ind5 = new Individuo(-200.4f);
-//        
-//        ArrayList<Individuo> lista = new ArrayList();
-//        lista.add(ind1);
-//        lista.add(ind2);
-//        lista.add(ind3);
-//        lista.add(ind4);
-//        lista.add(ind5);
-//        
-//        Collections.sort(lista);
-//        
-//        for (Individuo individuo : lista) {
-//            System.out.println(individuo.getAptitud());
-//        }
-//        Random r = new Random();
-//        Individuo ind1 = new Individuo(0,0,0,0);
-//        Individuo ind2 = new Individuo(1,1,1,1);
-//        List<Boolean> lista = new ArrayList(Arrays.asList(r.nextBoolean(),r.nextBoolean(),r.nextBoolean(),r.nextBoolean()));
-//        Individuo[] hijos = ind1.cruzaBinomial(ind2,0.5f);
-//        for (int i = 0; i < hijos.length; i++) {
-//            System.out.print(hijos[i].getP1()+",");
-//            System.out.print(hijos[i].getP2()+",");
-//            System.out.print(hijos[i].getP3()+",");
-//            System.out.print(hijos[i].getP4()+",");
-//            System.out.println();
-//        }
-//        ind1.mutar();
-//        ind2.mutar();
-//        System.out.println(ind1.mostrarProductos());
-//        System.out.println(ind2.mostrarProductos());
-
-//        Random r = new Random();
-//        ArrayList<Individuo> nombre = new ArrayList<>(1000);
-//        for (int i = 0; i < 1000; i++) {
-//            nombre.add(new Individuo(r.nextFloat()));
-//        }
-//        Poblacion poblacion = new Poblacion(nombre, 0.5f);
-//        ArrayList<Individuo> laElite = poblacion.seleccionElitista(12);
-//        int cont = 0;
-//        for (Individuo individuo : laElite) {
-//            System.out.println(individuo.getAptitud());
-//            cont++;
-//        }
-//        System.out.println("/////////////"+cont);
-        Random suerte = new Random();
-        ArrayList<Integer> seleccionados = new ArrayList<>();
-
-
-        ArrayList<Integer> rangos = new ArrayList<>();
-        rangos.add(5);
-        rangos.add(10);
-        rangos.add(14);
-        rangos.add(16);
-        rangos.add(17);
-        rangos.add(21);
-        rangos.add(24);
-        
-
-        
-//        System.out.println(Collections.binarySearch(rangos, 1000));
-
-        for (int i = 0; i < 8; i++) {
-            int nroAleatorio = suerte.nextInt(Collections.max(rangos) + 1);
-            System.out.println(nroAleatorio);
-            int valor = Collections.binarySearch(rangos, nroAleatorio);
-            if (valor < 0) {
-                valor = Math.abs(valor + 1);
-            }
-            if (valor >= rangos.size()) {
-                valor = rangos.size() - 1; //parche puesto por German, ver: 1.0.
-            }
-            seleccionados.add(valor);
+        int[] mIngresados = {70000, 10405, 31080, 51009, 71002,
+            31010, 80102, 40100};
+        Generaciones generacion = new Generaciones(0f, 0f, mIngresados);
+        generacion.generarPoblacionInicial(Generaciones.CANTIDAD_POBLACION);
+        Poblacion poblacion = generacion.getGeneraciones().get(0);
+        float aptitudPoblacion = poblacion.evaluarAptitud(mIngresados);
+        Collections.sort(poblacion.getPoblado());
+        System.out.print(Generaciones.gokuFase4.getAptitud());
+        System.out.println();
+        int cont = 0;
+        for (Individuo ind : generacion.getGeneraciones().get(0).getPoblado()) {
+            System.out.println(ind.mostrarProductos());
+            System.out.println(ind.getAptitud());
+            System.out.println(ind.getUtilidad());
+            System.out.println(ind.factibilidad(mIngresados));
+            System.out.println(cont);
+            System.out.println();
+            cont++;
         }
-        System.out.println(seleccionados);
+
+
     }
 }

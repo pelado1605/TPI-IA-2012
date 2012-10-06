@@ -13,6 +13,10 @@ import java.util.Random;
  */
 public class Individuo implements Comparable<Individuo> {
 
+    private static final float PORC_APTITUD_X_UTILIDAD = 0.50f;
+    private static final float PORC_APTITUD_X_FACTIBILIDAD = 0.40f;
+    private static final float PORC_APTITUD_X_EFICIENCIA = 1 - PORC_APTITUD_X_FACTIBILIDAD
+            - PORC_APTITUD_X_UTILIDAD;
     /**
      * Materiales mínimos necesarios para realizar un producto de p1, p2, p3 y
      * p4. Está formado por un array de dos dimensiones, cuyo primer índice
@@ -141,6 +145,10 @@ public class Individuo implements Comparable<Individuo> {
         this.p4 = 0;
     }
 
+    public float evaluarAptitud(int[] matIngs) {
+        return evaluarAptitud(matIngs, false);
+    }
+
     /**
      * Evalúa la aptitud del individuo con respecto a los materiales ingresados.
      * Dicha función está dividida en 3 partes: <br/> - Factibilidad: Verifica
@@ -155,9 +163,9 @@ public class Individuo implements Comparable<Individuo> {
      * @return Un valor en float (mayor a cero) que identifica la aptitud de
      * dicho individuo, permitiendo usarlo como comparación frente a otros.
      */
-    public float evaluarAptitud(int[] matIngs) {
+    public float evaluarAptitud(int[] matIngs, boolean esGoku) {
 
-        float nuevaAptitud = 0;
+        float nuevaAptitud = 50000;
         int[] diferencia = calcDiferencia(matIngs);
         /*
          * Aca se va a preguntar por la factibilidad del individuo, es decir, si
@@ -165,7 +173,7 @@ public class Individuo implements Comparable<Individuo> {
          * -sados por el usario.
          */
 
-        if (factibilidad(matIngs)) {
+        if (factibilidad(matIngs) | esGoku) {
             /*
              * En es este caso el individuo es factible, hay que ver la utilidad
              * y los materiales remanentes que deja.
@@ -176,30 +184,30 @@ public class Individuo implements Comparable<Individuo> {
              * sino que se elevará al cubo el valor
              */
 
-            nuevaAptitud += Math.pow(getUtilidad(), 3);
+            nuevaAptitud += (getUtilidad()) * PORC_APTITUD_X_UTILIDAD;
 
             /*
              * Aca se trata la puntuacion po utilizacion de los recursos
              */
-            if (!eficienteConRecursos(matIngs)) {
+            if (!eficienteConRecursos(matIngs) | !esGoku) {
                 /*
-                 * Si no hay remanente de materiales, se los descontara en
+                 * Si hay remanente de materiales, se los descontara en
                  * puntos a la aptitud.
                  */
                 int diferenciaTotal = 0;
                 for (int i = 0; i < 4; i++) {
                     if (diferencia[i] < 0) {
-                        diferenciaTotal += Math.pow(diferencia[i], 2);
+                        diferenciaTotal += Math.abs(diferencia[i]);
                     }
                 }
-                nuevaAptitud -= diferenciaTotal;
+                nuevaAptitud -= (diferenciaTotal * PORC_APTITUD_X_EFICIENCIA);
             } else {
                 /*
                  * El individuo que utilice los materiales de manera más
                  * eficiente (que el remanente de materiales sea 0), obtendra un
                  * premio en puntos de aptitud
                  */
-                nuevaAptitud += (nuevaAptitud * 0.50);
+                nuevaAptitud += ((nuevaAptitud * 5) * PORC_APTITUD_X_EFICIENCIA);
             }
 
         } else {
@@ -211,12 +219,14 @@ public class Individuo implements Comparable<Individuo> {
             int diferenciaTotal = 0;
             for (int i = 0; i < 8; i++) {
                 if (diferencia[i] < 0) {
-                    diferenciaTotal += Math.pow(diferencia[i], 2);
+                    diferenciaTotal += Math.abs(diferencia[i]);
                 }
             }
-            nuevaAptitud = nuevaAptitud - diferenciaTotal;
+            nuevaAptitud = (nuevaAptitud - diferenciaTotal) * PORC_APTITUD_X_FACTIBILIDAD;
         }
-
+        if (nuevaAptitud < 0) {
+            nuevaAptitud = 1;
+        }
         this.aptitud = nuevaAptitud;
         return nuevaAptitud;
     }
