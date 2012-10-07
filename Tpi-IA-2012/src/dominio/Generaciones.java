@@ -87,8 +87,9 @@ public class Generaciones {
         while (CANTIDAD_ITERACIONES > iteracionActual) {
             Poblacion anterior = generaciones.get(iteracionActual);
             probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
-            Poblacion actual = new Poblacion(anterior.seleccionElitista(cCruza),
+            Poblacion actual = new Poblacion(anterior.seleccionRuleta(cSeleccion -3),
                     probMutacion, RMIN);
+            actual.getPoblado().addAll(anterior.seleccionElitista(3));
             actual.getPoblado().addAll(anterior.cruzarPoblacion(cCruza));
             actual.getPoblado().addAll(anterior.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
@@ -101,7 +102,7 @@ public class Generaciones {
         System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
         System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
         System.out.println();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 3; i++) {
             Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
             System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
             System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());

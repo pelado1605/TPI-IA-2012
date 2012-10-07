@@ -13,10 +13,9 @@ import java.util.Random;
  */
 public class Individuo implements Comparable<Individuo> {
 
-    private static final float PORC_APTITUD_X_UTILIDAD = 0.50f;
-    private static final float PORC_APTITUD_X_FACTIBILIDAD = 0.40f;
-    private static final float PORC_APTITUD_X_EFICIENCIA = 1 - PORC_APTITUD_X_FACTIBILIDAD
-            - PORC_APTITUD_X_UTILIDAD;
+    private static final float PORC_APTITUD_X_UTILIDAD = 1f;
+    private static final float PORC_APTITUD_X_FACTIBILIDAD = 1f;
+    private static final float PORC_APTITUD_X_EFICIENCIA = 1f;
     /**
      * Materiales mínimos necesarios para realizar un producto de p1, p2, p3 y
      * p4. Está formado por un array de dos dimensiones, cuyo primer índice
@@ -165,7 +164,7 @@ public class Individuo implements Comparable<Individuo> {
      */
     public float evaluarAptitud(int[] matIngs, boolean esGoku) {
 
-        float nuevaAptitud = 50000;
+        float nuevaAptitud = 5000;
         int[] diferencia = calcDiferencia(matIngs);
         /*
          * Aca se va a preguntar por la factibilidad del individuo, es decir, si

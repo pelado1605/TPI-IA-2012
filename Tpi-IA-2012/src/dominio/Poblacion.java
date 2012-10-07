@@ -269,12 +269,6 @@ public class Poblacion {
         if (cont < cantidad) {
             mutados.addAll(seleccionElitista(cantidad - cont));
         }
-        //BORRAR ESTO DESPUES
-        if (cantidad > mutados.size()) {
-            System.err.println("ERRROR EN MUTARPOBLACION()");
-        } else {
-            System.out.println("borrar esto. El metodo mutacion anda");
-        }
         return mutados;
     }
 
