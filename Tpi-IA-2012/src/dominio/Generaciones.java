@@ -16,13 +16,17 @@ public class Generaciones {
 
     public static final int CANTIDAD_POBLACION = 1000;
     public static final int CANTIDAD_ITERACIONES = 1000;
+    public static final float RMIN = 0.5f;
+    public static final float PROB_MUT_MIN = 0.02f;
+    public static final float PROB_MUT_MAX = 0.3f;
+    public static final float LAMBDA = 0.005f;
     public static Individuo gokuFase4;
     public float aptitudMaxima;
     private int cSeleccion;
     private int cCruza;
     private int cMutacion;
     private ArrayList<Poblacion> generaciones = new ArrayList();
-    private int[] materiales;
+    private int[] materialesIng;
     private Random suerte = new Random();
 
     public Generaciones(float pSeleccion, float pCruza,
@@ -30,7 +34,7 @@ public class Generaciones {
         this.cSeleccion = convertPorcentACant(pSeleccion);
         this.cCruza = convertPorcentACant(pCruza);
         this.cMutacion = CANTIDAD_POBLACION - cCruza - cSeleccion;
-        this.materiales = materiales;
+        this.materialesIng = materiales;
         crearAGoku();
     }
 
@@ -50,14 +54,24 @@ public class Generaciones {
             ArrayList<Integer> minimos = new ArrayList<>();
             for (int j = 0; j < 8; j++) {
                 if (Individuo.MMinimos[i][j] != 0) {
-                    minimos.add(materiales[j] / Individuo.MMinimos[i][j]);
+                    minimos.add(materialesIng[j] / Individuo.MMinimos[i][j]);
                 }
             }
             superSayayin.setProducto(i, Collections.min(minimos));
 
         }
-        superSayayin.evaluarAptitud(materiales, true);
+        superSayayin.evaluarAptitud(materialesIng, true);
         gokuFase4 = superSayayin;
+    }
+
+    public float calcularProbMutacion(int nroIteracion, float probAnterior) {
+        float probActual = probAnterior;
+        if (probActual < PROB_MUT_MAX) {
+            probActual = probActual + (LAMBDA * (nroIteracion + 1));
+        } else {
+            probActual = PROB_MUT_MAX;
+        }
+        return probActual;
     }
 
     private int convertPorcentACant(float porciento) {
@@ -66,41 +80,43 @@ public class Generaciones {
     }
 
     public void ejecutar() {
-//        Generaciones.get(0).evaluarAptitud(mIngresados);
-//        while (!condicionParada(cantidadIteraciones)) {
-//            Poblacion actual = Generaciones.get(iteracionActual);
-//            Poblacion seleccionada = actual.seleccionarPoblacion();
-//            /*
-//             * BASTANTE CHOTO ESTE METODO DE CRUZA...cREO QUE ESTA MAL, RECIBE
-//             * DE PARAMETRO LA POBLACION QUE VA A RECIBIR LA CRUZA. VER.
-//             */
-//            actual.cruzarPoblacion(seleccionada);
-//            seleccionada.mutarPoblacion(iteracionActual);
-//            seleccionada.evaluarAptitud(mIngresados);
+        int iteracionActual = 0;
+        float probMutacion = 0;
+        generarPoblacionInicial();
+        generaciones.get(0).evaluarAptitud(materialesIng);
+        while (CANTIDAD_ITERACIONES > iteracionActual) {
+            Poblacion anterior = generaciones.get(iteracionActual);
+            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
+            Poblacion actual = new Poblacion(anterior.seleccionElitista(cCruza),
+                    probMutacion, RMIN);
+            actual.getPoblado().addAll(anterior.cruzarPoblacion(cCruza));
+            actual.getPoblado().addAll(anterior.mutarPoblacion(cMutacion));
+            actual.evaluarAptitud(materialesIng);
 //            System.out.println(seleccionada.getIndividuo(0).evaluarAptitud(mIngresados));
-//            Generaciones.add(seleccionada);
-//            iteracionActual++;
-//        }
-//        for (int i = 0; i < 3; i++) {
-//
-//            Generaciones.get(CANTIDAD_ITERACIONES - 1).ordenarPobladoPorAptitud();
-//            System.out.println("Aptitud " + Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).getAptitud());
-//            System.out.print(Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).getP1() + " ");
-//            System.out.print(Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).getP2() + " ");
-//            System.out.print(Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).getP3() + " ");
-//            System.out.println(Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).getP4() + " ");
-//            System.out.println("Utilidad " + Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).calcularUtilidad());
+            generaciones.add(actual);
+            iteracionActual++;
+        }
+
+        System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
+        System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
+        System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
+        System.out.println();
+        for (int i = 0; i < 100; i++) {
+            Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
+            System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
+            System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
+            System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
 //            int[] mat = Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).calcularMaterialesMinimos();
 //            for (int j : mat) {
 //                System.out.print(j + ",");
 //            }
-//            System.out.println();
-//        }
+            System.out.println();
+        }
     }
 
-    public ArrayList<Individuo> generarPoblacionInicial(int cantidad) {
+    public ArrayList<Individuo> generarPoblacionInicial() {
         ArrayList<Individuo> nueva = new ArrayList<>();
-        for (int i = 0; i < cantidad; i++) {
+        for (int i = 0; i < CANTIDAD_POBLACION; i++) {
             Individuo nuevo = new Individuo(suerte.nextInt(gokuFase4.getP1()),
                     suerte.nextInt(gokuFase4.getP2()),
                     suerte.nextInt(gokuFase4.getP3()),

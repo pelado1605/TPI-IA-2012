@@ -189,7 +189,7 @@ public class Individuo implements Comparable<Individuo> {
             /*
              * Aca se trata la puntuacion po utilizacion de los recursos
              */
-            if (!eficienteConRecursos(matIngs) | !esGoku) {
+            if (!eficienteConRecursos(matIngs) & !esGoku) {
                 /*
                  * Si hay remanente de materiales, se los descontara en
                  * puntos a la aptitud.
