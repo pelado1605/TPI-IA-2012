@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Individuo implements Comparable<Individuo> {
 
-    private static final float PORC_APTITUD_X_UTILIDAD = 1f;
+    private static final float PORC_APTITUD_X_UTILIDAD = 5f;
     private static final float PORC_APTITUD_X_FACTIBILIDAD = 1f;
     private static final float PORC_APTITUD_X_EFICIENCIA = 1f;
     /**
@@ -183,7 +183,7 @@ public class Individuo implements Comparable<Individuo> {
              * sino que se elevará al cubo el valor
              */
 
-            nuevaAptitud += (getUtilidad()) * PORC_APTITUD_X_UTILIDAD;
+            nuevaAptitud += Math.pow(getUtilidad(),1.5f) * PORC_APTITUD_X_UTILIDAD;
 
             /*
              * Aca se trata la puntuacion po utilizacion de los recursos
@@ -405,7 +405,7 @@ public class Individuo implements Comparable<Individuo> {
         for (int i = 0; i < 4; i++) {
             int posicion = aleatorio & (int) Math.pow(2, i);
             if (posicion != 0) {
-                int nuevoValor = suerte.nextInt(this.getProducto(i) + 500);//probar despues con el mismo nro de la generacion inicial
+                int nuevoValor = suerte.nextInt(Generaciones.gokuFase4.getProducto(3-i));
                 this.setProducto(3 - i, nuevoValor);
             }
         }

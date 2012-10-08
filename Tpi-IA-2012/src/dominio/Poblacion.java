@@ -201,7 +201,7 @@ public class Poblacion {
 
     public ArrayList<ArrayList<Individuo>> getSubGrupos(int cantidadTotalInd, int cantGrupos, ArrayList<Individuo> grupo) {
         ArrayList<ArrayList<Individuo>> seleccionados = new ArrayList<>();
-        ArrayList<Individuo> copia = grupo;
+        ArrayList<Individuo> copia = (ArrayList<Individuo>) grupo.clone();
         int indivXGrupo = cantidadTotalInd / cantGrupos;
 
         for (int i = 0; i < cantGrupos; i++) {

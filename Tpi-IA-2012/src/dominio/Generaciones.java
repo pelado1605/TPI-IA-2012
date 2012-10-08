@@ -15,7 +15,7 @@ import java.util.Random;
 public class Generaciones {
 
     public static final int CANTIDAD_POBLACION = 1000;
-    public static final int CANTIDAD_ITERACIONES = 1000;
+    public static final int CANTIDAD_ITERACIONES = 150;
     public static final float RMIN = 0.5f;
     public static final float PROB_MUT_MIN = 0.02f;
     public static final float PROB_MUT_MAX = 0.3f;
@@ -31,8 +31,8 @@ public class Generaciones {
 
     public Generaciones(float pSeleccion, float pCruza,
             int[] materiales) {
-        this.cSeleccion = convertPorcentACant(pSeleccion);
-        this.cCruza = convertPorcentACant(pCruza);
+        this.cSeleccion = convertPorcentACant(pSeleccion,CANTIDAD_POBLACION);
+        this.cCruza = convertPorcentACant(pCruza,CANTIDAD_POBLACION);
         this.cMutacion = CANTIDAD_POBLACION - cCruza - cSeleccion;
         this.materialesIng = materiales;
         crearAGoku();
@@ -74,8 +74,8 @@ public class Generaciones {
         return probActual;
     }
 
-    private int convertPorcentACant(float porciento) {
-        int cantidad = (int) (porciento * CANTIDAD_POBLACION);
+    private int convertPorcentACant(float porciento, int cantidadEntrada) {
+        int cantidad = (int) (porciento * cantidadEntrada);
         return cantidad;
     }
 
@@ -87,13 +87,12 @@ public class Generaciones {
         while (CANTIDAD_ITERACIONES > iteracionActual) {
             Poblacion anterior = generaciones.get(iteracionActual);
             probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
-            Poblacion actual = new Poblacion(anterior.seleccionRuleta(cSeleccion -3),
+            Poblacion actual = new Poblacion(anterior.seleccionXTorneo(cSeleccion - convertPorcentACant(.90f, cSeleccion),5),
                     probMutacion, RMIN);
-            actual.getPoblado().addAll(anterior.seleccionElitista(3));
+            actual.getPoblado().addAll(anterior.seleccionElitista(convertPorcentACant(.10f, cSeleccion)));
             actual.getPoblado().addAll(anterior.cruzarPoblacion(cCruza));
             actual.getPoblado().addAll(anterior.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
-//            System.out.println(seleccionada.getIndividuo(0).evaluarAptitud(mIngresados));
             generaciones.add(actual);
             iteracionActual++;
         }
