@@ -19,6 +19,12 @@ public class Poblacion implements Cloneable {
     public static final int SELECCION_RANKING = 2;
     public static final int SELECCION_POR_COPIAS_ESPERADAS = 3;
     public static final int SELECCION_POR_TORNEO = 4;
+    
+    private static int cont_selecElitista = 0;
+    private static int cont_selecRuleta = 0;
+    private static int cont_selecRanking = 0;
+    private static int cont_selecContCopias = 0;
+    
     private ArrayList<Individuo> poblado;
     private Random suerte = new Random();
     private float aptitud = 0f;
@@ -42,7 +48,8 @@ public class Poblacion implements Cloneable {
         ArrayList<Individuo> seleccionados = new ArrayList<>(cantidad);
         for (int i = 0; i < cantidad; i++) {
             seleccionados.add(ordenados.get(i));
-        }
+            cont_selecElitista++;
+        }   
         return seleccionados;
     }
 
@@ -70,6 +77,7 @@ public class Poblacion implements Cloneable {
                 valor = rangos.size() - 1; //parche puesto por German, ver: 1.0.
             }
             seleccionados.add(entrada.get(valor));
+            cont_selecRuleta++;
         }
         return seleccionados;
     }
@@ -110,6 +118,7 @@ public class Poblacion implements Cloneable {
                 if (parteEntera > 1) {
                     seleccionados.add(ordenados.get(i));
                     cont++;
+                    cont_selecRanking++;
                 }
             } else {
                 bandera = false;
@@ -135,6 +144,7 @@ public class Poblacion implements Cloneable {
             for (int j = 0; j < entero; j++) {
                 seleccionados.add(entrada.get(i));
                 cont++;
+                cont_selecContCopias++;
             }
             i++;
         }
@@ -248,26 +258,32 @@ public class Poblacion implements Cloneable {
      * @return
      */
     public ArrayList<Individuo> cruzarPoblacion(int cantidad) {
-        return cruzarPoblacion(cantidad, suerte.nextInt(3));
+        return cruzarPoblacion(cantidad,1 + suerte.nextInt(2));
     }
 
     public ArrayList<Individuo> mutarPoblacion(int cantidad) {
         //que sentido tiene poner probabilidad de mutar si tenes una cantidad que cumplir por mutación.
         ArrayList<Individuo> mutados = new ArrayList<>();
-        int cont = 0;
-        int i = 0;
-        while (cont < cantidad && i < poblado.size()) {
-            if (suerte.nextFloat() <= probMutacion) {
-                Individuo aMutar = poblado.get(i);
-                aMutar.mutar();
-                mutados.add(aMutar);
-                cont++;
-            }
-            i++;
-        }
-
-        if (cont < cantidad) {
-            mutados.addAll(seleccionElitista(cantidad - cont));
+        ArrayList<Individuo> porMutar = getSubGrupos(cantidad, this.getPoblado());
+//        int cont = 0;
+//        int i = 0;
+//        while (cont < cantidad && i < poblado.size()) {
+//            if (suerte.nextFloat() <= probMutacion) {
+//                Individuo aMutar = poblado.get(i);
+//                aMutar.mutar();
+//                mutados.add(aMutar);
+//                cont++;
+//            }
+//            i++;
+//        }
+//
+//        if (cont < cantidad) {
+//            mutados.addAll(seleccionElitista(cantidad - cont));
+//        }
+        for (Individuo individuo : porMutar) {
+            Individuo nuevo = new Individuo(individuo);
+            nuevo.mutar();
+            mutados.add(nuevo);
         }
         return mutados;
     }
@@ -318,6 +334,23 @@ public class Poblacion implements Cloneable {
         return rMin;
     }
 
+    public static int getCont_selecElitista() {
+        return cont_selecElitista;
+    }
+
+    public static int getCont_selecRuleta() {
+        return cont_selecRuleta;
+    }
+
+    public static int getCont_selecRanking() {
+        return cont_selecRanking;
+    }
+
+    public static int getCont_selecContCopias() {
+        return cont_selecContCopias;
+    }
+
+    
     public static void main(String[] args) {
         int[] mIngresados = {10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000};
         Individuo individuo = new Individuo(87, 142, 36, 0);

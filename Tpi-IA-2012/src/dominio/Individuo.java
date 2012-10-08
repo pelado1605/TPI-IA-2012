@@ -11,11 +11,14 @@ import java.util.Random;
  *
  * @author Ruben
  */
-public class Individuo implements Comparable<Individuo>,Cloneable {
+public class Individuo implements Comparable<Individuo>, Cloneable {
 
     private static final float PORC_APTITUD_X_UTILIDAD = 5f;
     private static final float PORC_APTITUD_X_FACTIBILIDAD = 1f;
     private static final float PORC_APTITUD_X_EFICIENCIA = 1f;
+    private static int cont_cruzaBinomial = 0;
+    private static int cont_cruzaMultipunto = 0;
+    private static int cont_cruzaSimple = 0;
     /**
      * Materiales mínimos necesarios para realizar un producto de p1, p2, p3 y
      * p4. Está formado por un array de dos dimensiones, cuyo primer índice
@@ -111,6 +114,11 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
         this.p4 = 0;
     }
 
+    public Individuo(Individuo individuo) {
+        this(individuo.getP1(),individuo.getP2(),individuo.getP3(),
+                individuo.getP4());
+    }
+
     /**
      * Constructor con valores pasados por parámetro. Permite ingresar la
      * combinación de productos para el individuo.
@@ -183,7 +191,7 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
              * sino que se elevará al cubo el valor
              */
 
-            nuevaAptitud += Math.pow(getUtilidad(),1.5f) * PORC_APTITUD_X_UTILIDAD;
+            nuevaAptitud += Math.pow(getUtilidad(), 1.5f) * PORC_APTITUD_X_UTILIDAD;
 
             /*
              * Aca se trata la puntuacion po utilizacion de los recursos
@@ -248,6 +256,7 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
         hijos.get(0).setProducto(posicion, unIndividuo.getProducto(posicion));
         hijos.get(1).setProducto(posicion, getProducto(posicion));
 
+        cont_cruzaSimple++;
         return hijos;
     }
 
@@ -279,6 +288,7 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
                 hijos.get(0).setProducto(3 - i, unIndividuo.getProducto(3 - i));
             }
         }
+        cont_cruzaMultipunto++;
         return hijos;
         /*
          Collections.sort(cortesList);
@@ -368,6 +378,7 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
                 hijos.get(0).setProducto(i, unIndividuo.getProducto(i));
             }
         }
+        cont_cruzaBinomial++;
         return hijos;
     }
 
@@ -405,7 +416,7 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
         for (int i = 0; i < 4; i++) {
             int posicion = aleatorio & (int) Math.pow(2, i);
             if (posicion != 0) {
-                int nuevoValor = suerte.nextInt(Generaciones.gokuFase4.getProducto(3-i));
+                int nuevoValor = suerte.nextInt((int)(Generaciones.gokuFase4.getProducto(3 - i) * 1.5));
                 this.setProducto(3 - i, nuevoValor);
             }
         }
@@ -677,6 +688,30 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
         this.p4 = p4;
     }
 
+    public static int getCont_cruzaBinomial() {
+        return cont_cruzaBinomial;
+    }
+
+    public static void setCont_cruzaBinomial(int cont_cruzaBinomial) {
+        Individuo.cont_cruzaBinomial = cont_cruzaBinomial;
+    }
+
+    public static int getCont_cruzaMultipunto() {
+        return cont_cruzaMultipunto;
+    }
+
+    public static void setCont_cruzaMultipunto(int cont_cruzaMultipunto) {
+        Individuo.cont_cruzaMultipunto = cont_cruzaMultipunto;
+    }
+
+    public static int getCont_cruzaSimple() {
+        return cont_cruzaSimple;
+    }
+
+    public static void setCont_cruzaSimple(int cont_cruzaSimple) {
+        Individuo.cont_cruzaSimple = cont_cruzaSimple;
+    }
+
     /**
      * Permite comparar con otros individuos en un array con respecto a la
      * aptitud. Es un metodo sobrescrito necesario por la interfaz Comparable.
@@ -686,6 +721,6 @@ public class Individuo implements Comparable<Individuo>,Cloneable {
      */
     @Override
     public int compareTo(Individuo otroIndividuo) {
-        return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
+        return Float.compare(otroIndividuo.getAptitud(),this.aptitud);
     }
 }
