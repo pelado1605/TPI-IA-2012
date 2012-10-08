@@ -5,8 +5,10 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
+import utilidad.Archivador;
 
 /**
  *
@@ -15,10 +17,11 @@ import java.util.Random;
 public class Generaciones {
 
     public static final int CANTIDAD_POBLACION = 1000;
-    public static final int CANTIDAD_ITERACIONES = 150;
+    public static final int CANTIDAD_ITERACIONES = 200;
     public static final float RMIN = 0.5f;
     public static final float PROB_MUT_MIN = 0.02f;
     public static final float PROB_MUT_MAX = 0.3f;
+    public static final float PROB_FIJA = 1f;
     public static final float LAMBDA = 0.005f;
     public static Individuo gokuFase4;
     public float aptitudMaxima;
@@ -28,11 +31,12 @@ public class Generaciones {
     private ArrayList<Poblacion> generaciones = new ArrayList();
     private int[] materialesIng;
     private Random suerte = new Random();
+    private Archivador archivador;
 
     public Generaciones(float pSeleccion, float pCruza,
             int[] materiales) {
-        this.cSeleccion = convertPorcentACant(pSeleccion,CANTIDAD_POBLACION);
-        this.cCruza = convertPorcentACant(pCruza,CANTIDAD_POBLACION);
+        this.cSeleccion = convertPorcentACant(pSeleccion, CANTIDAD_POBLACION);
+        this.cCruza = convertPorcentACant(pCruza, CANTIDAD_POBLACION);
         this.cMutacion = CANTIDAD_POBLACION - cCruza - cSeleccion;
         this.materialesIng = materiales;
         crearAGoku();
@@ -80,20 +84,27 @@ public class Generaciones {
     }
 
     public void ejecutar() {
+        archivador = new Archivador(Calendar.getInstance().getTime().getHours()+
+                " "+Calendar.getInstance().getTime().getMinutes()+" "+
+                Calendar.getInstance().getTime().getSeconds());
         int iteracionActual = 0;
         float probMutacion = 0;
         generarPoblacionInicial();
         generaciones.get(0).evaluarAptitud(materialesIng);
+        archivador.abrirArchivo();
         while (CANTIDAD_ITERACIONES > iteracionActual) {
             Poblacion anterior = generaciones.get(iteracionActual);
-            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
-            Poblacion actual = new Poblacion(anterior.seleccionXTorneo(cSeleccion - convertPorcentACant(.90f, cSeleccion),5),
-                    probMutacion, RMIN);
+//            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
+            Poblacion actual = new Poblacion(anterior.seleccionRuleta(cSeleccion - convertPorcentACant(0.9f, cSeleccion)), PROB_FIJA,RMIN);
             actual.getPoblado().addAll(anterior.seleccionElitista(convertPorcentACant(.10f, cSeleccion)));
             actual.getPoblado().addAll(anterior.cruzarPoblacion(cCruza));
             actual.getPoblado().addAll(anterior.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
+//            for (Individuo indiv : actual.getPoblado()) {
+//                archivador.agregarRegistros(indiv);
+//            }
+//            archivador.agregar("-----------------------------");
             iteracionActual++;
         }
 
@@ -111,6 +122,7 @@ public class Generaciones {
 //                System.out.print(j + ",");
 //            }
             System.out.println();
+            archivador.cerrarArchivo();
         }
     }
 

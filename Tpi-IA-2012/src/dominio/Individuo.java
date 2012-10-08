@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Ruben
  */
-public class Individuo implements Comparable<Individuo> {
+public class Individuo implements Comparable<Individuo>,Cloneable {
 
     private static final float PORC_APTITUD_X_UTILIDAD = 5f;
     private static final float PORC_APTITUD_X_FACTIBILIDAD = 1f;

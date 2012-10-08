@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author Ruben
  */
-public class Poblacion {
+public class Poblacion implements Cloneable {
 
     public static final int SELECCION_ELITISTA = 0;
     public static final int SELECCION_POR_RULETA = 1;
@@ -37,7 +37,7 @@ public class Poblacion {
     }
 
     public ArrayList<Individuo> seleccionElitista(int cantidad, ArrayList<Individuo> entrada) {
-        ArrayList<Individuo> ordenados = entrada;
+        ArrayList<Individuo> ordenados = (ArrayList<Individuo>) entrada.clone();
         Collections.sort(ordenados);
         ArrayList<Individuo> seleccionados = new ArrayList<>(cantidad);
         for (int i = 0; i < cantidad; i++) {
@@ -87,7 +87,7 @@ public class Poblacion {
      */
     public ArrayList<Individuo> seleccionRanking(int cantidad, float rMin, ArrayList<Individuo> entrada) {
         //try catch para que rmin sea un valor entre 0 y 1
-        ArrayList<Individuo> ordenados = entrada;
+        ArrayList<Individuo> ordenados = (ArrayList<Individuo>) entrada.clone();
         Collections.sort(ordenados);
         ArrayList<Individuo> seleccionados = new ArrayList<>();
         ArrayList<Float> valores = new ArrayList<>();
@@ -189,7 +189,7 @@ public class Poblacion {
                 seleccionados.addAll(seleccionRuleta(cantidad, grupo));
                 break;
             case SELECCION_RANKING:
-                seleccionados.addAll(seleccionRanking(cantidad, rMin,  grupo));
+                seleccionados.addAll(seleccionRanking(cantidad, rMin, grupo));
                 break;
         }
         return seleccionados;
@@ -293,7 +293,8 @@ public class Poblacion {
 
     public Poblacion() {
     }
-    public float evaluarAptitud(int[] materialesIng){
+
+    public float evaluarAptitud(int[] materialesIng) {
         float sumatoria = 0f;
         for (Individuo individuo : poblado) {
             sumatoria += individuo.evaluarAptitud(materialesIng);
@@ -318,27 +319,16 @@ public class Poblacion {
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> lista = new ArrayList<>(60);
+        int[] mIngresados = {10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000};
+        Individuo individuo = new Individuo(87, 142, 36, 0);
+        System.out.println(individuo.factibilidad(mIngresados));
+        System.out.println(individuo.getUtilidad());
+        System.out.println(individuo.evaluarAptitud(mIngresados));
+        Individuo individuo2 = new Individuo(88, 136, 34, 1);
+        System.out.println();
+        System.out.println(individuo2.factibilidad(mIngresados));
+        System.out.println(individuo2.getUtilidad());
+        System.out.println(individuo2.evaluarAptitud(mIngresados));
 
-        lista.add(10);
-        lista.add(14);
-        lista.add(4);
-        lista.add(50);
-        lista.add(136);
-        lista.add(23);
-        lista.remove(3);
-        System.out.println(lista.get(3));
-        lista.remove(3);
-        System.out.println(lista.get(3));
-        System.out.println(lista);
-
-        Random r = new Random();
-
-        for (int i = 0; i < 1000; i++) {
-            if (r.nextFloat() <= 0.02) {
-                System.out.println(i);
-            }
-
-        }
     }
 }

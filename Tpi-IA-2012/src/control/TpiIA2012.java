@@ -5,6 +5,7 @@
 package control;
 
 import dominio.Generaciones;
+import utilidad.Archivador;
 
 /**
  *
@@ -17,8 +18,9 @@ public class TpiIA2012 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[] mIngresados = {1000,1000,1000,1000,1000,1000,1000,1000};
-        Generaciones generacion = new Generaciones(0.2f, 0.6f, mIngresados);
+        int[] mIngresados = {10000,10000,10000,10000,10000,10000,10000,10000};
+        Generaciones generacion = new Generaciones(0.2f, 0.5f, mIngresados);
         generacion.ejecutar();
+       
     }
 }

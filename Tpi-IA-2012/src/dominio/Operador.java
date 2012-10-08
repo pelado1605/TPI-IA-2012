@@ -10,9 +10,6 @@ package dominio;
  */
 public class Operador {
     
-    public final static byte CRUZA_SIMPLE = 0;
-    public final static byte CRUZA_BINOMIAL = 1;
-    public final static byte CRUZA_MULTIPUNTO = 2;    
     
 
 }
