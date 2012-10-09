@@ -18,7 +18,7 @@ import utilidad.Archivador;
 public class Generaciones {
 
     public static final int CANTIDAD_POBLACION = 1000;
-    public static final int CANTIDAD_ITERACIONES = 7000;
+    public static final int CANTIDAD_ITERACIONES = 1000;
     public static final float RMIN = 0.5f;
     public static final float PROB_MUT_MIN = 0.02f;
     public static final float PROB_MUT_MAX = 0.3f;
@@ -54,34 +54,34 @@ public class Generaciones {
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
-            Collections.sort(prueba);
+//            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
+//            Collections.sort(prueba);
             
-            System.out.println(new DecimalFormat("#.##").format(generacAnterior.getAptitudPromedio()));
-//            System.out.println(", "+prueba.get(0).getUtilidad());
+//            System.out.println(new DecimalFormat("#.##").format(generacAnterior.getAptitudPromedio()));
+//            System.out.println(prueba.get(0).getUtilidad() +" , " +prueba.get(800).getUtilidad());
 //            for (Individuo indiv : actual.getPoblado()) {
 //                archivador.agregarRegistros(indiv);
 //            }
 //            archivador.agregar("-----------------------------");
             iteracionActual++;
         }
-        System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
-        System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
-        System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
-        System.out.println();
-        for (int i = 0; i < 1; i++) {
-            Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
-            System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
-            System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
-            System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
+//        System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
+//        System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
+//        System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
+//        System.out.println();
+//        for (int i = 0; i < 1; i++) {
+//            Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
+//            System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
+//            System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
+//            System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
 //            int[] mat = Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).calcularMaterialesMinimos();
 //            for (int j : mat) {
 //                System.out.print(j + ",");
 //            }
             System.out.println((float) generaciones.get(CANTIDAD_ITERACIONES-1).getPoblado().get(0).getUtilidad()/gokuFase4.getUtilidad());
-            System.out.println();
+//            System.out.println();
 //            archivador.cerrarArchivo();
-        }
+//        }
     }
 
     public ArrayList<Individuo> generarPoblacionInicial() {
