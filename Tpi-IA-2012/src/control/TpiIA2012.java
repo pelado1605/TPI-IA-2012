@@ -5,8 +5,6 @@
 package control;
 
 import dominio.Generaciones;
-import dominio.Individuo;
-import dominio.Poblacion;
 import java.util.Random;
 
 /**

@@ -58,6 +58,8 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     /**
      * Constante de clase para la cruza simple.
      */
+    private static int BASE;
+    
     public static final int CRUZA_SIMPLE = 0;
     /**
      * Constante de clase para la cruza multipunto.
@@ -115,7 +117,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     }
 
     public Individuo(Individuo individuo) {
-        this(individuo.getP1(),individuo.getP2(),individuo.getP3(),
+        this(individuo.getP1(), individuo.getP2(), individuo.getP3(),
                 individuo.getP4());
     }
 
@@ -172,7 +174,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      */
     public float evaluarAptitud(int[] matIngs, boolean esGoku) {
 
-        float nuevaAptitud = 5000;
+        float nuevaAptitud = BASE;
         int[] diferencia = calcDiferencia(matIngs);
         /*
          * Aca se va a preguntar por la factibilidad del individuo, es decir, si
@@ -191,7 +193,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
              * sino que se elevará al cubo el valor
              */
 
-            nuevaAptitud += Math.pow(getUtilidad(), 1.5f) * PORC_APTITUD_X_UTILIDAD;
+            nuevaAptitud += Math.pow(getUtilidad(), 1.2) * PORC_APTITUD_X_UTILIDAD;
 
             /*
              * Aca se trata la puntuacion po utilizacion de los recursos
@@ -232,7 +234,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
             nuevaAptitud = (nuevaAptitud - diferenciaTotal) * PORC_APTITUD_X_FACTIBILIDAD;
         }
         if (nuevaAptitud < 0) {
-            nuevaAptitud = 1;
+            nuevaAptitud = 0.009f;
         }
         this.aptitud = nuevaAptitud;
         return nuevaAptitud;
@@ -401,7 +403,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
                 hijos = this.cruzaMultiPunto(unIndividuo, suerte.nextInt(14) + 1);
                 break;
             case CRUZA_BINOMIAL:
-                hijos = this.cruzaBinomial(unIndividuo, suerte.nextFloat());
+                hijos = this.cruzaBinomial(unIndividuo, 0.6f);
                 break;
         }
         return hijos;
@@ -416,7 +418,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         for (int i = 0; i < 4; i++) {
             int posicion = aleatorio & (int) Math.pow(2, i);
             if (posicion != 0) {
-                int nuevoValor = suerte.nextInt((int)(Generaciones.gokuFase4.getProducto(3 - i) * 1.5));
+                int nuevoValor = suerte.nextInt((int) (Generaciones.gokuFase4.getProducto(3 - i) * 1.2));
                 this.setProducto(3 - i, nuevoValor);
             }
         }
@@ -712,6 +714,17 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         Individuo.cont_cruzaSimple = cont_cruzaSimple;
     }
 
+    public int calcularBase() {
+        int base = 0;
+        int minimos[] = Generaciones.gokuFase4.calcularMaterialesMinimos();
+        int rangos[] = Generaciones.gokuFase4.calcularMaterialesRango();
+        for (int i = 0; i < minimos.length; i++) {
+            base += minimos[i] + rangos[i];
+        }
+        BASE = base;
+        return base;
+    }
+
     /**
      * Permite comparar con otros individuos en un array con respecto a la
      * aptitud. Es un metodo sobrescrito necesario por la interfaz Comparable.
@@ -721,6 +734,6 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      */
     @Override
     public int compareTo(Individuo otroIndividuo) {
-        return Float.compare(otroIndividuo.getAptitud(),this.aptitud);
+        return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
     }
 }

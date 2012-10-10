@@ -352,16 +352,8 @@ public class Poblacion implements Cloneable {
 
     
     public static void main(String[] args) {
-        int[] mIngresados = {10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000};
-        Individuo individuo = new Individuo(87, 142, 36, 0);
-        System.out.println(individuo.factibilidad(mIngresados));
-        System.out.println(individuo.getUtilidad());
-        System.out.println(individuo.evaluarAptitud(mIngresados));
-        Individuo individuo2 = new Individuo(88, 136, 34, 1);
-        System.out.println();
-        System.out.println(individuo2.factibilidad(mIngresados));
-        System.out.println(individuo2.getUtilidad());
-        System.out.println(individuo2.evaluarAptitud(mIngresados));
-
+        int[] mIngresados = {5000,5000,5000,5000,5000,5000,5000,5000};
+        Generaciones generaciones = new Generaciones(.20f, .60f, mIngresados);
+        generaciones.ejecutar();
     }
 }

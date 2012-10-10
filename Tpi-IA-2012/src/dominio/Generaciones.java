@@ -4,8 +4,8 @@
  */
 package dominio;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Formatter;
 import java.util.Random;
@@ -34,15 +34,16 @@ public class Generaciones {
     private Random suerte = new Random();
     private Archivador archivador;
     private Formatter formato = new Formatter();
+
     public void ejecutar() {
-//        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
-//                + " " + Calendar.getInstance().getTime().getMinutes() + " "
-//                + Calendar.getInstance().getTime().getSeconds());
+        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
+                + " " + Calendar.getInstance().getTime().getMinutes() + " "
+                + Calendar.getInstance().getTime().getSeconds()+".txt");
         int iteracionActual = 0;
         float probMutacion = 0;
         generarPoblacionInicial();
         generaciones.get(0).evaluarAptitud(materialesIng);
-//        archivador.abrirArchivo();
+        archivador.abrirArchivo();
         while (CANTIDAD_ITERACIONES > iteracionActual) {
             Poblacion generacAnterior = generaciones.get(iteracionActual);
             ArrayList<Individuo> listaAnterior = (ArrayList<Individuo>) generacAnterior.getPoblado().clone();
@@ -50,13 +51,13 @@ public class Generaciones {
 //            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
             Poblacion actual = new Poblacion(copia.seleccionElitista(cSeleccion - convertPorcentACant(.8f, cSeleccion)), PROB_FIJA, RMIN);
             actual.getPoblado().addAll(copia.seleccionRuleta(convertPorcentACant(.8f, cSeleccion)));
-            actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza,Individuo.CRUZA_BINOMIAL));
+            actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza));
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
-            
+
 //            System.out.println(new DecimalFormat("#.##").format(generacAnterior.getAptitudPromedio()));
 //            System.out.println(prueba.get(0).getUtilidad() +" , " +prueba.get(800).getUtilidad());
 //            for (Individuo indiv : actual.getPoblado()) {
@@ -65,34 +66,36 @@ public class Generaciones {
 //            archivador.agregar("-----------------------------");
             iteracionActual++;
         }
-//        System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
-//        System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
-//        System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
-//        System.out.println();
-//        for (int i = 0; i < 1; i++) {
-//            Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
-//            System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
-//            System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
-//            System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
-//            int[] mat = Generaciones.get(CANTIDAD_ITERACIONES - 1).getIndividuo(i).calcularMaterialesMinimos();
-//            for (int j : mat) {
-//                System.out.print(j + ",");
-//            }
-            System.out.println((float) generaciones.get(CANTIDAD_ITERACIONES-1).getPoblado().get(0).getUtilidad()/gokuFase4.getUtilidad());
-//            System.out.println();
-//            archivador.cerrarArchivo();
-//        }
+        Collections.sort(generaciones.get(CANTIDAD_ITERACIONES-1).getPoblado());
+        for (Individuo indiv : generaciones.get(CANTIDAD_ITERACIONES-1).getPoblado()) {
+            archivador.agregarRegistros(indiv);
+        }
+        archivador.agregar("-----------------------------");
+        System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
+        System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
+        System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
+        System.out.println();
+        for (int i = 0; i < 1; i++) {
+            Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
+            System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
+            System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
+            System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
+
+            System.out.println();
+            archivador.cerrarArchivo();
+        }
     }
 
     public ArrayList<Individuo> generarPoblacionInicial() {
         ArrayList<Individuo> nueva = new ArrayList<>();
         for (int i = 0; i < CANTIDAD_POBLACION; i++) {
-            Individuo nuevo = new Individuo(suerte.nextInt(gokuFase4.getP1()*2),
-                    suerte.nextInt(gokuFase4.getP2()*2),
-                    suerte.nextInt(gokuFase4.getP3()*2),
-                    suerte.nextInt(gokuFase4.getP4())*2);
+            Individuo nuevo = new Individuo(suerte.nextInt((int) (gokuFase4.getP1() * 1.2)),
+                    suerte.nextInt((int) (gokuFase4.getP2() * 1.2)),
+                    suerte.nextInt((int) (gokuFase4.getP3() * 1.2)),
+                    suerte.nextInt((int) (gokuFase4.getP4() * 1.2)));
             nueva.add(nuevo);
         }
+        gokuFase4.calcularBase();
         Poblacion nuevaPob = new Poblacion(nueva, 0f, 0);
         generaciones.add(nuevaPob);
         return nueva;
