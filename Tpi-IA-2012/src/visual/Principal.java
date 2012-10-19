@@ -26,18 +26,189 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        superior = new javax.swing.JPanel();
+        materiales = new javax.swing.JPanel();
+        material1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        material2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        material3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        material4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        material5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        material6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        material7 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        material8 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        Inferior = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jPanel1 = new javax.swing.JPanel();
+        barraMenu = new javax.swing.JMenuBar();
+        archivo = new javax.swing.JMenu();
+        edicion = new javax.swing.JMenu();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 2));
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("visual/Bundle"); // NOI18N
+        superior.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.superior.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
+        superior.setLayout(new java.awt.BorderLayout());
+
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
+        flowLayout1.setAlignOnBaseline(true);
+        materiales.setLayout(flowLayout1);
+
+        jLabel1.setText(bundle.getString("Principal.jLabel1.text")); // NOI18N
+        material1.add(jLabel1);
+
+        jTextField1.setColumns(5);
+        jTextField1.setText(bundle.getString("Principal.jTextField1.text")); // NOI18N
+        material1.add(jTextField1);
+
+        materiales.add(material1);
+
+        jLabel2.setText(bundle.getString("Principal.jLabel2.text")); // NOI18N
+        material2.add(jLabel2);
+
+        jTextField2.setColumns(5);
+        jTextField2.setText(bundle.getString("Principal.jTextField2.text")); // NOI18N
+        material2.add(jTextField2);
+
+        materiales.add(material2);
+
+        jLabel3.setText(bundle.getString("Principal.jLabel3.text")); // NOI18N
+        material3.add(jLabel3);
+
+        jTextField3.setColumns(5);
+        jTextField3.setText(bundle.getString("Principal.jTextField3.text")); // NOI18N
+        material3.add(jTextField3);
+
+        materiales.add(material3);
+
+        jLabel4.setText(bundle.getString("Principal.jLabel4.text")); // NOI18N
+        material4.add(jLabel4);
+
+        jTextField4.setColumns(5);
+        jTextField4.setText(bundle.getString("Principal.jTextField4.text")); // NOI18N
+        material4.add(jTextField4);
+
+        materiales.add(material4);
+
+        jLabel5.setText(bundle.getString("Principal.jLabel5.text")); // NOI18N
+        material5.add(jLabel5);
+
+        jTextField5.setColumns(5);
+        jTextField5.setText(bundle.getString("Principal.jTextField5.text")); // NOI18N
+        material5.add(jTextField5);
+
+        materiales.add(material5);
+
+        jLabel6.setText(bundle.getString("Principal.jLabel6.text")); // NOI18N
+        material6.add(jLabel6);
+
+        jTextField6.setColumns(5);
+        jTextField6.setText(bundle.getString("Principal.jTextField6.text")); // NOI18N
+        material6.add(jTextField6);
+
+        materiales.add(material6);
+
+        jLabel7.setText(bundle.getString("Principal.jLabel7.text")); // NOI18N
+        material7.add(jLabel7);
+
+        jTextField7.setColumns(5);
+        jTextField7.setText(bundle.getString("Principal.jTextField7.text")); // NOI18N
+        material7.add(jTextField7);
+
+        materiales.add(material7);
+
+        jLabel8.setText(bundle.getString("Principal.jLabel8.text")); // NOI18N
+        material8.add(jLabel8);
+
+        jTextField8.setColumns(5);
+        jTextField8.setText(bundle.getString("Principal.jTextField8.text")); // NOI18N
+        material8.add(jTextField8);
+
+        materiales.add(material8);
+
+        superior.add(materiales, java.awt.BorderLayout.PAGE_START);
+
+        jButton3.setText(bundle.getString("Principal.jButton3.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(533, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        superior.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(superior, java.awt.BorderLayout.NORTH);
+
+        Inferior.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.Inferior.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
+        Inferior.setToolTipText(bundle.getString("Principal.Inferior.toolTipText")); // NOI18N
+        Inferior.setLayout(new java.awt.BorderLayout(0, 5));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        Inferior.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        Inferior.add(jProgressBar1, java.awt.BorderLayout.PAGE_END);
+
+        getContentPane().add(Inferior, java.awt.BorderLayout.SOUTH);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.jPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 704, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 127, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        barraMenu.setFont(getFont());
+
+        archivo.setText(bundle.getString("Principal.archivo.text")); // NOI18N
+        barraMenu.add(archivo);
+
+        edicion.setText(bundle.getString("Principal.edicion.text")); // NOI18N
+        barraMenu.add(edicion);
+
+        setJMenuBar(barraMenu);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -84,5 +255,41 @@ public class Principal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Inferior;
+    private javax.swing.JMenu archivo;
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenu edicion;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JPanel material1;
+    private javax.swing.JPanel material2;
+    private javax.swing.JPanel material3;
+    private javax.swing.JPanel material4;
+    private javax.swing.JPanel material5;
+    private javax.swing.JPanel material6;
+    private javax.swing.JPanel material7;
+    private javax.swing.JPanel material8;
+    private javax.swing.JPanel materiales;
+    private javax.swing.JPanel superior;
     // End of variables declaration//GEN-END:variables
 }
