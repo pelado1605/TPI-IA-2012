@@ -17,8 +17,8 @@ import utilidad.Archivador;
  */
 public class Generaciones {
 
-    public static final int CANTIDAD_POBLACION = 1000;
-    public static final int CANTIDAD_ITERACIONES = 1000;
+    public static final int CANTIDAD_POBLACION = 100;
+    public static final int CANTIDAD_ITERACIONES = 500;
     public static final float RMIN = 0.5f;
     public static final float PROB_MUT_MIN = 0.02f;
     public static final float PROB_MUT_MAX = 0.3f;
