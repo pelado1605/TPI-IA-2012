@@ -353,7 +353,10 @@ public class Poblacion implements Cloneable {
     
     public static void main(String[] args) {
         int[] mIngresados = {5000,5000,5000,5000,5000,5000,5000,5000};
-        Generaciones generaciones = new Generaciones(.20f, .60f, mIngresados);
-        generaciones.ejecutar();
+        Generaciones asd = new Generaciones(.20f, .60f, mIngresados);
+        asd.ejecutar();
+        float uti = asd.getGeneraciones().get(999).getPoblado().get(0).getUtilidad();
+        float goku = Generaciones.gokuFase4.getUtilidad();
+        System.out.println(uti/goku);
     }
 }

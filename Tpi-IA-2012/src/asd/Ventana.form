@@ -37,6 +37,7 @@
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[400, 14]"/>
         </Property>
+        <Property name="stringPainted" type="boolean" value="true"/>
       </Properties>
     </Component>
   </SubComponents>

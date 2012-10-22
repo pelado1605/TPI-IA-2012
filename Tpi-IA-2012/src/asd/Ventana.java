@@ -60,6 +60,7 @@ public class Ventana extends javax.swing.JFrame implements Runnable{
         getContentPane().add(jButton1);
 
         jProgressBar1.setPreferredSize(new java.awt.Dimension(400, 14));
+        jProgressBar1.setStringPainted(true);
         getContentPane().add(jProgressBar1);
 
         pack();
