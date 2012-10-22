@@ -28,9 +28,7 @@ public class Asd extends SwingWorker<Boolean, Integer> {
             System.out.println(parar);
         }
     };
-    
     private ActionListener al = new ActionListener() {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             setParar(!parar);
@@ -74,17 +72,17 @@ public class Asd extends SwingWorker<Boolean, Integer> {
     @Override
     protected synchronized Boolean doInBackground() throws Exception {
         while (!llego) {
+            if (!parar) {
+                wait();
+            }
             cont++;
-            System.out.println("**"+Thread.currentThread().getName());
+            System.out.println("**" + Thread.currentThread().getName());
             publish(cont);
             System.out.println("-----------" + cont);
             Thread.sleep(300);
             setProgress(cont);
             if (cont == CANTIDAD) {
                 llego = true;
-            }
-            if (!parar){
-                wait();
             }
         }
         return llego;
@@ -93,11 +91,10 @@ public class Asd extends SwingWorker<Boolean, Integer> {
     @Override
     protected void done() {
         System.out.println("termino .-");
-        System.out.println("-"+getProgress());
+        System.out.println("-" + getProgress());
         System.out.println("-");
-        
+
     }
-    
 
     @Override
     protected void process(List<Integer> chunks) {

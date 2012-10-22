@@ -16,7 +16,7 @@ public class Resultado extends javax.swing.JDialog {
     public Resultado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(getParent().getParent());
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -136,6 +136,11 @@ public class Resultado extends javax.swing.JDialog {
 
         aceptarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
         aceptarLabel.setText("Aceptar");
+        aceptarLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarLabelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,6 +168,10 @@ public class Resultado extends javax.swing.JDialog {
       Recetas r = new Recetas(null, true);
       r.setVisible(true);
     }//GEN-LAST:event_receta1LabelActionPerformed
+
+    private void aceptarLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarLabelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_aceptarLabelActionPerformed
 
     /**
      * @param args the command line arguments

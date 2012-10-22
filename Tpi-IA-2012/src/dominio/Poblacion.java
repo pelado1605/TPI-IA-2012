@@ -7,6 +7,8 @@ package dominio;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -354,7 +356,11 @@ public class Poblacion implements Cloneable {
     public static void main(String[] args) {
         int[] mIngresados = {5000,5000,5000,5000,5000,5000,5000,5000};
         Generaciones asd = new Generaciones(.20f, .60f, mIngresados);
-        asd.ejecutar();
+        try {
+            asd.ejecutar();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Poblacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         float uti = asd.getGeneraciones().get(999).getPoblado().get(0).getUtilidad();
         float goku = Generaciones.gokuFase4.getUtilidad();
         System.out.println(uti/goku);

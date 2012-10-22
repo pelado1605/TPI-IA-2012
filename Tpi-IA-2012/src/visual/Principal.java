@@ -4,9 +4,14 @@
  */
 package visual;
 
+import dominio.Individuo;
+import dominio.Poblacion;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 
 /**
  *
@@ -20,9 +25,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        pcs.addPropertyChangeListener(pcl);
-        setEjecutandose(false);
-        setParado(true);
+        pcs.addPropertyChangeListener(pclBotones);
+        parado = true;
     }
 
     /**
@@ -90,8 +94,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(840, 500));
-        setPreferredSize(new java.awt.Dimension(850, 500));
+        setMinimumSize(new java.awt.Dimension(900, 500));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("visual/Bundle"); // NOI18N
         entMaterialesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.entMaterialesPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
@@ -252,7 +255,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(genAleatoriaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(configButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         opcionesPanelLayout.setVerticalGroup(
             opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +386,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -407,40 +410,36 @@ public class Principal extends javax.swing.JFrame {
         hastaTextField.setEnabled(limitadoCheckBox.isSelected());
         hastaTextField.setText("");
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
-    
+
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
         //prueba
         Configuracion configuracion = new Configuracion(this, true);
         configuracion.setVisible(true);
     }//GEN-LAST:event_configButtonActionPerformed
-    
-    private void ejecutarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarButtonActionPerformed
 
-//        pausarButton.setEnabled(!pausarButton.isEnabled());
-//        pararButton.setEnabled(!pararButton.isEnabled());
-//        ejecutarButton.setEnabled(!ejecutarButton.isEnabled());
-//        resultadosButton.setEnabled(true);
+    private void ejecutarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarButtonActionPerformed
         setParado(false);
         setEjecutandose(true);
-        
+
     }//GEN-LAST:event_ejecutarButtonActionPerformed
-    
+
     private void resultadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosButtonActionPerformed
         Resultado r = new Resultado(this, true);
         r.setLocationRelativeTo(null);
         r.setVisible(true);
     }//GEN-LAST:event_resultadosButtonActionPerformed
-    
+
     private void pausarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausarButtonActionPerformed
-        setEjecutandose(false);
         setParado(false);
+        setEjecutandose(false);
+
     }//GEN-LAST:event_pausarButtonActionPerformed
-    
+
     private void pararButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararButtonActionPerformed
         setEjecutandose(false);
         setParado(true);
     }//GEN-LAST:event_pararButtonActionPerformed
-    
+
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
     }
@@ -485,33 +484,53 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public boolean isEjecutandose() {
         return ejecutandose;
     }
-    
+
     public void setEjecutandose(boolean ejecutandose) {
         boolean old = this.ejecutandose;
         this.ejecutandose = ejecutandose;
         pcs.firePropertyChange("ejecutandose", old, ejecutandose);
     }
-    
+
     public boolean isParado() {
         return parado;
     }
-    
+
     public void setParado(boolean parado) {
         boolean old = this.parado;
         this.parado = parado;
         pcs.firePropertyChange("parado", old, parado);
     }
-    private boolean ejecutandose;
-    private boolean parado;
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private PropertyChangeListener pcl = new PropertyChangeListener() {
+
+    public PropertyChangeListener getPclModelo() {
+        return pclModelo;
+    }
+
+    public JButton getEjecutarButton() {
+        return ejecutarButton;
+    }
+
+    public JButton getConfigButton() {
+        return configButton;
+    }
+
+    public JButton getGraficasButton() {
+        return graficasButton;
+    }
+
+    public JButton getPararButton() {
+        return pararButton;
+    }
+
+    public JButton getPausarButton() {
+        return pausarButton;
+    }
+    private PropertyChangeListener pclBotones = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
-            System.out.println(evt.getPropertyName());
             if (evt.getPropertyName().equals("ejecutandose")) {
                 if (evt.getNewValue().equals(true)) {
                     ejecutarButton.setEnabled(false);
@@ -523,10 +542,12 @@ public class Principal extends javax.swing.JFrame {
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
+                    graficasButton.setEnabled(true);
+
                 }
             }
             if (evt.getPropertyName().equals("parado")) {
-                
+
                 if (evt.getNewValue().equals(true)) {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
@@ -545,6 +566,27 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     };
+    private PropertyChangeListener pclModelo = new PropertyChangeListener() {
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            System.out.println(evt.getPropertyName());
+            if ("progress".equals(evt.getPropertyName())) {
+                barraDeProgreso.setValue((int) evt.getNewValue());
+            }
+            if ("generaciones".equals(evt.getPropertyName())) {
+                Poblacion pob = (Poblacion) evt.getNewValue();
+                int cont = 0;
+                for (Individuo individuo : pob.getPoblado()) {
+                    consolaTextArea.append(cont+individuo.mostrarProductos()+"\n");
+                    cont++;
+                }
+                consolaTextArea.append("-----------------------------------------------------------\n");
+            }
+        }
+    };
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private boolean ejecutandose;
+    private boolean parado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ApPromMenuItem;
     private javax.swing.JButton aleatorioButton;

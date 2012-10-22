@@ -16,7 +16,7 @@ public class Configuracion extends javax.swing.JDialog {
     public Configuracion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(getParent());
+        setLocationRelativeTo(null);
     }
 
     /**

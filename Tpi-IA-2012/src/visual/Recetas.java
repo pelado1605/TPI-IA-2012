@@ -18,7 +18,7 @@ public class Recetas extends javax.swing.JDialog {
     public Recetas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(getParent().getParent());
+        setLocationRelativeTo(null);
         for (int i = 1; i < 5; i++) {
             for (int j = 1; j < 9; j++) {
                 ((JLabel) recetaPanel.getComponent(i*9+j)).setText(i+","+j);
@@ -441,6 +441,11 @@ public class Recetas extends javax.swing.JDialog {
 
         aceptarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
         aceptarButton.setText("Aceptar");
+        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -470,6 +475,10 @@ public class Recetas extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_aceptarButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -30,7 +30,7 @@ public class Control {
             if ("state".equals(evt.getPropertyName()) && SwingWorker.StateValue.DONE.equals(evt.getNewValue())) {
                 ventana.getjProgressBar1().setValue(0);
             }
-            
+
         }
     };
 
@@ -43,6 +43,7 @@ public class Control {
         asd = new Asd();
         asd.addPropertyChangeListener(pcl);
         ventana.getjButton1().addActionListener(actionListener);
+        ventana.getjButton2().addActionListener(actionListener);
         ventana.getjButton1().addActionListener(asd.getAl());
         pcs.addPropertyChangeListener(asd.getPcl());
     }
@@ -72,18 +73,23 @@ public class Control {
         @Override
         @SuppressWarnings("empty-statement")
         public synchronized void actionPerformed(ActionEvent e) {
-            setEstado(!estado);
-            System.out.println("---"+Thread.currentThread().getName());
-            if (asd.getState() == SwingWorker.StateValue.PENDING) {
-                asd.execute();
-            } else {
-                if (estado){
-                    System.out.println("notify");
-                    synchronized (asd) {
-                        asd.notify();
+            if (e.getActionCommand().equals("jButton1")) {
+                setEstado(!estado);
+                System.out.println("---" + Thread.currentThread().getName());
+                if (asd.getState() == SwingWorker.StateValue.PENDING) {
+                    asd.execute();
+                } else {
+                    if (estado) {
+                        System.out.println("notify");
+                        synchronized (asd) {
+                            asd.notify();
+                        }
+                        ventana.repaint();
                     }
-                    ventana.repaint();
                 }
+            }
+            if (e.getActionCommand().equals("jButton2")){
+                asd.cancel(true);
             }
         }
     };

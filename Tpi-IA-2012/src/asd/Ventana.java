@@ -14,7 +14,7 @@ import javax.swing.JProgressBar;
  *
  * @author Ruben
  */
-public class Ventana extends javax.swing.JFrame implements Runnable{
+public class Ventana extends javax.swing.JFrame implements Runnable {
 
     /**
      * Creates new form Ventana
@@ -30,7 +30,6 @@ public class Ventana extends javax.swing.JFrame implements Runnable{
     public JProgressBar getjProgressBar1() {
         return jProgressBar1;
     }
-    
 
     public PropertyChangeListener getPcl() {
         return pcl;
@@ -47,6 +46,7 @@ public class Ventana extends javax.swing.JFrame implements Runnable{
 
         jButton1 = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
@@ -63,11 +63,13 @@ public class Ventana extends javax.swing.JFrame implements Runnable{
         jProgressBar1.setStringPainted(true);
         getContentPane().add(jProgressBar1);
 
+        jButton2.setText("jButton2");
+        getContentPane().add(jButton2);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
 //    public boolean isEstado() {
@@ -79,7 +81,6 @@ public class Ventana extends javax.swing.JFrame implements Runnable{
 //        this.estado = estado;
 //        firePropertyChange("parar", viejo, estado);
 //    }
-
     /**
      * @param args the command line arguments
      */
@@ -123,19 +124,23 @@ public class Ventana extends javax.swing.JFrame implements Runnable{
             System.out.println(evt.getPropertyName());
         }
     };
-    public void addPCL(PropertyChangeListener pcl){
+
+    public void addPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
     }
-    
-    
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void run() {
         this.setVisible(true);
+    }
+
+    public JButton getjButton2() {
+        return jButton2;
     }
 }
