@@ -591,6 +591,9 @@
                       <ResourceString bundle="visual/Bundle.properties" key="Principal.aleatorioButton.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aleatorioButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="limitadoCheckBox">
                   <Properties>
@@ -684,6 +687,9 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JProgressBar" name="barraDeProgreso">
+          <Properties>
+            <Property name="stringPainted" type="boolean" value="true"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Last"/>

@@ -9,9 +9,9 @@ import dominio.Poblacion;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Random;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -193,6 +193,11 @@ public class Principal extends javax.swing.JFrame {
 
         aleatorioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/1350794191_calculator.png"))); // NOI18N
         aleatorioButton.setText(bundle.getString("Principal.aleatorioButton.text")); // NOI18N
+        aleatorioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aleatorioButtonActionPerformed(evt);
+            }
+        });
 
         limitadoCheckBox.setText(bundle.getString("Principal.limitadoCheckBox.text")); // NOI18N
         limitadoCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -278,6 +283,8 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(consolaTextArea);
 
         avanceEjecPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        barraDeProgreso.setStringPainted(true);
         avanceEjecPanel.add(barraDeProgreso, java.awt.BorderLayout.PAGE_END);
 
         ejecucionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.ejecucionPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
@@ -406,9 +413,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void limitadoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limitadoCheckBoxActionPerformed
         desdeTextField.setEnabled(limitadoCheckBox.isSelected());
-        desdeTextField.setText("");
         hastaTextField.setEnabled(limitadoCheckBox.isSelected());
-        hastaTextField.setText("");
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
 
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
@@ -439,6 +444,26 @@ public class Principal extends javax.swing.JFrame {
         setEjecutandose(false);
         setParado(true);
     }//GEN-LAST:event_pararButtonActionPerformed
+
+    private void aleatorioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aleatorioButtonActionPerformed
+        int desde = 0;
+        int hasta = 0;
+        if (limitadoCheckBox.isSelected()) {
+            desde = Integer.parseInt(desdeTextField.getText());
+            hasta = Integer.parseInt(hastaTextField.getText());
+        } else {
+            desde = random.nextInt(1000);
+            desdeTextField.setText(String.valueOf(desde));
+            hasta = desde + random.nextInt(99000);
+            hastaTextField.setText(String.valueOf(hasta));
+        }
+        
+        for (int i = 0; i < 8; i++) {
+            int valor = desde + random.nextInt(hasta - desde);
+            setMatIng(i,valor);
+        }
+        
+    }//GEN-LAST:event_aleatorioButtonActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -485,6 +510,75 @@ public class Principal extends javax.swing.JFrame {
         });
     }
 
+    public int[] getMatIngs() {
+        int[] mIngs = new int[8];
+        for (int i = 0; i < 8; i++) {
+            mIngs[i] = getMatIng(i);
+        }
+        return mIngs;
+    }
+
+    public int getMatIng(int index) {
+        int material = 0;
+        switch (index) {
+            case 0:
+                material = Integer.parseInt(m1TextField.getText());
+                break;
+            case 1:
+                material = Integer.parseInt(m2TextField.getText());
+                break;
+            case 2:
+                material = Integer.parseInt(m3TextField.getText());
+                break;
+            case 3:
+                material = Integer.parseInt(m4TextField.getText());
+                break;
+            case 4:
+                material = Integer.parseInt(m5TextField.getText());
+                break;
+            case 5:
+                material = Integer.parseInt(m6TextField.getText());
+                break;
+            case 6:
+                material = Integer.parseInt(m7TextField.getText());
+                break;
+            case 7:
+                material = Integer.parseInt(m8TextField.getText());
+                break;
+        }
+
+        return material;
+    }
+
+    public void setMatIng(int index, int valor) {
+        switch (index) {
+            case 0:
+                m1TextField.setText(String.valueOf(valor));
+                break;
+            case 1:
+                m2TextField.setText(String.valueOf(valor));
+                break;
+            case 2:
+                m3TextField.setText(String.valueOf(valor));
+                break;
+            case 3:
+                m4TextField.setText(String.valueOf(valor));
+                break;
+            case 4:
+                m5TextField.setText(String.valueOf(valor));
+                break;
+            case 5:
+                m6TextField.setText(String.valueOf(valor));
+                break;
+            case 6:
+                m7TextField.setText(String.valueOf(valor));
+                break;
+            case 7:
+                m8TextField.setText(String.valueOf(valor));
+                break;
+        }
+    }
+
     public boolean isEjecutandose() {
         return ejecutandose;
     }
@@ -528,6 +622,38 @@ public class Principal extends javax.swing.JFrame {
     public JButton getPausarButton() {
         return pausarButton;
     }
+
+    public JTextField getM1TextField() {
+        return m1TextField;
+    }
+
+    public JTextField getM2TextField() {
+        return m2TextField;
+    }
+
+    public JTextField getM3TextField() {
+        return m3TextField;
+    }
+
+    public JTextField getM4TextField() {
+        return m4TextField;
+    }
+
+    public JTextField getM5TextField() {
+        return m5TextField;
+    }
+
+    public JTextField getM6TextField() {
+        return m6TextField;
+    }
+
+    public JTextField getM7TextField() {
+        return m7TextField;
+    }
+
+    public JTextField getM8TextField() {
+        return m8TextField;
+    }
     private PropertyChangeListener pclBotones = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
@@ -569,15 +695,23 @@ public class Principal extends javax.swing.JFrame {
     private PropertyChangeListener pclModelo = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
-            System.out.println(evt.getPropertyName());
             if ("progress".equals(evt.getPropertyName())) {
                 barraDeProgreso.setValue((int) evt.getNewValue());
             }
-            if ("generaciones".equals(evt.getPropertyName())) {
-                Poblacion pob = (Poblacion) evt.getNewValue();
+            if ("generacion".equals(evt.getPropertyName())) {
+                System.out.println(isParado() + " " + isEjecutandose());
+                consolaTextArea.removeAll();
+                Poblacion pob = (Poblacion) evt.getOldValue();
                 int cont = 0;
                 for (Individuo individuo : pob.getPoblado()) {
-                    consolaTextArea.append(cont+individuo.mostrarProductos()+"\n");
+                    consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
+                    cont++;
+                }
+                consolaTextArea.append("-----------------------------------------------------------\n");
+                pob = (Poblacion) evt.getOldValue();
+                cont = 0;
+                for (Individuo individuo : pob.getPoblado()) {
+                    consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
                     cont++;
                 }
                 consolaTextArea.append("-----------------------------------------------------------\n");
@@ -587,6 +721,7 @@ public class Principal extends javax.swing.JFrame {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean ejecutandose;
     private boolean parado;
+    private Random random = new Random();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ApPromMenuItem;
     private javax.swing.JButton aleatorioButton;

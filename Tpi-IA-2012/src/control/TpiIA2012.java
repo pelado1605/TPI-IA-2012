@@ -7,9 +7,6 @@ package control;
 import dominio.Generaciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import visual.Principal;
 
 /**
@@ -35,8 +32,9 @@ public class TpiIA2012 {
             System.out.println(e.getActionCommand());
             if (e.getActionCommand().equals("Ejecutar")) {
                 if (vPrincipal.isParado()) {
-                    generaciones = new Generaciones(.2f, .6f, mIngresados);
+                    generaciones = new Generaciones(.2f, .6f, vPrincipal.getMatIngs());
                     generaciones.addPCl(vPrincipal.getPclModelo());
+                    vPrincipal.getPausarButton().addActionListener(generaciones.getAl());
                     generaciones.execute();
                 } else {
                     synchronized (generaciones) {

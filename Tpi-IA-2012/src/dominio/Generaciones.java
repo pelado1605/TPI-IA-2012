@@ -4,8 +4,9 @@
  */
 package dominio;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Formatter;
@@ -49,7 +50,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //        archivador.abrirArchivo();
         while (CANTIDAD_ITERACIONES > iteracionActual) {
             if (pausado) {
-                synchronized (this){
+                synchronized (this) {
                     wait();
                 }
             }
@@ -63,8 +64,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-            getPropertyChangeSupport().firePropertyChange("generaciones",generacAnterior,actual);
-            Thread.sleep(150);
+//            getPropertyChangeSupport().firePropertyChange("generaciones",generacAnterior,actual);
+//            Thread.sleep(10);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 
@@ -76,7 +77,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //            archivador.agregar("-----------------------------");
             iteracionActual++;
             publish(actual);
-            int progreso = iteracionActual / (CANTIDAD_ITERACIONES/100);
+            int progreso = iteracionActual / (CANTIDAD_ITERACIONES / 100);
+            System.out.println(progreso);
             setProgress(progreso);
         }
         Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
@@ -201,6 +203,18 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     @Override
     protected void process(List<Poblacion> chunks) {
         //aca deberia imprimr en la consola los res parciales
-        
+    }
+    private ActionListener al = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals("Pausar")) {
+                getPropertyChangeSupport().firePropertyChange("generacion", generaciones.get(generaciones.size()-2),
+                        generaciones.get(generaciones.size() - 1));
+            }
+        }
+    };
+
+    public ActionListener getAl() {
+        return al;
     }
 }
