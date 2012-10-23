@@ -59,7 +59,6 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      * Constante de clase para la cruza simple.
      */
     private static int BASE;
-    
     public static final int CRUZA_SIMPLE = 0;
     /**
      * Constante de clase para la cruza multipunto.
@@ -714,6 +713,44 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         Individuo.cont_cruzaSimple = cont_cruzaSimple;
     }
 
+    public int[][] calcularReceta(int[] mIngs) {
+        int[][] receta = new int[4][8];
+        int[] sobrante = calcDiferencia(mIngs);//cant de mat que queda por asignar
+        int[][] rangos = new int[4][8];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 8; j++) {
+                rangos[i][j] = 0;
+            }
+        }
+        int cantXAsignar = 0;
+        for (int i = 0; i < 8; i++) {
+            cantXAsignar += sobrante[i];
+        }
+        while (cantXAsignar > 0) {
+            boolean encontrado = false;
+            int material = 0;
+            int producto = 0;
+            while (!encontrado) {
+                producto = suerte.nextInt(4);
+                material = suerte.nextInt(8);
+                if (sobrante[producto] != 0) {
+                    encontrado = true;
+                    sobrante[producto]--;
+                }
+            }
+            rangos[producto][material]++;
+            cantXAsignar--;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 8; j++) {
+                receta[i][j] = (getProducto(i) * MMinimos[i][j]) + rangos[i][j];
+            }
+        }
+
+        return receta;
+    }
+
     public int calcularBase() {
         int base = 0;
         int minimos[] = Generaciones.gokuFase4.calcularMaterialesMinimos();
@@ -735,5 +772,18 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     @Override
     public int compareTo(Individuo otroIndividuo) {
         return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
+    }
+
+    public static void main(String[] args) {
+        Individuo ind = new Individuo(1, 0, 0, 0);
+        int[] mIngresados = {100, 100, 100, 100, 100, 100, 100, 100};
+        int[][] receta = ind.calcularReceta(mIngresados);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 8; j++) {
+                System.out.print(receta[i][j]+" ");
+            }
+            System.out.println();
+        }
+
     }
 }
