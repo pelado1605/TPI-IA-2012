@@ -177,35 +177,35 @@ public class Recetas extends javax.swing.JDialog {
         recetaPanel.add(p1Label);
 
         p1m1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m1Label.setText("jLabel16");
+        p1m1Label.setText("0");
         recetaPanel.add(p1m1Label);
 
         p1m2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m2Label.setText("jLabel15");
+        p1m2Label.setText("0");
         recetaPanel.add(p1m2Label);
 
         p1m3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m3Label.setText("jLabel12");
+        p1m3Label.setText("0");
         recetaPanel.add(p1m3Label);
 
         p1m4Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m4Label.setText("jLabel22");
+        p1m4Label.setText("0");
         recetaPanel.add(p1m4Label);
 
         p1m5Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m5Label.setText("jLabel21");
+        p1m5Label.setText("0");
         recetaPanel.add(p1m5Label);
 
         p1m6Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m6Label.setText("jLabel8");
+        p1m6Label.setText("0");
         recetaPanel.add(p1m6Label);
 
         p1m7Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m7Label.setText("jLabel9");
+        p1m7Label.setText("0");
         recetaPanel.add(p1m7Label);
 
         p1m8Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p1m8Label.setText("jLabel7");
+        p1m8Label.setText("0");
         recetaPanel.add(p1m8Label);
 
         p2Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -214,35 +214,35 @@ public class Recetas extends javax.swing.JDialog {
         recetaPanel.add(p2Label);
 
         p2m1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m1Label.setText("jLabel19");
+        p2m1Label.setText("0");
         recetaPanel.add(p2m1Label);
 
         p2m2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m2Label.setText("jLabel5");
+        p2m2Label.setText("0");
         recetaPanel.add(p2m2Label);
 
         p2m3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m3Label.setText("jLabel24");
+        p2m3Label.setText("0");
         recetaPanel.add(p2m3Label);
 
         p2m4Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m4Label.setText("jLabel25");
+        p2m4Label.setText("0");
         recetaPanel.add(p2m4Label);
 
         p2m5Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m5Label.setText("jLabel26");
+        p2m5Label.setText("0");
         recetaPanel.add(p2m5Label);
 
         p2m6Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m6Label.setText("jLabel27");
+        p2m6Label.setText("0");
         recetaPanel.add(p2m6Label);
 
         p2m7Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m7Label.setText("jLabel28");
+        p2m7Label.setText("0");
         recetaPanel.add(p2m7Label);
 
         p2m8Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p2m8Label.setText("jLabel29");
+        p2m8Label.setText("0");
         recetaPanel.add(p2m8Label);
 
         p3Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -251,35 +251,35 @@ public class Recetas extends javax.swing.JDialog {
         recetaPanel.add(p3Label);
 
         p3m1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m1Label.setText("jLabel31");
+        p3m1Label.setText("0");
         recetaPanel.add(p3m1Label);
 
         p3m2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m2Label.setText("jLabel32");
+        p3m2Label.setText("0");
         recetaPanel.add(p3m2Label);
 
         p3m3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m3Label.setText("jLabel33");
+        p3m3Label.setText("0");
         recetaPanel.add(p3m3Label);
 
         p3m4Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m4Label.setText("jLabel34");
+        p3m4Label.setText("0");
         recetaPanel.add(p3m4Label);
 
         p3m5Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m5Label.setText("jLabel35");
+        p3m5Label.setText("0");
         recetaPanel.add(p3m5Label);
 
         p3m6Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m6Label.setText("jLabel36");
+        p3m6Label.setText("0");
         recetaPanel.add(p3m6Label);
 
         p3m7Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m7Label.setText("jLabel37");
+        p3m7Label.setText("0");
         recetaPanel.add(p3m7Label);
 
         p3m8Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p3m8Label.setText("jLabel38");
+        p3m8Label.setText("0");
         recetaPanel.add(p3m8Label);
 
         p4Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -288,35 +288,35 @@ public class Recetas extends javax.swing.JDialog {
         recetaPanel.add(p4Label);
 
         p4m1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m1Label.setText("jLabel40");
+        p4m1Label.setText("0");
         recetaPanel.add(p4m1Label);
 
         p4m2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m2Label.setText("jLabel41");
+        p4m2Label.setText("0");
         recetaPanel.add(p4m2Label);
 
         p4m3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m3Label.setText("jLabel42");
+        p4m3Label.setText("0");
         recetaPanel.add(p4m3Label);
 
         p4m4Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m4Label.setText("jLabel43");
+        p4m4Label.setText("0");
         recetaPanel.add(p4m4Label);
 
         p4m5Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m5Label.setText("jLabel44");
+        p4m5Label.setText("0");
         recetaPanel.add(p4m5Label);
 
         p4m6Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m6Label.setText("jLabel45");
+        p4m6Label.setText("0");
         recetaPanel.add(p4m6Label);
 
         p4m7Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m7Label.setText("jLabel46");
+        p4m7Label.setText("0");
         recetaPanel.add(p4m7Label);
 
         p4m8Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p4m8Label.setText("jLabel47");
+        p4m8Label.setText("0");
         recetaPanel.add(p4m8Label);
 
         utilizadosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Utilizacion de Materiales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
