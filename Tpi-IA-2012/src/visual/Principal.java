@@ -9,9 +9,16 @@ import dominio.Poblacion;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Random;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -82,9 +89,9 @@ public class Principal extends javax.swing.JFrame {
         graficasButton = new javax.swing.JButton();
         resultadosButton = new javax.swing.JButton();
         avanceEjecPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        consolaTextArea = new javax.swing.JTextArea();
         barraDeProgreso = new javax.swing.JProgressBar();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         edicion = new javax.swing.JMenu();
@@ -110,6 +117,11 @@ public class Principal extends javax.swing.JFrame {
 
         m1TextField.setColumns(5);
         m1TextField.setText(bundle.getString("Principal.m1TextField.text")); // NOI18N
+        m1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m1TextFieldFocusGained(evt);
+            }
+        });
         material1.add(m1TextField);
 
         materiales.add(material1);
@@ -119,6 +131,11 @@ public class Principal extends javax.swing.JFrame {
 
         m2TextField.setColumns(5);
         m2TextField.setText(bundle.getString("Principal.m2TextField.text")); // NOI18N
+        m2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m2TextFieldFocusGained(evt);
+            }
+        });
         material2.add(m2TextField);
 
         materiales.add(material2);
@@ -128,6 +145,11 @@ public class Principal extends javax.swing.JFrame {
 
         m3TextField.setColumns(5);
         m3TextField.setText(bundle.getString("Principal.m3TextField.text")); // NOI18N
+        m3TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m3TextFieldFocusGained(evt);
+            }
+        });
         material3.add(m3TextField);
 
         materiales.add(material3);
@@ -137,6 +159,11 @@ public class Principal extends javax.swing.JFrame {
 
         m4TextField.setColumns(5);
         m4TextField.setText(bundle.getString("Principal.m4TextField.text")); // NOI18N
+        m4TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m4TextFieldFocusGained(evt);
+            }
+        });
         material4.add(m4TextField);
 
         materiales.add(material4);
@@ -146,6 +173,11 @@ public class Principal extends javax.swing.JFrame {
 
         m5TextField.setColumns(5);
         m5TextField.setText(bundle.getString("Principal.m5TextField.text")); // NOI18N
+        m5TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m5TextFieldFocusGained(evt);
+            }
+        });
         material5.add(m5TextField);
 
         materiales.add(material5);
@@ -155,6 +187,11 @@ public class Principal extends javax.swing.JFrame {
 
         m6TextField.setColumns(5);
         m6TextField.setText(bundle.getString("Principal.m6TextField.text")); // NOI18N
+        m6TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m6TextFieldFocusGained(evt);
+            }
+        });
         material6.add(m6TextField);
 
         materiales.add(material6);
@@ -164,6 +201,11 @@ public class Principal extends javax.swing.JFrame {
 
         m7TextField.setColumns(5);
         m7TextField.setText(bundle.getString("Principal.m7TextField.text")); // NOI18N
+        m7TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m7TextFieldFocusGained(evt);
+            }
+        });
         material7.add(m7TextField);
 
         materiales.add(material7);
@@ -173,6 +215,11 @@ public class Principal extends javax.swing.JFrame {
 
         m8TextField.setColumns(5);
         m8TextField.setText(bundle.getString("Principal.m8TextField.text")); // NOI18N
+        m8TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m8TextFieldFocusGained(evt);
+            }
+        });
         material8.add(m8TextField);
 
         materiales.add(material8);
@@ -320,15 +367,19 @@ public class Principal extends javax.swing.JFrame {
         avanceEjecPanel.setToolTipText(bundle.getString("Principal.avanceEjecPanel.toolTipText")); // NOI18N
         avanceEjecPanel.setLayout(new java.awt.BorderLayout(0, 5));
 
-        consolaTextArea.setColumns(20);
-        consolaTextArea.setLineWrap(true);
-        consolaTextArea.setRows(10);
-        jScrollPane1.setViewportView(consolaTextArea);
-
-        avanceEjecPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
         barraDeProgreso.setStringPainted(true);
         avanceEjecPanel.add(barraDeProgreso, java.awt.BorderLayout.PAGE_END);
+
+        tabla.setModel(modelo);
+        tabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabla.setCellSelectionEnabled(true);
+        tabla.setFillsViewportHeight(true);
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabla.setShowHorizontalLines(false);
+        tabla.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(tabla);
+
+        avanceEjecPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         barraMenu.setFont(getFont());
 
@@ -433,12 +484,44 @@ public class Principal extends javax.swing.JFrame {
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
         setParado(true);
         setEjecutandose(false);
-        consolaTextArea.setText("");
+        inicializarTabla();
         barraDeProgreso.setValue(0);
         for (int i = 0; i < 8; i++) {
             setMatIng(i, 1000);
         }
     }//GEN-LAST:event_limpiarButtonActionPerformed
+
+    private void m1TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m1TextFieldFocusGained
+        m1TextField.selectAll();
+    }//GEN-LAST:event_m1TextFieldFocusGained
+
+    private void m2TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m2TextFieldFocusGained
+        m2TextField.selectAll();
+    }//GEN-LAST:event_m2TextFieldFocusGained
+
+    private void m4TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m4TextFieldFocusGained
+        m4TextField.selectAll();
+    }//GEN-LAST:event_m4TextFieldFocusGained
+
+    private void m5TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m5TextFieldFocusGained
+        m5TextField.selectAll();
+    }//GEN-LAST:event_m5TextFieldFocusGained
+
+    private void m6TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m6TextFieldFocusGained
+        m6TextField.selectAll();
+    }//GEN-LAST:event_m6TextFieldFocusGained
+
+    private void m7TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m7TextFieldFocusGained
+        m7TextField.selectAll();
+    }//GEN-LAST:event_m7TextFieldFocusGained
+
+    private void m8TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m8TextFieldFocusGained
+        m8TextField.selectAll();
+    }//GEN-LAST:event_m8TextFieldFocusGained
+
+    private void m3TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m3TextFieldFocusGained
+        m3TextField.selectAll();
+    }//GEN-LAST:event_m3TextFieldFocusGained
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -629,6 +712,22 @@ public class Principal extends javax.swing.JFrame {
     public JTextField getM8TextField() {
         return m8TextField;
     }
+
+    private void inicializarTabla() {
+        modelo = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "#", "Generación", "Individuo", "Utilidad", "Aptitud"
+                });
+        tabla.setModel(modelo);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tabla.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tabla.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tabla.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tabla.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+    }
     private PropertyChangeListener pclBotones = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
@@ -674,30 +773,48 @@ public class Principal extends javax.swing.JFrame {
                 barraDeProgreso.setValue((int) evt.getNewValue());
             }
             if ("generacion".equals(evt.getPropertyName())) {
-                consolaTextArea.setText("");
                 Poblacion poblacion = (Poblacion) evt.getOldValue();
-                int cont = 0;
+                NumberFormat formatter = new DecimalFormat("####0.00");
+                int cont = 1;
+                inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    String cadena = String.format("%s$s", cont, individuo.mostrarProductos());
-                    consolaTextArea.append(cadena+"\n");
+                    Object[] fila = {cont, 2, individuo.mostrarProductos(), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    modelo.addRow(fila);
                     cont++;
                 }
-                resultadoDialog.getInd1Label().setText(poblacion.getPoblado().get(0).mostrarProductos());
-                resultadoDialog.getInd2Label().setText(poblacion.getPoblado().get(1).mostrarProductos());
-                resultadoDialog.getInd3Label().setText(poblacion.getPoblado().get(2).mostrarProductos());
-                resultadoDialog.getU1Label().setText(String.valueOf(poblacion.getPoblado().get(0).getUtilidad()));
-                resultadoDialog.getU2Label().setText(String.valueOf(poblacion.getPoblado().get(1).getUtilidad()));
-                resultadoDialog.getU3Label().setText(String.valueOf(poblacion.getPoblado().get(2).getUtilidad()));
-                consolaTextArea.append("-----------------------------------------------------------\n");
                 poblacion = (Poblacion) evt.getNewValue();
+                cont = 1;
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
+                    Object[] fila = {cont, 1, individuo.mostrarProductos(), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    modelo.addRow(fila);
                     cont++;
                 }
-                consolaTextArea.append("-----------------------------------------------------------\n");
+                resultadoDialog.getInd1Label()
+                        .setText(poblacion.getPoblado().get(0).mostrarProductos());
+                resultadoDialog.getInd2Label()
+                        .setText(poblacion.getPoblado().get(1).mostrarProductos());
+                resultadoDialog.getInd3Label()
+                        .setText(poblacion.getPoblado().get(2).mostrarProductos());
+                resultadoDialog.getU1Label()
+                        .setText(String.valueOf(poblacion.getPoblado().get(0).getUtilidad()));
+                resultadoDialog.getU2Label()
+                        .setText(String.valueOf(poblacion.getPoblado().get(1).getUtilidad()));
+                resultadoDialog.getU3Label()
+                        .setText(String.valueOf(poblacion.getPoblado().get(2).getUtilidad()));
+//                poblacion = (Poblacion) evt.getNewValue();
+//                for (Individuo individuo : poblacion.getPoblado()) {
+//                    consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
+//                    cont++;
+//                }
+//                consolaTextArea.append("-----------------------------------------------------------\n");
             }
         }
     };
+    private DefaultTableModel modelo = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{
+                "#", "Generación", "Individuo", "Utilidad", "Aptitud"
+            });
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean ejecutandose;
     private boolean parado;
@@ -711,7 +828,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JProgressBar barraDeProgreso;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton configButton;
-    private javax.swing.JTextArea consolaTextArea;
     private javax.swing.JLabel desdeLabel;
     private javax.swing.JTextField desdeTextField;
     private javax.swing.JMenu edicion;
@@ -723,7 +839,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton graficasButton;
     private javax.swing.JLabel hastaLabel;
     private javax.swing.JTextField hastaTextField;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox limitadoCheckBox;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JLabel m1Label;
@@ -757,5 +873,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton pausarButton;
     private javax.swing.JMenuItem peorIndivMenuItem;
     private javax.swing.JButton resultadosButton;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

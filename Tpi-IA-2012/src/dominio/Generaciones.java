@@ -66,8 +66,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-//            getPropertyChangeSupport().firePropertyChange("generaciones",generacAnterior,actual);
-            Thread.sleep(10);
+//            Thread.sleep(10);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 

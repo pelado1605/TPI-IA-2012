@@ -719,34 +719,60 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         int[][] rangos = new int[4][8];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
-                rangos[i][j] = 0;
+                rangos[i][j] = Rangos[i][j];
             }
         }
         int cantXAsignar = 0;
         for (int i = 0; i < 8; i++) {
             cantXAsignar += sobrante[i];
         }
-        while (cantXAsignar > 0) {
-            boolean encontrado = false;
-            int material = 0;
-            int producto = 0;
-            while (!encontrado) {
-                producto = suerte.nextInt(4);
-                material = suerte.nextInt(8);
-                if (sobrante[producto] != 0) {
-                    encontrado = true;
-                    sobrante[producto]--;
+        boolean completo = false;
+        while (cantXAsignar > 0 && !completo) {
+            for (int i = 0; i < 8; i++) {
+                int prod = suerte.nextInt(4);
+                if (sobrante[i] > 0 && rangos[prod][i] > 0) {
+                    sobrante[i]--;
+                    rangos[prod][i]--;
+                    receta[prod][i]++;
                 }
             }
-            rangos[producto][material]++;
-            cantXAsignar--;
+            cantXAsignar = 0;
+            for (int i = 0; i < 8; i++) {
+                cantXAsignar += sobrante[i];
+            }
+            int cant = 0;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 8; j++) {
+                    cant += rangos[i][j];
+                }
+            }
+            if (cant < 1) {
+                completo = true;
+            }
+
+            //en cantidad por asignar queda el sobrante de materiales que se desecha
+
+
+//            boolean encontrado = false;
+//            int material = 0;
+//            int producto = 0;
+//            while (!encontrado) {
+//                producto = suerte.nextInt(4);
+//                material = suerte.nextInt(8);
+//                if (sobrante[producto] != 0) {
+//                    encontrado = true;
+//                    sobrante[producto]--;
+//                }
+//            }
+//            rangos[producto][material]++;
+//            cantXAsignar--;
         }
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 8; j++) {
-                receta[i][j] = (getProducto(i) * MMinimos[i][j]) + rangos[i][j];
-            }
-        }
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                receta[i][j] = (getProducto(i) * MMinimos[i][j]) + rangos[i][j];
+//            }
+//        }
 
         return receta;
     }
@@ -776,11 +802,11 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
 
     public static void main(String[] args) {
         Individuo ind = new Individuo(1, 0, 0, 0);
-        int[] mIngresados = {100, 100, 100, 100, 100, 100, 100, 100};
+        int[] mIngresados = {100, 0, 77, 100, 0, 100, 100, 0};
         int[][] receta = ind.calcularReceta(mIngresados);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
-                System.out.print(receta[i][j]+" ");
+                System.out.print(receta[i][j] + " ");
             }
             System.out.println();
         }
