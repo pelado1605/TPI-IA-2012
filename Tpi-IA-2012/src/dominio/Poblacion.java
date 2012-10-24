@@ -21,12 +21,10 @@ public class Poblacion implements Cloneable {
     public static final int SELECCION_RANKING = 2;
     public static final int SELECCION_POR_COPIAS_ESPERADAS = 3;
     public static final int SELECCION_POR_TORNEO = 4;
-    
     private static int cont_selecElitista = 0;
     private static int cont_selecRuleta = 0;
     private static int cont_selecRanking = 0;
     private static int cont_selecContCopias = 0;
-    
     private ArrayList<Individuo> poblado;
     private Random suerte = new Random();
     private float aptitud = 0f;
@@ -51,7 +49,7 @@ public class Poblacion implements Cloneable {
         for (int i = 0; i < cantidad; i++) {
             seleccionados.add(ordenados.get(i));
             cont_selecElitista++;
-        }   
+        }
         return seleccionados;
     }
 
@@ -260,7 +258,7 @@ public class Poblacion implements Cloneable {
      * @return
      */
     public ArrayList<Individuo> cruzarPoblacion(int cantidad) {
-        return cruzarPoblacion(cantidad,1 + suerte.nextInt(2));
+        return cruzarPoblacion(cantidad, 1 + suerte.nextInt(2));
     }
 
     public ArrayList<Individuo> mutarPoblacion(int cantidad) {
@@ -352,17 +350,6 @@ public class Poblacion implements Cloneable {
         return cont_selecContCopias;
     }
 
-    
     public static void main(String[] args) {
-        int[] mIngresados = {5000,5000,5000,5000,5000,5000,5000,5000};
-        Generaciones asd = new Generaciones(.20f, .60f, mIngresados);
-        try {
-            asd.ejecutar();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Poblacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        float uti = asd.getGeneraciones().get(999).getPoblado().get(0).getUtilidad();
-        float goku = Generaciones.gokuFase4.getUtilidad();
-        System.out.println(uti/goku);
     }
 }

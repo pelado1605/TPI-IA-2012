@@ -27,6 +27,7 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         pcs.addPropertyChangeListener(pclBotones);
         parado = true;
+        resultadoDialog = new Resultado(this, true);
     }
 
     /**
@@ -65,7 +66,6 @@ public class Principal extends javax.swing.JFrame {
         m8Label = new javax.swing.JLabel();
         m8TextField = new javax.swing.JTextField();
         opcionesPanel = new javax.swing.JPanel();
-        configButton = new javax.swing.JButton();
         genAleatoriaPanel = new javax.swing.JPanel();
         aleatorioButton = new javax.swing.JButton();
         limitadoCheckBox = new javax.swing.JCheckBox();
@@ -73,10 +73,7 @@ public class Principal extends javax.swing.JFrame {
         desdeTextField = new javax.swing.JTextField();
         hastaLabel = new javax.swing.JLabel();
         hastaTextField = new javax.swing.JTextField();
-        avanceEjecPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        consolaTextArea = new javax.swing.JTextArea();
-        barraDeProgreso = new javax.swing.JProgressBar();
+        configButton = new javax.swing.JButton();
         ejecucionPanel = new javax.swing.JPanel();
         ejecutarButton = new javax.swing.JButton();
         pausarButton = new javax.swing.JButton();
@@ -84,6 +81,10 @@ public class Principal extends javax.swing.JFrame {
         limpiarButton = new javax.swing.JButton();
         graficasButton = new javax.swing.JButton();
         resultadosButton = new javax.swing.JButton();
+        avanceEjecPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consolaTextArea = new javax.swing.JTextArea();
+        barraDeProgreso = new javax.swing.JProgressBar();
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         edicion = new javax.swing.JMenu();
@@ -180,15 +181,6 @@ public class Principal extends javax.swing.JFrame {
 
         opcionesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.opcionesPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
 
-        configButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/package_settings.png"))); // NOI18N
-        configButton.setText(bundle.getString("Principal.configButton.text")); // NOI18N
-        configButton.setPreferredSize(null);
-        configButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                configButtonActionPerformed(evt);
-            }
-        });
-
         genAleatoriaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.genAleatoriaPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
 
         aleatorioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/1350794191_calculator.png"))); // NOI18N
@@ -251,27 +243,78 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout opcionesPanelLayout = new javax.swing.GroupLayout(opcionesPanel);
-        opcionesPanel.setLayout(opcionesPanelLayout);
-        opcionesPanelLayout.setHorizontalGroup(
-            opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(opcionesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(genAleatoriaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(configButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        opcionesPanelLayout.setVerticalGroup(
-            opcionesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(genAleatoriaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(opcionesPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(configButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        opcionesPanel.add(genAleatoriaPanel);
+
+        configButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/package_settings.png"))); // NOI18N
+        configButton.setText(bundle.getString("Principal.configButton.text")); // NOI18N
+        configButton.setPreferredSize(null);
+        configButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configButtonActionPerformed(evt);
+            }
+        });
+        opcionesPanel.add(configButton);
 
         entMaterialesPanel.add(opcionesPanel, java.awt.BorderLayout.CENTER);
+
+        ejecucionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.ejecucionPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
+        ejecucionPanel.setMaximumSize(new java.awt.Dimension(797, 90));
+
+        ejecutarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Play.png"))); // NOI18N
+        ejecutarButton.setText(bundle.getString("Principal.ejecutarButton.text")); // NOI18N
+        ejecutarButton.setPreferredSize(null);
+        ejecutarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ejecutarButtonActionPerformed(evt);
+            }
+        });
+        ejecucionPanel.add(ejecutarButton);
+
+        pausarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Pause.png"))); // NOI18N
+        pausarButton.setText(bundle.getString("Principal.pausarButton.text")); // NOI18N
+        pausarButton.setEnabled(false);
+        pausarButton.setPreferredSize(null);
+        pausarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pausarButtonActionPerformed(evt);
+            }
+        });
+        ejecucionPanel.add(pausarButton);
+
+        pararButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Stop.png"))); // NOI18N
+        pararButton.setText(bundle.getString("Principal.pararButton.text")); // NOI18N
+        pararButton.setEnabled(false);
+        pararButton.setPreferredSize(null);
+        pararButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pararButtonActionPerformed(evt);
+            }
+        });
+        ejecucionPanel.add(pararButton);
+
+        limpiarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/edit-clear.png"))); // NOI18N
+        limpiarButton.setText(bundle.getString("Principal.limpiarButton.text")); // NOI18N
+        limpiarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarButtonActionPerformed(evt);
+            }
+        });
+        ejecucionPanel.add(limpiarButton);
+
+        graficasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/grafica3.png"))); // NOI18N
+        graficasButton.setText(bundle.getString("Principal.graficasButton.text")); // NOI18N
+        graficasButton.setEnabled(false);
+        ejecucionPanel.add(graficasButton);
+
+        resultadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/flag.png"))); // NOI18N
+        resultadosButton.setText(bundle.getString("Principal.resultadosButton.text")); // NOI18N
+        resultadosButton.setEnabled(false);
+        resultadosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultadosButtonActionPerformed(evt);
+            }
+        });
+        ejecucionPanel.add(resultadosButton);
 
         avanceEjecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.avanceEjecPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
         avanceEjecPanel.setToolTipText(bundle.getString("Principal.avanceEjecPanel.toolTipText")); // NOI18N
@@ -286,85 +329,6 @@ public class Principal extends javax.swing.JFrame {
 
         barraDeProgreso.setStringPainted(true);
         avanceEjecPanel.add(barraDeProgreso, java.awt.BorderLayout.PAGE_END);
-
-        ejecucionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.ejecucionPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
-        ejecucionPanel.setMaximumSize(new java.awt.Dimension(797, 90));
-
-        ejecutarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Play.png"))); // NOI18N
-        ejecutarButton.setText(bundle.getString("Principal.ejecutarButton.text")); // NOI18N
-        ejecutarButton.setPreferredSize(null);
-        ejecutarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ejecutarButtonActionPerformed(evt);
-            }
-        });
-
-        pausarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Pause.png"))); // NOI18N
-        pausarButton.setText(bundle.getString("Principal.pausarButton.text")); // NOI18N
-        pausarButton.setEnabled(false);
-        pausarButton.setPreferredSize(null);
-        pausarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pausarButtonActionPerformed(evt);
-            }
-        });
-
-        pararButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Stop.png"))); // NOI18N
-        pararButton.setText(bundle.getString("Principal.pararButton.text")); // NOI18N
-        pararButton.setEnabled(false);
-        pararButton.setPreferredSize(null);
-        pararButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pararButtonActionPerformed(evt);
-            }
-        });
-
-        limpiarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/edit-clear.png"))); // NOI18N
-        limpiarButton.setText(bundle.getString("Principal.limpiarButton.text")); // NOI18N
-
-        graficasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/grafica3.png"))); // NOI18N
-        graficasButton.setText(bundle.getString("Principal.graficasButton.text")); // NOI18N
-        graficasButton.setEnabled(false);
-
-        resultadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/flag.png"))); // NOI18N
-        resultadosButton.setText(bundle.getString("Principal.resultadosButton.text")); // NOI18N
-        resultadosButton.setEnabled(false);
-        resultadosButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resultadosButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ejecucionPanelLayout = new javax.swing.GroupLayout(ejecucionPanel);
-        ejecucionPanel.setLayout(ejecucionPanelLayout);
-        ejecucionPanelLayout.setHorizontalGroup(
-            ejecucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ejecucionPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(ejecutarButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pausarButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pararButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(limpiarButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(graficasButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultadosButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ejecucionPanelLayout.setVerticalGroup(
-            ejecucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ejecucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(pararButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(limpiarButton)
-                .addComponent(graficasButton)
-                .addComponent(resultadosButton))
-            .addGroup(ejecucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(pausarButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(ejecutarButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
 
         barraMenu.setFont(getFont());
 
@@ -393,7 +357,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
             .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -404,7 +368,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(ejecucionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -413,7 +377,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void limitadoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limitadoCheckBoxActionPerformed
         desdeTextField.setEnabled(limitadoCheckBox.isSelected());
+        desdeTextField.setText("");
         hastaTextField.setEnabled(limitadoCheckBox.isSelected());
+        hastaTextField.setText("");
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
 
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
@@ -429,9 +395,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ejecutarButtonActionPerformed
 
     private void resultadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosButtonActionPerformed
-        Resultado r = new Resultado(this, true);
-        r.setLocationRelativeTo(null);
-        r.setVisible(true);
+        resultadoDialog.setLocationRelativeTo(null);
+        resultadoDialog.setVisible(true);
     }//GEN-LAST:event_resultadosButtonActionPerformed
 
     private void pausarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausarButtonActionPerformed
@@ -457,13 +422,23 @@ public class Principal extends javax.swing.JFrame {
             hasta = desde + random.nextInt(99000);
             hastaTextField.setText(String.valueOf(hasta));
         }
-        
+
         for (int i = 0; i < 8; i++) {
             int valor = desde + random.nextInt(hasta - desde);
-            setMatIng(i,valor);
+            setMatIng(i, valor);
         }
-        
+
     }//GEN-LAST:event_aleatorioButtonActionPerformed
+
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        setParado(true);
+        setEjecutandose(false);
+        consolaTextArea.setText("");
+        barraDeProgreso.setValue(0);
+        for (int i = 0; i < 8; i++) {
+            setMatIng(i, 1000);
+        }
+    }//GEN-LAST:event_limpiarButtonActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -699,18 +674,23 @@ public class Principal extends javax.swing.JFrame {
                 barraDeProgreso.setValue((int) evt.getNewValue());
             }
             if ("generacion".equals(evt.getPropertyName())) {
-                System.out.println(isParado() + " " + isEjecutandose());
-                consolaTextArea.removeAll();
-                Poblacion pob = (Poblacion) evt.getOldValue();
+                consolaTextArea.setText("");
+                Poblacion poblacion = (Poblacion) evt.getOldValue();
                 int cont = 0;
-                for (Individuo individuo : pob.getPoblado()) {
-                    consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
+                for (Individuo individuo : poblacion.getPoblado()) {
+                    String cadena = String.format("%s$s", cont, individuo.mostrarProductos());
+                    consolaTextArea.append(cadena+"\n");
                     cont++;
                 }
+                resultadoDialog.getInd1Label().setText(poblacion.getPoblado().get(0).mostrarProductos());
+                resultadoDialog.getInd2Label().setText(poblacion.getPoblado().get(1).mostrarProductos());
+                resultadoDialog.getInd3Label().setText(poblacion.getPoblado().get(2).mostrarProductos());
+                resultadoDialog.getU1Label().setText(String.valueOf(poblacion.getPoblado().get(0).getUtilidad()));
+                resultadoDialog.getU2Label().setText(String.valueOf(poblacion.getPoblado().get(1).getUtilidad()));
+                resultadoDialog.getU3Label().setText(String.valueOf(poblacion.getPoblado().get(2).getUtilidad()));
                 consolaTextArea.append("-----------------------------------------------------------\n");
-                pob = (Poblacion) evt.getOldValue();
-                cont = 0;
-                for (Individuo individuo : pob.getPoblado()) {
+                poblacion = (Poblacion) evt.getNewValue();
+                for (Individuo individuo : poblacion.getPoblado()) {
                     consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
                     cont++;
                 }
@@ -722,6 +702,7 @@ public class Principal extends javax.swing.JFrame {
     private boolean ejecutandose;
     private boolean parado;
     private Random random = new Random();
+    private Resultado resultadoDialog;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ApPromMenuItem;
     private javax.swing.JButton aleatorioButton;

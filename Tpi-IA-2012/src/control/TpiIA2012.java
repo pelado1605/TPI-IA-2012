@@ -29,12 +29,20 @@ public class TpiIA2012 {
     ActionListener actionListenerEjecutar = new ActionListener() {
         @Override
         public synchronized void actionPerformed(ActionEvent e) {
-            System.out.println(e.getActionCommand());
             if (e.getActionCommand().equals("Ejecutar")) {
                 if (vPrincipal.isParado()) {
+                    System.out.println("entró");
+//                    vPrincipal.getPararButton().removeActionListener(generaciones.getAl());
+//                    vPrincipal.getPausarButton().removeActionListener(generaciones.getAl());
+                    if (generaciones != null) {
+                        generaciones.removePCl(vPrincipal.getPclModelo());
+                    }
+                    vPrincipal.getPararButton().removeAll();
+                    vPrincipal.getPausarButton().removeAll();
                     generaciones = new Generaciones(.2f, .6f, vPrincipal.getMatIngs());
                     generaciones.addPCl(vPrincipal.getPclModelo());
-                    vPrincipal.getPausarButton().addActionListener(generaciones.getAl());
+                    vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
+                    vPrincipal.getPararButton().addActionListener(generaciones.getAl());//lo mismo que arriba
                     generaciones.execute();
                 } else {
                     synchronized (generaciones) {
@@ -50,7 +58,7 @@ public class TpiIA2012 {
             }
             if (e.getActionCommand().equals("Parar")) {
                 System.out.println("aaasdasdasdasdasdasdasdasdadasdasdsd");
-                generaciones.cancel(false);
+                generaciones.cancel(true);
             }
         }
     };

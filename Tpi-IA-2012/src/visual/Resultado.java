@@ -4,6 +4,8 @@
  */
 package visual;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Ruben
@@ -47,8 +49,6 @@ public class Resultado extends javax.swing.JDialog {
         receta3Label = new javax.swing.JButton();
         aceptarLabel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
         combinacionesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Tres mejores combinaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
         combinacionesPanel.setLayout(new java.awt.GridLayout(4, 4, 0, 4));
 
@@ -79,12 +79,12 @@ public class Resultado extends javax.swing.JDialog {
 
         ind1Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         ind1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ind1Label.setText("(15,45,1,35)");
+        ind1Label.setText("(0,0,0,0)");
         combinacionesPanel.add(ind1Label);
 
         u1Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         u1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        u1Label.setText("5464653,00");
+        u1Label.setText("0.0");
         combinacionesPanel.add(u1Label);
 
         receta1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
@@ -103,12 +103,12 @@ public class Resultado extends javax.swing.JDialog {
 
         ind2Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         ind2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ind2Label.setText("(15,45,1,33)");
+        ind2Label.setText("(0,0,0,0)");
         combinacionesPanel.add(ind2Label);
 
         u2Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         u2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        u2Label.setText("jLabel12");
+        u2Label.setText("0.0");
         combinacionesPanel.add(u2Label);
 
         receta2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
@@ -122,12 +122,12 @@ public class Resultado extends javax.swing.JDialog {
 
         ind3Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         ind3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ind3Label.setText("(14,44,2,35)");
+        ind3Label.setText("(0,0,0,0)");
         combinacionesPanel.add(ind3Label);
 
         u3Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         u3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        u3Label.setText("jLabel16");
+        u3Label.setText("0.0");
         combinacionesPanel.add(u3Label);
 
         receta3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
@@ -213,6 +213,31 @@ public class Resultado extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+        
+    }
+
+    public JLabel getInd1Label() {
+        return ind1Label;
+    }
+
+    public JLabel getInd2Label() {
+        return ind2Label;
+    }
+
+    public JLabel getInd3Label() {
+        return ind3Label;
+    }
+
+    public JLabel getU1Label() {
+        return u1Label;
+    }
+
+    public JLabel getU2Label() {
+        return u2Label;
+    }
+
+    public JLabel getU3Label() {
+        return u3Label;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarLabel;

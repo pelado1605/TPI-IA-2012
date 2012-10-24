@@ -38,12 +38,14 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //    private Archivador archivador;
     private Formatter formato = new Formatter();
     private boolean pausado = false;
+    private int iteracionActual = 0;
 
-    public void ejecutar() throws InterruptedException {
+    @Override
+    protected Boolean doInBackground() throws InterruptedException, Exception {
 //        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
 //                + " " + Calendar.getInstance().getTime().getMinutes() + " "
 //                + Calendar.getInstance().getTime().getSeconds()+".txt");
-        int iteracionActual = 0;
+        iteracionActual = 0;
         float probMutacion = 0;
         generarPoblacionInicial();
         generaciones.get(0).evaluarAptitud(materialesIng);
@@ -65,7 +67,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
 //            getPropertyChangeSupport().firePropertyChange("generaciones",generacAnterior,actual);
-//            Thread.sleep(10);
+            Thread.sleep(10);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 
@@ -78,7 +80,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             iteracionActual++;
             publish(actual);
             int progreso = iteracionActual / (CANTIDAD_ITERACIONES / 100);
-            System.out.println(progreso);
             setProgress(progreso);
         }
         Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
@@ -99,6 +100,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             System.out.println();
 //            archivador.cerrarArchivo();
         }
+        return true;
     }
 
     public ArrayList<Individuo> generarPoblacionInicial() {
@@ -193,11 +195,9 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     public void addPCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().addPropertyChangeListener(pcl);
     }
-
-    @Override
-    protected Boolean doInBackground() throws Exception {
-        ejecutar();
-        return true;
+    
+    public void removePCl(PropertyChangeListener pcl){
+        getPropertyChangeSupport().removePropertyChangeListener(pcl);
     }
 
     @Override
@@ -207,10 +207,12 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     private ActionListener al = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("Pausar")) {
-                getPropertyChangeSupport().firePropertyChange("generacion", generaciones.get(generaciones.size()-2),
-                        generaciones.get(generaciones.size() - 1));
+            if (e.getActionCommand().equals("Pausar")
+                    | e.getActionCommand().equals("Parar")) {
+                getPropertyChangeSupport().firePropertyChange("generacion", generaciones.get(iteracionActual-1),
+                        generaciones.get(iteracionActual));
             }
+            System.out.println(e.getActionCommand());
         }
     };
 
