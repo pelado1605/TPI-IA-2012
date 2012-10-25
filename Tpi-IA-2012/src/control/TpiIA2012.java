@@ -24,6 +24,7 @@ public class TpiIA2012 {
         vPrincipal.getEjecutarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPausarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPararButton().addActionListener(actionListenerEjecutar);
+        vPrincipal.getPasoApasoButton().addActionListener(actionListenerEjecutar);
         vPrincipal.setVisible(true);
     }
     ActionListener actionListenerEjecutar = new ActionListener() {
@@ -31,18 +32,7 @@ public class TpiIA2012 {
         public synchronized void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("Ejecutar")) {
                 if (vPrincipal.isParado()) {
-                    System.out.println("entró");
-//                    vPrincipal.getPararButton().removeActionListener(generaciones.getAl());
-//                    vPrincipal.getPausarButton().removeActionListener(generaciones.getAl());
-                    if (generaciones != null) {
-                        generaciones.removePCl(vPrincipal.getPclModelo());
-                    }
-                    vPrincipal.getPararButton().removeAll();
-                    vPrincipal.getPausarButton().removeAll();
-                    generaciones = new Generaciones(.2f, .6f, vPrincipal.getMatIngs());
-                    generaciones.addPCl(vPrincipal.getPclModelo());
-                    vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
-                    vPrincipal.getPararButton().addActionListener(generaciones.getAl());//lo mismo que arriba
+                    inicializarEjecucion();
                     generaciones.execute();
                 } else {
                     synchronized (generaciones) {
@@ -57,11 +47,34 @@ public class TpiIA2012 {
                 }
             }
             if (e.getActionCommand().equals("Parar")) {
-                System.out.println("aaasdasdasdasdasdasdasdasdadasdasdsd");
                 generaciones.cancel(true);
             }
+            if (e.getActionCommand().equals("Ste. Iteracion")) {
+                if (vPrincipal.isParado()) {
+                    inicializarEjecucion();
+                    generaciones.setPausado(true);
+                    generaciones.execute();
+                }
+                    synchronized (generaciones) {
+                        generaciones.notify();
+                }
+            }
+
         }
     };
+
+    private void inicializarEjecucion() {
+        if (generaciones != null) {
+            generaciones.removePCl(vPrincipal.getPclModelo());
+        }
+        vPrincipal.getPararButton().removeAll();
+        vPrincipal.getPausarButton().removeAll();
+        generaciones = new Generaciones(.2f, .6f, vPrincipal.getMatIngs());
+        generaciones.addPCl(vPrincipal.getPclModelo());
+        vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
+        vPrincipal.getPararButton().addActionListener(generaciones.getAl());//lo mismo que arriba
+        vPrincipal.getPasoApasoButton().addActionListener(generaciones.getAl());//lo mismo que arriba
+    }
 
     /**
      * @param args the command line arguments

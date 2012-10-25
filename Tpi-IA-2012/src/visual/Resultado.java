@@ -19,6 +19,7 @@ public class Resultado extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        pack();
     }
 
     /**

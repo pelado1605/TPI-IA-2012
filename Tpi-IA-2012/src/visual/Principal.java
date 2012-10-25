@@ -9,13 +9,11 @@ import dominio.Poblacion;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -83,6 +81,7 @@ public class Principal extends javax.swing.JFrame {
         configButton = new javax.swing.JButton();
         ejecucionPanel = new javax.swing.JPanel();
         ejecutarButton = new javax.swing.JButton();
+        pasoApasoButton = new javax.swing.JButton();
         pausarButton = new javax.swing.JButton();
         pararButton = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
@@ -317,6 +316,11 @@ public class Principal extends javax.swing.JFrame {
         });
         ejecucionPanel.add(ejecutarButton);
 
+        pasoApasoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/next.png"))); // NOI18N
+        pasoApasoButton.setText(bundle.getString("Principal.pasoApasoButton.text")); // NOI18N
+        pasoApasoButton.setEnabled(false);
+        ejecucionPanel.add(pasoApasoButton);
+
         pausarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Pause.png"))); // NOI18N
         pausarButton.setText(bundle.getString("Principal.pausarButton.text")); // NOI18N
         pausarButton.setEnabled(false);
@@ -408,7 +412,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -681,6 +685,10 @@ public class Principal extends javax.swing.JFrame {
         return pausarButton;
     }
 
+    public JButton getPasoApasoButton() {
+        return pasoApasoButton;
+    }
+
     public JTextField getM1TextField() {
         return m1TextField;
     }
@@ -739,10 +747,12 @@ public class Principal extends javax.swing.JFrame {
                     limpiarButton.setEnabled(false);
                     graficasButton.setEnabled(false);
                     resultadosButton.setEnabled(false);
+                    pasoApasoButton.setEnabled(false);
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
                     graficasButton.setEnabled(true);
+                    pasoApasoButton.setEnabled(true);
 
                 }
             }
@@ -755,6 +765,7 @@ public class Principal extends javax.swing.JFrame {
                     limpiarButton.setEnabled(true);
                     graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(true);
+                    pasoApasoButton.setEnabled(false);
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
@@ -762,6 +773,7 @@ public class Principal extends javax.swing.JFrame {
                     limpiarButton.setEnabled(false);
                     graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(false);
+                    pasoApasoButton.setEnabled(false);
                 }
             }
         }
@@ -870,6 +882,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mejorIndivMenuItem;
     private javax.swing.JPanel opcionesPanel;
     private javax.swing.JButton pararButton;
+    private javax.swing.JButton pasoApasoButton;
     private javax.swing.JButton pausarButton;
     private javax.swing.JMenuItem peorIndivMenuItem;
     private javax.swing.JButton resultadosButton;

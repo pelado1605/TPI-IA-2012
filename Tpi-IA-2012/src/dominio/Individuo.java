@@ -417,7 +417,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         for (int i = 0; i < 4; i++) {
             int posicion = aleatorio & (int) Math.pow(2, i);
             if (posicion != 0) {
-                int nuevoValor = suerte.nextInt((int) (Generaciones.gokuFase4.getProducto(3 - i) * 1.2));
+                int nuevoValor = suerte.nextInt((int) (Generaciones.gokuFase4.getProducto(3 - i) * 1.2 + 1));//el mas 1 es por el tema de su el valor es 0 y 1
                 this.setProducto(3 - i, nuevoValor);
             }
         }
