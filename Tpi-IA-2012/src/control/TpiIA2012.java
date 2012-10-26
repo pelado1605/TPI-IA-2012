@@ -7,6 +7,8 @@ package control;
 import dominio.Generaciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import visual.Principal;
 
 /**
@@ -55,8 +57,8 @@ public class TpiIA2012 {
                     generaciones.setPausado(true);
                     generaciones.execute();
                 }
-                    synchronized (generaciones) {
-                        generaciones.notify();
+                synchronized (generaciones) {
+                    generaciones.notify();
                 }
             }
 
@@ -80,6 +82,19 @@ public class TpiIA2012 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try {
+            // Set cross-platform Java L&F (also called "Metal")
+            UIManager.setLookAndFeel(
+                    "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (UnsupportedLookAndFeelException e) {
+            // handle exception
+        } catch (ClassNotFoundException e) {
+            // handle exception
+        } catch (InstantiationException e) {
+            // handle exception
+        } catch (IllegalAccessException e) {
+            // handle exception
+        }
         TpiIA2012 tpiIA2012 = new TpiIA2012();
 //        tpiIA2012.generaciones.execute();
     }

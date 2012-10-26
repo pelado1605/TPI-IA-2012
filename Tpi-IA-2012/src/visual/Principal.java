@@ -6,6 +6,7 @@ package visual;
 
 import dominio.Individuo;
 import dominio.Poblacion;
+import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -14,9 +15,12 @@ import java.text.NumberFormat;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -33,6 +37,9 @@ public class Principal extends javax.swing.JFrame {
         pcs.addPropertyChangeListener(pclBotones);
         parado = true;
         resultadoDialog = new Resultado(this, true);
+
+        JTableHeader header = tabla.getTableHeader();
+        header.setDefaultRenderer(new HeaderRenderer(tabla));
     }
 
     /**
@@ -90,7 +97,12 @@ public class Principal extends javax.swing.JFrame {
         avanceEjecPanel = new javax.swing.JPanel();
         barraDeProgreso = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        tabla =         new javax.swing.JTable() {
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                 return false;
+             }
+         };
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         edicion = new javax.swing.JMenu();
@@ -101,7 +113,8 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(900, 500));
+        setMinimumSize(new java.awt.Dimension(845, 500));
+        setPreferredSize(new java.awt.Dimension(845, 500));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("visual/Bundle"); // NOI18N
         entMaterialesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.entMaterialesPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
@@ -372,7 +385,7 @@ public class Principal extends javax.swing.JFrame {
         avanceEjecPanel.setLayout(new java.awt.BorderLayout(0, 5));
 
         barraDeProgreso.setStringPainted(true);
-        avanceEjecPanel.add(barraDeProgreso, java.awt.BorderLayout.PAGE_END);
+        avanceEjecPanel.add(barraDeProgreso, java.awt.BorderLayout.SOUTH);
 
         tabla.setModel(modelo);
         tabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -413,7 +426,7 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
             .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -424,7 +437,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(ejecucionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -727,6 +740,7 @@ public class Principal extends javax.swing.JFrame {
                 new String[]{
                     "#", "Generación", "Individuo", "Utilidad", "Aptitud"
                 });
+
         tabla.setModel(modelo);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -735,6 +749,24 @@ public class Principal extends javax.swing.JFrame {
         tabla.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         tabla.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         tabla.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+    }
+
+    private static class HeaderRenderer implements TableCellRenderer {
+
+        DefaultTableCellRenderer renderer;
+
+        public HeaderRenderer(JTable table) {
+            renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int col) {
+            return renderer.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, col);
+        }
     }
     private PropertyChangeListener pclBotones = new PropertyChangeListener() {
         @Override
