@@ -827,8 +827,8 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     }
 
     public static void main(String[] args) {
-        Individuo ind = new Individuo(1, 1, 0, 0);
-        int[] mIngresados = {100, 100, 100, 100, 100, 100, 100, 100};
+        Individuo ind = new Individuo(28,153,29,55);
+        int[] mIngresados = {6828, 9977, 15179, 8280, 15913, 18345, 14888, 13614};
         int[][] receta = ind.calcularReceta(mIngresados);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
