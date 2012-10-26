@@ -10,17 +10,22 @@ import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Random;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import sun.org.mozilla.javascript.internal.ast.TryStatement;
 
 /**
  *
@@ -37,7 +42,6 @@ public class Principal extends javax.swing.JFrame {
         pcs.addPropertyChangeListener(pclBotones);
         parado = true;
         resultadoDialog = new Resultado(this, true);
-
         JTableHeader header = tabla.getTableHeader();
         header.setDefaultRenderer(new HeaderRenderer(tabla));
     }
@@ -129,6 +133,7 @@ public class Principal extends javax.swing.JFrame {
 
         m1TextField.setColumns(5);
         m1TextField.setText(bundle.getString("Principal.m1TextField.text")); // NOI18N
+        m1TextField.setInputVerifier(new ValidacionNumerica());
         m1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m1TextFieldFocusGained(evt);
@@ -143,6 +148,7 @@ public class Principal extends javax.swing.JFrame {
 
         m2TextField.setColumns(5);
         m2TextField.setText(bundle.getString("Principal.m2TextField.text")); // NOI18N
+        m2TextField.setInputVerifier(new ValidacionNumerica());
         m2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m2TextFieldFocusGained(evt);
@@ -157,6 +163,7 @@ public class Principal extends javax.swing.JFrame {
 
         m3TextField.setColumns(5);
         m3TextField.setText(bundle.getString("Principal.m3TextField.text")); // NOI18N
+        m3TextField.setInputVerifier(new ValidacionNumerica());
         m3TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m3TextFieldFocusGained(evt);
@@ -171,6 +178,7 @@ public class Principal extends javax.swing.JFrame {
 
         m4TextField.setColumns(5);
         m4TextField.setText(bundle.getString("Principal.m4TextField.text")); // NOI18N
+        m4TextField.setInputVerifier(new ValidacionNumerica());
         m4TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m4TextFieldFocusGained(evt);
@@ -185,6 +193,7 @@ public class Principal extends javax.swing.JFrame {
 
         m5TextField.setColumns(5);
         m5TextField.setText(bundle.getString("Principal.m5TextField.text")); // NOI18N
+        m5TextField.setInputVerifier(new ValidacionNumerica());
         m5TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m5TextFieldFocusGained(evt);
@@ -199,6 +208,7 @@ public class Principal extends javax.swing.JFrame {
 
         m6TextField.setColumns(5);
         m6TextField.setText(bundle.getString("Principal.m6TextField.text")); // NOI18N
+        m6TextField.setInputVerifier(new ValidacionNumerica());
         m6TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m6TextFieldFocusGained(evt);
@@ -213,6 +223,7 @@ public class Principal extends javax.swing.JFrame {
 
         m7TextField.setColumns(5);
         m7TextField.setText(bundle.getString("Principal.m7TextField.text")); // NOI18N
+        m7TextField.setInputVerifier(new ValidacionNumerica());
         m7TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m7TextFieldFocusGained(evt);
@@ -227,6 +238,7 @@ public class Principal extends javax.swing.JFrame {
 
         m8TextField.setColumns(5);
         m8TextField.setText(bundle.getString("Principal.m8TextField.text")); // NOI18N
+        m8TextField.setInputVerifier(new ValidacionNumerica());
         m8TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m8TextFieldFocusGained(evt);
@@ -262,12 +274,14 @@ public class Principal extends javax.swing.JFrame {
         desdeTextField.setColumns(15);
         desdeTextField.setText(bundle.getString("Principal.desdeTextField.text")); // NOI18N
         desdeTextField.setEnabled(false);
+        desdeTextField.setInputVerifier(new ValidacionNumerica());
 
         hastaLabel.setText(bundle.getString("Principal.hastaLabel.text")); // NOI18N
 
         hastaTextField.setColumns(15);
         hastaTextField.setText(bundle.getString("Principal.hastaTextField.text")); // NOI18N
         hastaTextField.setEnabled(false);
+        hastaTextField.setInputVerifier(new ValidacionNumerica());
 
         javax.swing.GroupLayout genAleatoriaPanelLayout = new javax.swing.GroupLayout(genAleatoriaPanel);
         genAleatoriaPanel.setLayout(genAleatoriaPanelLayout);
@@ -853,7 +867,7 @@ public class Principal extends javax.swing.JFrame {
 //                consolaTextArea.append("-----------------------------------------------------------\n");
             }
         }
-    };
+};
     private DefaultTableModel modelo = new DefaultTableModel(
             new Object[][]{},
             new String[]{
