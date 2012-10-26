@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package visual;
+package visual.validaciones;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;

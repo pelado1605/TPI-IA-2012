@@ -713,8 +713,8 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         Individuo.cont_cruzaSimple = cont_cruzaSimple;
     }
 
-    public int[][] calcularReceta(int[] mIngs) {
-        int[][] receta = new int[4][8];
+//    public int[][] calcularReceta(int[] mIngs) {
+//        int[][] receta = new int[4][8];
 //        int[] sobrante = calcDiferencia(mIngs);//cant de mat que queda por asignar
 //        int[][] rangos = new int[4][8];
 //        for (int i = 0; i < 4; i++) {
@@ -753,13 +753,53 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
 //            //en cantidad por asignar queda el sobrante de materiales que se desecha
 //
 //        }
-
+//
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                receta[i][j] = (getProducto(i) * MMinimos[i][j]);// + rangos[i][j];
+//            }
+//        }
+//
+//        return receta;
+//    }
+    
+      public int[][] calcularReceta(int[] mIngs) {
+        int[][] receta = new int[4][8];
+        
+        int[] totalconsumido= new int[8];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
-                receta[i][j] = (getProducto(i) * MMinimos[i][j]);// + rangos[i][j];
+                receta[i][j] =  MMaximos[i][j];// + rangos[i][j];
+                totalconsumido[j]=totalconsumido[j]+(getProducto(i) *receta[i][j]);
             }
         }
+        for (int i = 0; i < 8; i++) {
+            totalconsumido[i]= mIngs[i]- totalconsumido[i];
+        }
+        int aux;
+        int salto;
+       
+        for (int i = 0; i < 8; i++) {
+        
+            while (totalconsumido[i] <= 0) {               
+                //buscar el menor material que no este en el minimo...
+                //en verdad hay que preguntar.. ¿¿Que salto se aproxima mas a cero??
+                aux=0;
+                salto= Integer.MIN_VALUE;    
+                for (int j = 0; j < 4; j++) {
+                    if ((salto <= getProducto(j)) && (receta[j][i] > MMinimos[j][i]) ){
+                        aux=j;
+                        salto = getProducto(j);
+                    }
+                }
 
+                if (receta[aux][i] > MMinimos[aux][i]) {
+                    receta[aux][i]= receta[aux][i]-1;
+                    totalconsumido[i] = totalconsumido[i] + getProducto(aux);
+                }
+                }
+            }
+    
         return receta;
     }
 
@@ -787,8 +827,8 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     }
 
     public static void main(String[] args) {
-        Individuo ind = new Individuo(2, 0, 1, 2);
-        int[] mIngresados = {100, 0, 77, 100, 0, 100, 100, 0};
+        Individuo ind = new Individuo(1, 1, 0, 0);
+        int[] mIngresados = {100, 100, 100, 100, 100, 100, 100, 100};
         int[][] receta = ind.calcularReceta(mIngresados);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {

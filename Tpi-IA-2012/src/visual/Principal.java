@@ -4,6 +4,7 @@
  */
 package visual;
 
+import visual.validaciones.ValidacionNumerica;
 import dominio.Individuo;
 import dominio.Poblacion;
 import java.awt.Component;
@@ -794,6 +795,7 @@ public class Principal extends javax.swing.JFrame {
                     graficasButton.setEnabled(false);
                     resultadosButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
+                    habilitarEntradasm(false);
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
@@ -812,6 +814,7 @@ public class Principal extends javax.swing.JFrame {
                     graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(true);
                     pasoApasoButton.setEnabled(false);
+                    habilitarEntradasm(true);
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
@@ -822,6 +825,17 @@ public class Principal extends javax.swing.JFrame {
                     pasoApasoButton.setEnabled(false);
                 }
             }
+        }
+
+        private void habilitarEntradasm(boolean entrada) {
+            m1TextField.setEnabled(entrada);
+            m2TextField.setEnabled(entrada);
+            m3TextField.setEnabled(entrada);
+            m4TextField.setEnabled(entrada);
+            m5TextField.setEnabled(entrada);
+            m6TextField.setEnabled(entrada);
+            m7TextField.setEnabled(entrada);
+            m8TextField.setEnabled(entrada);
         }
     };
     private PropertyChangeListener pclModelo = new PropertyChangeListener() {
