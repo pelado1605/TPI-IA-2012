@@ -4,56 +4,13 @@
  */
 package visual;
 
-import dominio.Generaciones;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.xy.XYDataset;
-
 /**
  *
  * @author German
  */
 public class Graficas extends javax.swing.JFrame {
     
-    Generaciones miGeneracion;
-       
-    private XYDataset obtenerDatosGrafica(){
-        //inicializacion de la generación para la prueba
-        int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
-        miGeneracion = new Generaciones(0.2f, 0.4f, mIngresados);
-        miGeneracion.
-        
-        
-        return dataset;
-    }
-
-    /**
-     * Creates new form Graficas
-     */
-    public Graficas() {
-        initComponents();
-        this.series = new TimeSeries("Random Data", Millisecond.class);
-        final TimeSeriesCollection dataset = new TimeSeriesCollection(this.series);
-        final JFreeChart chart = createChart(dataset);
-
-        final ChartPanel chartPanel = new ChartPanel(chart);
-        final JButton button = new JButton("Add New Data Item");
-        button.setActionCommand("ADD_DATA");
-        button.addActionListener(this);
-
-        final JPanel content = new JPanel(new BorderLayout());
-        content.add(chartPanel);
-        content.add(button, BorderLayout.SOUTH);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        setContentPane(content);
-
-    }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.

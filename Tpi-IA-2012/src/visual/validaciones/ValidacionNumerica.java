@@ -25,7 +25,6 @@ public class ValidacionNumerica extends InputVerifier {
                 if (value < 0) {
                     JOptionPane.showMessageDialog(null, "El valor de los gramos debe ser positivo", "Error de formato", JOptionPane.ERROR_MESSAGE);
                     valido = false;
-
                 }
             } else {
                 ((JTextField) input).setText("0");

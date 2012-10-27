@@ -312,6 +312,8 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        hastaTextField.getAccessibleContext().setAccessibleName(bundle.getString("Principal.hastaTextField.AccessibleContext.accessibleName")); // NOI18N
+
         opcionesPanel.add(genAleatoriaPanel);
 
         configButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/package_settings.png"))); // NOI18N
@@ -518,7 +520,7 @@ public class Principal extends javax.swing.JFrame {
         inicializarTabla();
         barraDeProgreso.setValue(0);
         for (int i = 0; i < 8; i++) {
-            setMatIng(i, 1000);
+            setMatIng(i, 0);
         }
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
@@ -556,7 +558,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void graficasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficasButtonActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_graficasButtonActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
@@ -757,7 +758,7 @@ public class Principal extends javax.swing.JFrame {
         modelo = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
                 });
 
         tabla.setModel(modelo);
@@ -854,7 +855,7 @@ public class Principal extends javax.swing.JFrame {
                 int cont = 1;
                 inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    Object[] fila = {cont, 2, individuo.mostrarProductos(), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    Object[] fila = {cont, 2, individuo.mostrarProductos(), individuo.getUtilidad(),"si", formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }
@@ -885,11 +886,11 @@ public class Principal extends javax.swing.JFrame {
 //                consolaTextArea.append("-----------------------------------------------------------\n");
             }
         }
-};
+    };
     private DefaultTableModel modelo = new DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "#", "Generación", "Individuo", "Utilidad", "Aptitud"
+                "#", "Generación", "Individuo","Factible", "Utilidad", "Aptitud"
             });
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean ejecutandose;
