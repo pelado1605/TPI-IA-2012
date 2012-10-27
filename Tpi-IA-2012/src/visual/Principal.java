@@ -4,29 +4,24 @@
  */
 package visual;
 
-import visual.validaciones.ValidacionNumerica;
 import dominio.Individuo;
 import dominio.Poblacion;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Random;
-import javax.swing.InputVerifier;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
-import sun.org.mozilla.javascript.internal.ast.TryStatement;
+import visual.validaciones.ValidacionNumerica;
 
 /**
  *
@@ -384,6 +379,11 @@ public class Principal extends javax.swing.JFrame {
         graficasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/grafica3.png"))); // NOI18N
         graficasButton.setText(bundle.getString("Principal.graficasButton.text")); // NOI18N
         graficasButton.setEnabled(false);
+        graficasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graficasButtonActionPerformed(evt);
+            }
+        });
         ejecucionPanel.add(graficasButton);
 
         resultadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/flag.png"))); // NOI18N
@@ -500,9 +500,9 @@ public class Principal extends javax.swing.JFrame {
             desde = Integer.parseInt(desdeTextField.getText());
             hasta = Integer.parseInt(hastaTextField.getText());
         } else {
-            desde = random.nextInt(1000);
+            desde = random.nextInt(10000);
             desdeTextField.setText(String.valueOf(desde));
-            hasta = desde + random.nextInt(99000);
+            hasta = desde + random.nextInt(990000);
             hastaTextField.setText(String.valueOf(hasta));
         }
 
@@ -554,6 +554,11 @@ public class Principal extends javax.swing.JFrame {
     private void m3TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m3TextFieldFocusGained
         m3TextField.selectAll();
     }//GEN-LAST:event_m3TextFieldFocusGained
+
+    private void graficasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficasButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_graficasButtonActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);

@@ -7,6 +7,8 @@ package dominio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Formatter;
@@ -39,7 +41,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     private Formatter formato = new Formatter();
     private boolean pausado = false;
     private int iteracionActual = 0;
-    
+        
     @Override
     protected Boolean doInBackground() throws InterruptedException, Exception {
 //        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
@@ -66,7 +68,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-            Thread.sleep(10);
+//            Thread.sleep(10);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 
@@ -97,11 +99,43 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
             System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
             
-            System.out.println();
+            
 //            archivador.cerrarArchivo();
         }
+        System.out.println();
+//        NumberFormat formatter = new DecimalFormat("####0.00");
+//            float[] aptitudes = aptitudMejorInd(iteracionActual,0);
+//            for (float f : aptitudes) {
+//                System.out.println(formatter.format(f));
+//            }
+//            
+//            aptitudes = aptitudpromedio(iteracionActual);
+//            System.out.println();
+//           for (float f : aptitudes) {
+//            System.out.println(formatter.format(f));
+//        }
         return true;
     }
+    
+//    public float[] aptitudMejorInd (int iteracion, int posicion){
+//        float[] mejoraptitud = new float[iteracion];
+//        for (int i = 0; i < iteracion; i++) {
+//            mejoraptitud[i] = generaciones.get(i).devolverIndividuo(posicion).getAptitud();                 
+//        }
+//        return mejoraptitud;
+//    }
+//    
+//    public float[] aptitudpromedio  (int iteracion) {
+//        float[] aptpormedio = new float[iteracion];
+//        
+//        for (int i = 0; i < iteracion; i++) {
+//            aptpormedio[i]=generaciones.get(i).getAptitudPromedio();
+//        }
+//             
+//        return aptpormedio;
+//         }
+            
+    
     
     public ArrayList<Individuo> generarPoblacionInicial() {
         ArrayList<Individuo> nueva = new ArrayList<>();

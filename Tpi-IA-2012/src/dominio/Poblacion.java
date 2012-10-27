@@ -39,6 +39,16 @@ public class Poblacion implements Cloneable {
         this.rMin = rMin;
         getAptitudPoblacion();
     }
+    
+    public Individuo devolverIndividuo(int index){
+        Individuo buscado = new Individuo();
+        ArrayList<Individuo> ordenados = (ArrayList<Individuo>) poblado.clone();
+        Collections.sort(ordenados);
+        
+        buscado = ordenados.get(index);
+        
+        return buscado;
+    }
 
     public ArrayList<Individuo> seleccionElitista(int cantidad, ArrayList<Individuo> entrada) {
         ArrayList<Individuo> ordenados = (ArrayList<Individuo>) entrada.clone();
