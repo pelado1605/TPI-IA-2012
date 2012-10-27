@@ -712,60 +712,9 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     public static void setCont_cruzaSimple(int cont_cruzaSimple) {
         Individuo.cont_cruzaSimple = cont_cruzaSimple;
     }
-
-//    public int[][] calcularReceta(int[] mIngs) {
-//        int[][] receta = new int[4][8];
-//        int[] sobrante = calcDiferencia(mIngs);//cant de mat que queda por asignar
-//        int[][] rangos = new int[4][8];
-//        for (int i = 0; i < 4; i++) {
-//            for (int j = 0; j < 8; j++) {
-//                rangos[i][j] = Rangos[i][j];
-//            }
-//        }
-//        int cantXAsignar = 0;
-//        for (int i = 0; i < 8; i++) {
-//            cantXAsignar += sobrante[i];
-//        }
-//        boolean completo = false;
-//        while (cantXAsignar > 0 && !completo) {
-//            for (int i = 0; i < 8; i++) {
-//                int prod = suerte.nextInt(4);
-//                if (sobrante[i] > 0 && rangos[prod][i] > 0) {
-//                    sobrante[i]--;
-//                    rangos[prod][i]--;
-//                    receta[prod][i]++;
-//                }
-//            }
-//            cantXAsignar = 0;
-//            for (int i = 0; i < 8; i++) {
-//                cantXAsignar += sobrante[i];
-//            }
-//            int cant = 0;
-//            for (int i = 0; i < 4; i++) {
-//                for (int j = 0; j < 8; j++) {
-//                    cant += rangos[i][j];
-//                }
-//            }
-//            if (cant < 1) {
-//                completo = true;
-//            }
-//
-//            //en cantidad por asignar queda el sobrante de materiales que se desecha
-//
-//        }
-//
-//        for (int i = 0; i < 4; i++) {
-//            for (int j = 0; j < 8; j++) {
-//                receta[i][j] = (getProducto(i) * MMinimos[i][j]);// + rangos[i][j];
-//            }
-//        }
-//
-//        return receta;
-//    }
     
       public int[][] calcularReceta(int[] mIngs) {
         int[][] receta = new int[4][8];
-        
         int[] totalconsumido= new int[8];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
@@ -785,14 +734,13 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
                 //buscar el menor material que no este en el minimo...
                 //en verdad hay que preguntar.. ¿¿Que salto se aproxima mas a cero??
                 aux=0;
-                salto= Integer.MIN_VALUE;    
+                salto= Integer.MAX_VALUE;    
                 for (int j = 0; j < 4; j++) {
-                    if ((salto <= getProducto(j)) && (receta[j][i] > MMinimos[j][i]) ){
+                    if ((salto >= Math.abs(totalconsumido[i] + getProducto(j))) && (receta[j][i] > MMinimos[j][i]) ){
                         aux=j;
-                        salto = getProducto(j);
+                        salto = Math.abs(totalconsumido[i] + getProducto(j));
                     }
                 }
-
                 if (receta[aux][i] > MMinimos[aux][i]) {
                     receta[aux][i]= receta[aux][i]-1;
                     totalconsumido[i] = totalconsumido[i] + getProducto(aux);
@@ -803,6 +751,28 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         return receta;
     }
 
+      public int[] calcularDesperdicios(int[][] receta, int[] mIng){
+          int[] uso = calcularUso(receta);
+          int[] desperdicios = new int[8];
+          
+          for (int i = 0; i < 8; i++) {
+              desperdicios[i] = mIng[i] - uso[i];
+          }
+          return desperdicios;  
+      }
+      
+      
+      public int[] calcularUso(int[][] receta){
+          int[] uso = new int[8];
+          for (int i = 0; i < 8; i++) {
+              uso[i] = 0;
+              for (int j = 0; j < 4; j++) {
+                  uso[i] = uso[i] + receta[j][i] * getProducto(j);
+              }
+          }
+          return uso;
+      }
+      
     public int calcularBase() {
         int base = 0;
         int minimos[] = Generaciones.gokuFase4.calcularMaterialesMinimos();
@@ -827,14 +797,19 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     }
 
     public static void main(String[] args) {
-        Individuo ind = new Individuo(28,153,29,55);
-        int[] mIngresados = {6828, 9977, 15179, 8280, 15913, 18345, 14888, 13614};
+        Individuo ind = new Individuo(43,71,18,0);
+        int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
         int[][] receta = ind.calcularReceta(mIngresados);
+        int[] desperdicios = ind.calcularDesperdicios(receta, mIngresados);
+        
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
                 System.out.print(receta[i][j] + " ");
             }
             System.out.println();
+        }
+        for (int i = 0; i < 8; i++) {
+            System.out.print(desperdicios[i]+" ");
         }
 
     }
