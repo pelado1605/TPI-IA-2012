@@ -64,9 +64,6 @@
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[900, 500]"/>
     </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[900, 500]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="barraMenu"/>
@@ -87,7 +84,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="entMaterialesPanel" pref="1000" max="32767" attributes="0"/>
+          <Component id="entMaterialesPanel" pref="900" max="32767" attributes="0"/>
           <Component id="ejecucionPanel" max="32767" attributes="0"/>
           <Component id="avanceEjecPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
