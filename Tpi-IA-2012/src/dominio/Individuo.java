@@ -13,11 +13,38 @@ import java.util.Random;
  */
 public class Individuo implements Comparable<Individuo>, Cloneable {
 
+    /**
+     * Factor multiplicativo de la utilidad para calcular la aptitud. Es un
+     * float. Útil para probar distintas combinaciones para calcular la aptitud.
+     */
     private static final float PORC_APTITUD_X_UTILIDAD = 5f;
+    /**
+     * Factor multiplicativo de la factibilidad para calcular la aptitud. Es un
+     * float. Útil para probar distintas combinaciones para calcular la aptitud.
+     */
     private static final float PORC_APTITUD_X_FACTIBILIDAD = 1f;
+    /**
+     * Factor multiplicativo de la eficiencia para calcular la aptitud. Es un
+     * float. Útil para probar distintas combinaciones para calcular la aptitud.
+     */
     private static final float PORC_APTITUD_X_EFICIENCIA = 1f;
+    /**
+     * Cantidad de veces que se realizó una cruza binomial. Sirve para saber
+     * cuantas veces se realizó este tipo de cruza durante la ejecución de la
+     * aplicación.
+     */
     private static int cont_cruzaBinomial = 0;
+    /**
+     * Cantidad de veces que se realizó una cruza multipunto. Sirve para saber
+     * cuantas veces se realizó este tipo de cruza durante la ejecución de la
+     * aplicación.
+     */
     private static int cont_cruzaMultipunto = 0;
+    /**
+     * Cantidad de veces que re realizó una cruza simple. Sirve para saber
+     * cuantas veces se realizó este tipo de cruza durante la ejecución de la
+     * aplicación.
+     */
     private static int cont_cruzaSimple = 0;
     /**
      * Materiales mínimos necesarios para realizar un producto de p1, p2, p3 y
@@ -56,9 +83,12 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         {14, 0, 0, 21, 11, 6, 19, 26}
     };
     /**
-     * Constante de clase para la cruza simple.
+     * Base para el cálculo de la aptitud.
      */
     private static int BASE;
+    /**
+     * Constante de clase para la cruza simple.
+     */
     public static final int CRUZA_SIMPLE = 0;
     /**
      * Constante de clase para la cruza multipunto.
@@ -115,6 +145,12 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         this.p4 = 0;
     }
 
+    /**
+     * Constructor con valores basados en otro individuo. Clona las cantidades
+     * de productos de otro individuo.
+     *
+     * @param individuo Individuo a ser "clonado".
+     */
     public Individuo(Individuo individuo) {
         this(individuo.getP1(), individuo.getP2(), individuo.getP3(),
                 individuo.getP4());
@@ -153,6 +189,16 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         this.p4 = 0;
     }
 
+    /**
+     * Evalúa la aptitud con respecto a los materiales ingresados. Este método
+     * está sobrecargado. Este método no admite al individuo "óptimo"
+     * inalcanzable. Ver el otro método para mayor información.
+     *
+     * @param matIngs Array de materiales ingresados por el usuario en el inicio
+     * de la ejecución de la aplicación.
+     * @return n valor en float (mayor a cero) que identifica la aptitud de
+     * dicho individuo, permitiendo usarlo como comparación frente a otros.
+     */
     public float evaluarAptitud(int[] matIngs) {
         return evaluarAptitud(matIngs, false);
     }
@@ -168,6 +214,8 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      *
      * @param matIngs Array de materiales ingresados por el usuario en el inicio
      * de la ejecución de la aplicación.
+     * @param esGoku Pregunta si el individuo a calcular la aptitud es el
+     * individuo Goku. (Individuo con mayor aptitud, inalcanzable).
      * @return Un valor en float (mayor a cero) que identifica la aptitud de
      * dicho individuo, permitiendo usarlo como comparación frente a otros.
      */
@@ -689,90 +737,150 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         this.p4 = p4;
     }
 
+    /**
+     * Devuelve el contador de cruzas binomiales.
+     *
+     * @return Entero con la cantidad de cruzas binomiales realizadas.
+     */
     public static int getCont_cruzaBinomial() {
         return cont_cruzaBinomial;
     }
 
+    /**
+     * Asigna un valor al contador de cruzas binomiales.
+     *
+     * @param cont_cruzaBinomial Entero con la cantidad a asignar.
+     */
     public static void setCont_cruzaBinomial(int cont_cruzaBinomial) {
         Individuo.cont_cruzaBinomial = cont_cruzaBinomial;
     }
 
+    /**
+     * Devuelve el contador de cruzas multipunto.
+     *
+     * @return Entero con la cantidad de cruzas multipunto realizadas.
+     */
     public static int getCont_cruzaMultipunto() {
         return cont_cruzaMultipunto;
     }
 
+    /**
+     * Asigna un valor al contador de cruzas multipunto.
+     *
+     * @param cont_cruzaMultipunto Entero con la cantidad a asignar.
+     */
     public static void setCont_cruzaMultipunto(int cont_cruzaMultipunto) {
         Individuo.cont_cruzaMultipunto = cont_cruzaMultipunto;
     }
 
+    /**
+     * Devuelve el contador de cruzas simple.
+     *
+     * @return Entero con la cantidad de cruzas simple realizadas.
+     */
     public static int getCont_cruzaSimple() {
         return cont_cruzaSimple;
     }
 
+    /**
+     * Asigna un valor al contador de cruzas simple.
+     *
+     * @param cont_cruzaSimple Entero con la cantidad a asignar.
+     */
     public static void setCont_cruzaSimple(int cont_cruzaSimple) {
         Individuo.cont_cruzaSimple = cont_cruzaSimple;
     }
-    
-      public int[][] calcularReceta(int[] mIngs) {
+
+    /**
+     * Calula la receta a un indiviuo. Busca minimizar el desperdicio asignando
+     * eficientemente los recursos existentes.
+     *
+     * @param mIngs Materiales ingresados por el usuario al inicio de la
+     * ejecución del algoritmo genético.
+     * @return Matriz de 4x8 indicando la receta para cada uno de los productos.
+     */
+    public int[][] calcularReceta(int[] mIngs) {
         int[][] receta = new int[4][8];
-        int[] totalconsumido= new int[8];
+        int[] totalconsumido = new int[8];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
-                receta[i][j] =  MMaximos[i][j];// + rangos[i][j];
-                totalconsumido[j]=totalconsumido[j]+(getProducto(i) *receta[i][j]);
+                receta[i][j] = MMaximos[i][j];// + rangos[i][j];
+                totalconsumido[j] = totalconsumido[j] + (getProducto(i) * receta[i][j]);
             }
         }
         for (int i = 0; i < 8; i++) {
-            totalconsumido[i]= mIngs[i]- totalconsumido[i];
+            totalconsumido[i] = mIngs[i] - totalconsumido[i];
         }
         int aux;
         int salto;
-       
+
         for (int i = 0; i < 8; i++) {
-        
-            while (totalconsumido[i] <= 0) {               
+
+            while (totalconsumido[i] <= 0) {
                 //buscar el menor material que no este en el minimo...
                 //en verdad hay que preguntar.. ¿¿Que salto se aproxima mas a cero??
-                aux=0;
-                salto= Integer.MAX_VALUE;    
+                aux = 0;
+                salto = Integer.MAX_VALUE;
                 for (int j = 0; j < 4; j++) {
-                    if ((salto >= Math.abs(totalconsumido[i] + getProducto(j))) && (receta[j][i] > MMinimos[j][i]) ){
-                        aux=j;
+                    if ((salto >= Math.abs(totalconsumido[i] + getProducto(j))) && (receta[j][i] > MMinimos[j][i])) {
+                        aux = j;
                         salto = Math.abs(totalconsumido[i] + getProducto(j));
                     }
                 }
                 if (receta[aux][i] > MMinimos[aux][i]) {
-                    receta[aux][i]= receta[aux][i]-1;
+                    receta[aux][i] = receta[aux][i] - 1;
                     totalconsumido[i] = totalconsumido[i] + getProducto(aux);
                 }
-                }
             }
-    
+        }
+
         return receta;
     }
 
-      public int[] calcularDesperdicios(int[][] receta, int[] mIng){
-          int[] uso = calcularUso(receta);
-          int[] desperdicios = new int[8];
-          
-          for (int i = 0; i < 8; i++) {
-              desperdicios[i] = mIng[i] - uso[i];
-          }
-          return desperdicios;  
-      }
-      
-      
-      public int[] calcularUso(int[][] receta){
-          int[] uso = new int[8];
-          for (int i = 0; i < 8; i++) {
-              uso[i] = 0;
-              for (int j = 0; j < 4; j++) {
-                  uso[i] = uso[i] + receta[j][i] * getProducto(j);
-              }
-          }
-          return uso;
-      }
-      
+    /**
+     * Determina la cantidad de materiales que se desperdiciarán.
+     *
+     * @param receta La receta calculada que utiliza eficientemente los
+     * recursos.
+     * @param mIng Materiales ingresados por el usuario al inicio de la
+     * ejecución del algoritmo genético.
+     * @return Cantidad de cada material que será despericiado.
+     */
+    public int[] calcularDesperdicios(int[][] receta, int[] mIng) {
+        int[] uso = calcularUso(receta);
+        int[] desperdicios = new int[8];
+
+        for (int i = 0; i < 8; i++) {
+            desperdicios[i] = mIng[i] - uso[i];
+        }
+        return desperdicios;
+    }
+
+    /**
+     * Calcula la cantidad de cada material que será utilizado por el individuo.
+     *
+     * @param receta La receta calculada que utiliza eficientemente los
+     * recursos.
+     * @return Cantidad de materiales utilizados de cada tipo.
+     */
+    public int[] calcularUso(int[][] receta) {
+        int[] uso = new int[8];
+        for (int i = 0; i < 8; i++) {
+            uso[i] = 0;
+            for (int j = 0; j < 4; j++) {
+                uso[i] = uso[i] + receta[j][i] * getProducto(j);
+            }
+        }
+        return uso;
+    }
+
+    /**
+     * Calcula la base para el cálculo de la aptitud. Se basa en el individuo
+     * óptimo inalcanzable para determinar la base de la aptitud. Modifica la
+     * variable "BASE".
+     *
+     * @return El valor de la base.
+     */
     public int calcularBase() {
         int base = 0;
         int minimos[] = Generaciones.gokuFase4.calcularMaterialesMinimos();
@@ -797,11 +905,11 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     }
 
     public static void main(String[] args) {
-        Individuo ind = new Individuo(43,71,18,0);
+        Individuo ind = new Individuo(43, 71, 18, 0);
         int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
         int[][] receta = ind.calcularReceta(mIngresados);
         int[] desperdicios = ind.calcularDesperdicios(receta, mIngresados);
-        
+
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 8; j++) {
                 System.out.print(receta[i][j] + " ");
@@ -809,7 +917,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
             System.out.println();
         }
         for (int i = 0; i < 8; i++) {
-            System.out.print(desperdicios[i]+" ");
+            System.out.print(desperdicios[i] + " ");
         }
 
     }
