@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.jfree.ui.RefineryUtilities;
+import visual.Grafica1;
 import visual.Principal;
 
 /**
@@ -20,6 +22,7 @@ public class TpiIA2012 {
     int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
     private Generaciones generaciones;
     private Principal vPrincipal = new Principal();
+    private Grafica1 grafica;
 
     public TpiIA2012() {
 
@@ -27,6 +30,7 @@ public class TpiIA2012 {
         vPrincipal.getPausarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPararButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPasoApasoButton().addActionListener(actionListenerEjecutar);
+        vPrincipal.getGraficasButton().addActionListener(actionListenerEjecutar);
         vPrincipal.setVisible(true);
     }
     ActionListener actionListenerEjecutar = new ActionListener() {
@@ -61,18 +65,26 @@ public class TpiIA2012 {
                     generaciones.notify();
                 }
             }
+            if (e.getActionCommand().equals("Graficas")) {
+                grafica.pack();
+                RefineryUtilities.centerFrameOnScreen(grafica);
+                grafica.setVisible(true);
+            }
 
         }
     };
 
     private void inicializarEjecucion() {
+        grafica = new Grafica1("Super Grafica");
         if (generaciones != null) {
             generaciones.removePCl(vPrincipal.getPclModelo());
+            generaciones.removePCl(grafica.getPclModel());
         }
         vPrincipal.getPararButton().removeAll();
         vPrincipal.getPausarButton().removeAll();
         generaciones = new Generaciones(.2f, .6f, vPrincipal.getMatIngs());
         generaciones.addPCl(vPrincipal.getPclModelo());
+        generaciones.addPCl(grafica.getPclModel());
         vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
         vPrincipal.getPararButton().addActionListener(generaciones.getAl());//lo mismo que arriba
         vPrincipal.getPasoApasoButton().addActionListener(generaciones.getAl());//lo mismo que arriba

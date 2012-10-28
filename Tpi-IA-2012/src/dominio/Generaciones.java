@@ -7,8 +7,6 @@ package dominio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Formatter;
@@ -21,7 +19,7 @@ import javax.swing.SwingWorker;
  * @author Ruben
  */
 public class Generaciones extends SwingWorker<Boolean, Poblacion> {
-    
+
     public static final int CANTIDAD_POBLACION = 250;
     public static final int CANTIDAD_ITERACIONES = 1000;
     public static final float RMIN = 0.5f;
@@ -41,7 +39,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     private Formatter formato = new Formatter();
     private boolean pausado = false;
     private int iteracionActual = 0;
-        
+
     @Override
     protected Boolean doInBackground() throws InterruptedException, Exception {
 //        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
@@ -60,15 +58,15 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             }
             Poblacion generacAnterior = generaciones.get(iteracionActual);
             ArrayList<Individuo> listaAnterior = (ArrayList<Individuo>) generacAnterior.getPoblado().clone();
-            Poblacion copia = new Poblacion(listaAnterior, PROB_FIJA, RMIN);
+            Poblacion copia = new Poblacion(listaAnterior, PROB_FIJA, RMIN, iteracionActual);
 //            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
-            Poblacion actual = new Poblacion(copia.seleccionElitista(cSeleccion - convertPorcentACant(.8f, cSeleccion)), PROB_FIJA, RMIN);
+            Poblacion actual = new Poblacion(copia.seleccionElitista(cSeleccion - convertPorcentACant(.8f, cSeleccion)), PROB_FIJA, RMIN, iteracionActual);
             actual.getPoblado().addAll(copia.seleccionRuleta(convertPorcentACant(.8f, cSeleccion)));
             actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza));
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-//            Thread.sleep(10);
+            Thread.sleep(10);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 
@@ -83,6 +81,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             publish(actual);
             int progreso = iteracionActual / (CANTIDAD_ITERACIONES / 100);
             setProgress(progreso);
+            getPropertyChangeSupport().firePropertyChange("genParaGrafica", generaciones.get(iteracionActual - 1),
+                    generaciones.get(iteracionActual));
         }
         Collections.sort(generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado());
 //        for (Individuo indiv : generaciones.get(CANTIDAD_ITERACIONES-1).getPoblado()) {
@@ -98,8 +98,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             System.out.println("Aptitud : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getAptitud());
             System.out.println("Individuo : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).mostrarProductos());
             System.out.println("Utilidad : " + generaciones.get(CANTIDAD_ITERACIONES - 1).getPoblado().get(i).getUtilidad());
-            
-            
+
+
 //            archivador.cerrarArchivo();
         }
         System.out.println();
@@ -116,7 +116,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //        }
         return true;
     }
-    
+
 //    public float[] aptitudMejorInd (int iteracion, int posicion){
 //        float[] mejoraptitud = new float[iteracion];
 //        for (int i = 0; i < iteracion; i++) {
@@ -134,9 +134,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //             
 //        return aptpormedio;
 //         }
-            
-    
-    
     public ArrayList<Individuo> generarPoblacionInicial() {
         ArrayList<Individuo> nueva = new ArrayList<>();
         for (int i = 0; i < CANTIDAD_POBLACION; i++) {
@@ -147,11 +144,11 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             nueva.add(nuevo);
         }
         gokuFase4.calcularBase();
-        Poblacion nuevaPob = new Poblacion(nueva, 0f, 0);
+        Poblacion nuevaPob = new Poblacion(nueva, 0f, 0, iteracionActual);
         generaciones.add(nuevaPob);
         return nueva;
     }
-    
+
     public Generaciones(float pSeleccion, float pCruza,
             int[] materiales) {
         this.cSeleccion = convertPorcentACant(pSeleccion, CANTIDAD_POBLACION);
@@ -181,12 +178,12 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                 }
             }
             superSayayin.setProducto(i, Collections.min(minimos));
-            
+
         }
         superSayayin.evaluarAptitud(materialesIng, true);
         gokuFase4 = superSayayin;
     }
-    
+
     public float calcularProbMutacion(int nroIteracion, float probAnterior) {
         float probActual = probAnterior;
         if (probActual < PROB_MUT_MAX) {
@@ -196,44 +193,44 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         }
         return probActual;
     }
-    
+
     private int convertPorcentACant(float porciento, int cantidadEntrada) {
         int cantidad = (int) (porciento * cantidadEntrada);
         return cantidad;
     }
-    
+
     public int getcSeleccion() {
         return cSeleccion;
     }
-    
+
     public int getcCruza() {
         return cCruza;
     }
-    
+
     public int getcMutacion() {
         return cMutacion;
     }
-    
+
     public ArrayList<Poblacion> getGeneraciones() {
         return generaciones;
     }
-    
+
     public boolean isPausado() {
         return pausado;
     }
-    
+
     public void setPausado(boolean pausado) {
         this.pausado = pausado;
     }
-    
+
     public void addPCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().addPropertyChangeListener(pcl);
     }
-    
+
     public void removePCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().removePropertyChangeListener(pcl);
     }
-    
+
     @Override
     protected void process(List<Poblacion> chunks) {
         //aca deberia imprimr en la consola los res parciales
@@ -244,13 +241,13 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             if (e.getActionCommand().equals("Pausar")
                     | e.getActionCommand().equals("Parar")
                     | e.getActionCommand().equals("Ste. Iteracion")) {
-                getPropertyChangeSupport().firePropertyChange("generacion", generaciones.get(iteracionActual - 1),
+                getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
                         generaciones.get(iteracionActual));
             }
             System.out.println(e.getActionCommand());
         }
     };
-    
+
     public ActionListener getAl() {
         return al;
     }

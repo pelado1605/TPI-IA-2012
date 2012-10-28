@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import org.jfree.ui.RefineryUtilities;
 import visual.validaciones.ValidacionNumerica;
 
 /**
@@ -379,7 +380,6 @@ public class Principal extends javax.swing.JFrame {
 
         graficasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/grafica3.png"))); // NOI18N
         graficasButton.setText(bundle.getString("Principal.graficasButton.text")); // NOI18N
-        graficasButton.setEnabled(false);
         graficasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 graficasButtonActionPerformed(evt);
@@ -557,7 +557,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_m3TextFieldFocusGained
 
     private void graficasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficasButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_graficasButtonActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
@@ -797,7 +796,7 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(true);
                     pararButton.setEnabled(true);
                     limpiarButton.setEnabled(false);
-                    graficasButton.setEnabled(false);
+                    graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
                     habilitarEntradasm(false);
@@ -816,7 +815,7 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(false);
                     pararButton.setEnabled(false);
                     limpiarButton.setEnabled(true);
-                    graficasButton.setEnabled(true);
+                    graficasButton.setEnabled(false);
                     resultadosButton.setEnabled(true);
                     pasoApasoButton.setEnabled(false);
                     habilitarEntradasm(true);
@@ -849,20 +848,20 @@ public class Principal extends javax.swing.JFrame {
             if ("progress".equals(evt.getPropertyName())) {
                 barraDeProgreso.setValue((int) evt.getNewValue());
             }
-            if ("generacion".equals(evt.getPropertyName())) {
-                Poblacion poblacion = (Poblacion) evt.getOldValue();
+            if ("genParaTabla".equals(evt.getPropertyName())) {
+                Poblacion poblacion = (Poblacion) evt.getNewValue();
                 NumberFormat formatter = new DecimalFormat("####0.00");
                 int cont = 1;
                 inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    Object[] fila = {cont, 2, individuo.mostrarProductos(), individuo.getUtilidad(),"si", formatter.format(individuo.getAptitud())};
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),individuo.factibilidad(getMatIngs()), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }
-                poblacion = (Poblacion) evt.getNewValue();
+                poblacion = (Poblacion) evt.getOldValue();
                 cont = 1;
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    Object[] fila = {cont, 1, individuo.mostrarProductos(), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), individuo.factibilidad(getMatIngs()), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }
@@ -890,7 +889,7 @@ public class Principal extends javax.swing.JFrame {
     private DefaultTableModel modelo = new DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "#", "Generación", "Individuo","Factible", "Utilidad", "Aptitud"
+                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
             });
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean ejecutandose;

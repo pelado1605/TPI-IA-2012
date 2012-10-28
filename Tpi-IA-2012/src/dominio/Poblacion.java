@@ -28,25 +28,27 @@ public class Poblacion implements Cloneable {
     private float aptitud = 0f;
     private float probMutacion;
     private float rMin;
+    private int nroGeneracion;
 
     /**
      *
      * @param poblado
      */
-    public Poblacion(ArrayList<Individuo> poblado, float probMutacion, float rMin) {
+    public Poblacion(ArrayList<Individuo> poblado, float probMutacion, float rMin, int generacion) {
         this.poblado = poblado;
         this.probMutacion = probMutacion;
         this.rMin = rMin;
+        this.nroGeneracion = generacion;
         getAptitudPoblacion();
     }
-    
-    public Individuo devolverIndividuo(int index){
+
+    public Individuo devolverIndividuo(int index) {
         Individuo buscado = new Individuo();
         ArrayList<Individuo> ordenados = (ArrayList<Individuo>) poblado.clone();
         Collections.sort(ordenados);
-        
+
         buscado = ordenados.get(index);
-        
+
         return buscado;
     }
 
@@ -340,6 +342,10 @@ public class Poblacion implements Cloneable {
 
     public float getrMin() {
         return rMin;
+    }
+
+    public int getNroGeneracion() {
+        return nroGeneracion;
     }
 
     public static int getCont_selecElitista() {
