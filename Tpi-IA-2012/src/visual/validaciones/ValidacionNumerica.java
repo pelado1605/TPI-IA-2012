@@ -22,8 +22,8 @@ public class ValidacionNumerica extends InputVerifier {
             boolean valido = true;
             if (!text.equals("")) {
                 Integer value = new Integer(text);
-                if (value < 0) {
-                    JOptionPane.showMessageDialog(null, "El valor de los gramos debe ser positivo", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                if (value <= 0) {
+                    JOptionPane.showMessageDialog(null, "El valor de los gramos debe ser mayor a cero.", "Número no válido", JOptionPane.ERROR_MESSAGE);
                     valido = false;
                 }
             } else {
@@ -31,7 +31,7 @@ public class ValidacionNumerica extends InputVerifier {
             }
             return valido;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Solo se aceptan numeros", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo se aceptan números enteros.", "Error de formato", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

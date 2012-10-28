@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jfree.ui.RefineryUtilities;
-import visual.Grafica1;
+import visual.Grafica;
 import visual.Principal;
 
 /**
@@ -19,13 +19,13 @@ import visual.Principal;
  */
 public class TpiIA2012 {
 
-    int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
+    int[] mIngresados;
     private Generaciones generaciones;
     private Principal vPrincipal = new Principal();
-    private Grafica1 grafica;
+    private Grafica grafica = new Grafica("Super Grafica");
 
     public TpiIA2012() {
-
+        
         vPrincipal.getEjecutarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPausarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPararButton().addActionListener(actionListenerEjecutar);
@@ -75,7 +75,7 @@ public class TpiIA2012 {
     };
 
     private void inicializarEjecucion() {
-        grafica = new Grafica1("Super Grafica");
+        grafica = new Grafica("Super Grafica");
         if (generaciones != null) {
             generaciones.removePCl(vPrincipal.getPclModelo());
             generaciones.removePCl(grafica.getPclModel());

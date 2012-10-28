@@ -7,17 +7,19 @@ package visual;
 import dominio.Poblacion;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Stroke;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JFrame;
+import javax.swing.border.StrokeBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.general.Series;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -28,16 +30,17 @@ import org.jfree.ui.RefineryUtilities;
  *
  * @author Ruben
  */
-public class Grafica1 extends JFrame {
+public class Grafica extends JFrame {
 
     private XYDataset dataset;
     private XYSeries serieIndMax;
     private XYSeries serieAptProm;
+    private XYSeries serieIndMin;
     private JFreeChart chart;
     private ChartPanel chartPanel;
     private PropertyChangeListener pclModelo;
 
-    public Grafica1(String title) {
+    public Grafica(String title) {
         super(title);
         dataset = crearDataset();
         chart = crearChart(dataset);
@@ -48,10 +51,11 @@ public class Grafica1 extends JFrame {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if ("genParaGrafica".equals(evt.getPropertyName())) {
-                    System.out.println("llego");
                     Poblacion poblacion = (Poblacion) evt.getNewValue();
                     serieIndMax.add(poblacion.getNroGeneracion(), poblacion.devolverIndividuo(0).getAptitud());
                     serieAptProm.add(poblacion.getNroGeneracion(),poblacion.getAptitudPromedio());
+                    serieIndMin.add(poblacion.getNroGeneracion(), poblacion.devolverIndividuo(
+                            poblacion.getPoblado().size()-1).getAptitud());
                 }
             }
         };
@@ -68,14 +72,13 @@ public class Grafica1 extends JFrame {
                 true,
                 true,
                 false);
-        chart.setBackgroundPaint(Color.white);
-
+        chart.setBackgroundPaint(Color.lightGray);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-//        plot.setDomainGridlinePaint(Color.white);
         plot.setBackgroundPaint(Color.white);
-        plot.setRangeGridlinePaint(Color.GRAY);
-
+        plot.setDomainGridlinePaint(Color.gray);
+        plot.setRangeGridlinePaint(Color.gray);
+        
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
         renderer.setShapesVisible(false);
         renderer.setShapesFilled(true);
@@ -87,11 +90,13 @@ public class Grafica1 extends JFrame {
     }
 
     private XYDataset crearDataset() {
-        serieIndMax = new XYSeries("Individuo Maximo");
+        serieIndMax = new XYSeries("Mejor Individuo");
         serieAptProm = new XYSeries("Aptitud Promedio");
+        serieIndMin = new XYSeries("Peor Individuo");
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(serieIndMax);
         dataset.addSeries(serieAptProm);
+        dataset.addSeries(serieIndMin);
         return dataset;
     }
 
@@ -100,7 +105,7 @@ public class Grafica1 extends JFrame {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Grafica1 demo = new Grafica1("Line Chart Demo 2");
+        Grafica demo = new Grafica("Line Chart Demo 2");
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);

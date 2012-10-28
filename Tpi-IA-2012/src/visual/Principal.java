@@ -17,11 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
-import org.jfree.ui.RefineryUtilities;
 import visual.validaciones.ValidacionNumerica;
 
 /**
@@ -82,10 +82,10 @@ public class Principal extends javax.swing.JFrame {
         genAleatoriaPanel = new javax.swing.JPanel();
         aleatorioButton = new javax.swing.JButton();
         limitadoCheckBox = new javax.swing.JCheckBox();
-        desdeLabel = new javax.swing.JLabel();
-        desdeTextField = new javax.swing.JTextField();
-        hastaLabel = new javax.swing.JLabel();
-        hastaTextField = new javax.swing.JTextField();
+        baseLabel = new javax.swing.JLabel();
+        baseTextField = new javax.swing.JTextField();
+        rangoLabel = new javax.swing.JLabel();
+        rangoTextField = new javax.swing.JTextField();
         configButton = new javax.swing.JButton();
         ejecucionPanel = new javax.swing.JPanel();
         ejecutarButton = new javax.swing.JButton();
@@ -266,19 +266,19 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        desdeLabel.setText(bundle.getString("Principal.desdeLabel.text")); // NOI18N
+        baseLabel.setText(bundle.getString("Principal.baseLabel.text")); // NOI18N
 
-        desdeTextField.setColumns(15);
-        desdeTextField.setText(bundle.getString("Principal.desdeTextField.text")); // NOI18N
-        desdeTextField.setEnabled(false);
-        desdeTextField.setInputVerifier(new ValidacionNumerica());
+        baseTextField.setColumns(15);
+        baseTextField.setText(bundle.getString("Principal.baseTextField.text")); // NOI18N
+        baseTextField.setEnabled(false);
+        baseTextField.setInputVerifier(new ValidacionNumerica());
 
-        hastaLabel.setText(bundle.getString("Principal.hastaLabel.text")); // NOI18N
+        rangoLabel.setText(bundle.getString("Principal.rangoLabel.text")); // NOI18N
 
-        hastaTextField.setColumns(15);
-        hastaTextField.setText(bundle.getString("Principal.hastaTextField.text")); // NOI18N
-        hastaTextField.setEnabled(false);
-        hastaTextField.setInputVerifier(new ValidacionNumerica());
+        rangoTextField.setColumns(15);
+        rangoTextField.setText(bundle.getString("Principal.rangoTextField.text")); // NOI18N
+        rangoTextField.setEnabled(false);
+        rangoTextField.setInputVerifier(new ValidacionNumerica());
 
         javax.swing.GroupLayout genAleatoriaPanelLayout = new javax.swing.GroupLayout(genAleatoriaPanel);
         genAleatoriaPanel.setLayout(genAleatoriaPanelLayout);
@@ -290,13 +290,13 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(limitadoCheckBox)
                 .addGap(18, 18, 18)
-                .addComponent(desdeLabel)
+                .addComponent(baseLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(desdeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(baseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(hastaLabel)
+                .addComponent(rangoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hastaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rangoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         genAleatoriaPanelLayout.setVerticalGroup(
@@ -306,14 +306,14 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(genAleatoriaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aleatorioButton)
                     .addComponent(limitadoCheckBox)
-                    .addComponent(desdeLabel)
-                    .addComponent(desdeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hastaLabel)
-                    .addComponent(hastaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(baseLabel)
+                    .addComponent(baseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rangoLabel)
+                    .addComponent(rangoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        hastaTextField.getAccessibleContext().setAccessibleName(bundle.getString("Principal.hastaTextField.AccessibleContext.accessibleName")); // NOI18N
+        rangoTextField.getAccessibleContext().setAccessibleName(bundle.getString("Principal.rangoTextField.AccessibleContext.accessibleName")); // NOI18N
 
         opcionesPanel.add(genAleatoriaPanel);
 
@@ -442,28 +442,30 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(entMaterialesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
-            .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                .addComponent(entMaterialesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(entMaterialesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(ejecucionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                .addComponent(entMaterialesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ejecucionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void limitadoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limitadoCheckBoxActionPerformed
-        desdeTextField.setEnabled(limitadoCheckBox.isSelected());
-        desdeTextField.setText("");
-        hastaTextField.setEnabled(limitadoCheckBox.isSelected());
-        hastaTextField.setText("");
+        baseTextField.setEnabled(limitadoCheckBox.isSelected());
+        baseTextField.setText("");
+        rangoTextField.setEnabled(limitadoCheckBox.isSelected());
+        rangoTextField.setText("");
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
 
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
@@ -495,20 +497,20 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_pararButtonActionPerformed
 
     private void aleatorioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aleatorioButtonActionPerformed
-        int desde = 0;
-        int hasta = 0;
+        int base = 0;
+        int rango = 0;
         if (limitadoCheckBox.isSelected()) {
-            desde = Integer.parseInt(desdeTextField.getText());
-            hasta = Integer.parseInt(hastaTextField.getText());
+            base = Integer.parseInt(baseTextField.getText());
+            rango = Integer.parseInt(rangoTextField.getText());
         } else {
-            desde = random.nextInt(10000);
-            desdeTextField.setText(String.valueOf(desde));
-            hasta = desde + random.nextInt(990000);
-            hastaTextField.setText(String.valueOf(hasta));
+            base = random.nextInt(100000);
+            baseTextField.setText(String.valueOf(base));
+            rango = random.nextInt(99000) + 1;
+            rangoTextField.setText(String.valueOf(rango));
         }
 
         for (int i = 0; i < 8; i++) {
-            int valor = desde + random.nextInt(hasta - desde);
+            int valor = base + random.nextInt(rango);
             setMatIng(i, valor);
         }
 
@@ -520,7 +522,7 @@ public class Principal extends javax.swing.JFrame {
         inicializarTabla();
         barraDeProgreso.setValue(0);
         for (int i = 0; i < 8; i++) {
-            setMatIng(i, 0);
+            setMatIng(i, 1000);
         }
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
@@ -796,14 +798,14 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(true);
                     pararButton.setEnabled(true);
                     limpiarButton.setEnabled(false);
-                    graficasButton.setEnabled(true);
+//                    graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
                     habilitarEntradasm(false);
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
-                    graficasButton.setEnabled(true);
+//                    graficasButton.setEnabled(true);
                     pasoApasoButton.setEnabled(true);
 
                 }
@@ -815,7 +817,7 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(false);
                     pararButton.setEnabled(false);
                     limpiarButton.setEnabled(true);
-                    graficasButton.setEnabled(false);
+//                    graficasButton.setEnabled(false);
                     resultadosButton.setEnabled(true);
                     pasoApasoButton.setEnabled(false);
                     habilitarEntradasm(true);
@@ -824,7 +826,7 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(false);
                     pararButton.setEnabled(true);
                     limpiarButton.setEnabled(false);
-                    graficasButton.setEnabled(true);
+//                    graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
                 }
@@ -848,13 +850,19 @@ public class Principal extends javax.swing.JFrame {
             if ("progress".equals(evt.getPropertyName())) {
                 barraDeProgreso.setValue((int) evt.getNewValue());
             }
+            if ("state".equals(evt.getPropertyName())) {
+                if (SwingWorker.StateValue.DONE.equals(evt.getNewValue())) {
+                    setEjecutandose(false);
+                    setParado(true);
+                }
+            }
             if ("genParaTabla".equals(evt.getPropertyName())) {
                 Poblacion poblacion = (Poblacion) evt.getNewValue();
                 NumberFormat formatter = new DecimalFormat("####0.00");
                 int cont = 1;
                 inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),individuo.factibilidad(getMatIngs()), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), individuo.factibilidad(getMatIngs()), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }
@@ -903,9 +911,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel avanceEjecPanel;
     private javax.swing.JProgressBar barraDeProgreso;
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JLabel baseLabel;
+    private javax.swing.JTextField baseTextField;
     private javax.swing.JButton configButton;
-    private javax.swing.JLabel desdeLabel;
-    private javax.swing.JTextField desdeTextField;
     private javax.swing.JMenu edicion;
     private javax.swing.JPanel ejecucionPanel;
     private javax.swing.JButton ejecutarButton;
@@ -913,8 +921,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel genAleatoriaPanel;
     private javax.swing.JMenu graficas;
     private javax.swing.JButton graficasButton;
-    private javax.swing.JLabel hastaLabel;
-    private javax.swing.JTextField hastaTextField;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox limitadoCheckBox;
     private javax.swing.JButton limpiarButton;
@@ -949,6 +955,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton pasoApasoButton;
     private javax.swing.JButton pausarButton;
     private javax.swing.JMenuItem peorIndivMenuItem;
+    private javax.swing.JLabel rangoLabel;
+    private javax.swing.JTextField rangoTextField;
     private javax.swing.JButton resultadosButton;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables

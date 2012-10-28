@@ -230,11 +230,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     public void removePCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().removePropertyChangeListener(pcl);
     }
-
-    @Override
-    protected void process(List<Poblacion> chunks) {
-        //aca deberia imprimr en la consola los res parciales
-    }
+    
     private ActionListener al = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
