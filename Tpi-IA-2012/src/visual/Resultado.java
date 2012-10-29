@@ -4,6 +4,7 @@
  */
 package visual;
 
+import dominio.Individuo;
 import javax.swing.JLabel;
 
 /**
@@ -15,11 +16,21 @@ public class Resultado extends javax.swing.JDialog {
     /**
      * Creates new form Resultado
      */
-    public Resultado(java.awt.Frame parent, boolean modal) {
+    
+    private Individuo individuo1;
+    private Individuo individuo2;
+    private Individuo individuo3;
+    private int[] materialesIngresados;
+    
+    public Resultado(java.awt.Frame parent, boolean modal, Individuo[] individuos, int[] mIngresados) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         pack();
+        individuo1 = individuos[0];
+        individuo2 = individuos[1];
+        individuo3 = individuos[2];
+        materialesIngresados = mIngresados;
     }
 
     /**
@@ -49,6 +60,8 @@ public class Resultado extends javax.swing.JDialog {
         u3Label = new javax.swing.JLabel();
         receta3Label = new javax.swing.JButton();
         aceptarLabel = new javax.swing.JButton();
+
+        setResizable(false);
 
         combinacionesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Tres mejores combinaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
         combinacionesPanel.setLayout(new java.awt.GridLayout(4, 4, 0, 4));
@@ -167,55 +180,13 @@ public class Resultado extends javax.swing.JDialog {
 
     private void receta1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta1LabelActionPerformed
       Recetas r = new Recetas(null, true);
+      r.cargarReceta(individuo1.calcularReceta(materialesIngresados));
       r.setVisible(true);
     }//GEN-LAST:event_receta1LabelActionPerformed
 
     private void aceptarLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarLabelActionPerformed
         this.dispose();
     }//GEN-LAST:event_aceptarLabelActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Resultado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Resultado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Resultado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Resultado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Resultado dialog = new Resultado(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-        
-    }
 
     public JLabel getInd1Label() {
         return ind1Label;
@@ -240,6 +211,19 @@ public class Resultado extends javax.swing.JDialog {
     public JLabel getU3Label() {
         return u3Label;
     }
+
+    public Individuo getIndividuo1() {
+        return individuo1;
+    }
+
+    public Individuo getIndividuo2() {
+        return individuo2;
+    }
+
+    public Individuo getIndividuo3() {
+        return individuo3;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarLabel;
     private javax.swing.JPanel combinacionesPanel;

@@ -12,9 +12,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Collections;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
@@ -38,7 +40,6 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         pcs.addPropertyChangeListener(pclBotones);
         parado = true;
-        resultadoDialog = new Resultado(this, true);
         JTableHeader header = tabla.getTableHeader();
         header.setDefaultRenderer(new HeaderRenderer(tabla));
     }
@@ -463,9 +464,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void limitadoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limitadoCheckBoxActionPerformed
         baseTextField.setEnabled(limitadoCheckBox.isSelected());
-        baseTextField.setText("");
+        baseTextField.setText("0");
         rangoTextField.setEnabled(limitadoCheckBox.isSelected());
-        rangoTextField.setText("");
+        rangoTextField.setText("1000");
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
 
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
@@ -481,8 +482,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ejecutarButtonActionPerformed
 
     private void resultadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosButtonActionPerformed
-        resultadoDialog.setLocationRelativeTo(null);
-        resultadoDialog.setVisible(true);
+//        resultadoDialog = new Resultado(this, true, mIngresados)
+//        resultadoDialog.setLocationRelativeTo(null); 
+//        resultadoDialog.setVisible(true);
     }//GEN-LAST:event_resultadosButtonActionPerformed
 
     private void pausarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausarButtonActionPerformed
@@ -873,24 +875,20 @@ public class Principal extends javax.swing.JFrame {
                     modelo.addRow(fila);
                     cont++;
                 }
-                resultadoDialog.getInd1Label()
-                        .setText(poblacion.getPoblado().get(0).mostrarProductos());
-                resultadoDialog.getInd2Label()
-                        .setText(poblacion.getPoblado().get(1).mostrarProductos());
-                resultadoDialog.getInd3Label()
-                        .setText(poblacion.getPoblado().get(2).mostrarProductos());
-                resultadoDialog.getU1Label()
-                        .setText(String.valueOf(poblacion.getPoblado().get(0).getUtilidad()));
-                resultadoDialog.getU2Label()
-                        .setText(String.valueOf(poblacion.getPoblado().get(1).getUtilidad()));
-                resultadoDialog.getU3Label()
-                        .setText(String.valueOf(poblacion.getPoblado().get(2).getUtilidad()));
-//                poblacion = (Poblacion) evt.getNewValue();
-//                for (Individuo individuo : poblacion.getPoblado()) {
-//                    consolaTextArea.append(cont + individuo.mostrarProductos() + "\n");
-//                    cont++;
-//                }
-//                consolaTextArea.append("-----------------------------------------------------------\n");
+                if ("resultados".equals(evt.getPropertyName())) {
+                }
+//                resultadoDialog.getInd1Label()
+//                        .setText(poblacion.getPoblado().get(0).mostrarProductos());
+//                resultadoDialog.getInd2Label()
+//                        .setText(poblacion.getPoblado().get(1).mostrarProductos());
+//                resultadoDialog.getInd3Label()
+//                        .setText(poblacion.getPoblado().get(2).mostrarProductos());
+//                resultadoDialog.getU1Label()
+//                        .setText(String.valueOf(poblacion.getPoblado().get(0).getUtilidad()));
+//                resultadoDialog.getU2Label()
+//                        .setText(String.valueOf(poblacion.getPoblado().get(1).getUtilidad()));
+//                resultadoDialog.getU3Label()
+//                        .setText(String.valueOf(poblacion.getPoblado().get(2).getUtilidad()));
             }
         }
     };

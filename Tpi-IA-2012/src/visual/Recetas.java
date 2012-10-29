@@ -21,10 +21,17 @@ public class Recetas extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         for (int i = 1; i < 5; i++) {
             for (int j = 1; j < 9; j++) {
-                ((JLabel) recetaPanel.getComponent(i*9+j)).setText(i+","+j);
+                ((JLabel) recetaPanel.getComponent(i * 9 + j)).setText(i + "," + j);
             }
         }
-        
+    }
+
+    public void cargarReceta(int[][] receta) {
+        for (int i = 1; i < 5; i++) {
+            for (int j = 1; j < 9; j++) {
+                ((JLabel) recetaPanel.getComponent(i * 9 + j)).setText(String.valueOf(receta[i-1][j-1]));
+            }
+        }
     }
 
     /**

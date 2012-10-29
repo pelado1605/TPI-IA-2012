@@ -138,9 +138,9 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         ArrayList<Individuo> nueva = new ArrayList<>();
         for (int i = 0; i < CANTIDAD_POBLACION; i++) {
             Individuo nuevo = new Individuo(suerte.nextInt((int) (gokuFase4.getP1() * 1.2) + 1),
-                    suerte.nextInt((int) (gokuFase4.getP2() * 1.2)),
-                    suerte.nextInt((int) (gokuFase4.getP3() * 1.2)),
-                    suerte.nextInt((int) (gokuFase4.getP4() * 1.2)));
+                    suerte.nextInt((int) (gokuFase4.getP2() * 1.2) + 1),
+                    suerte.nextInt((int) (gokuFase4.getP3() * 1.2) + 1),
+                    suerte.nextInt((int) (gokuFase4.getP4() * 1.2) + 1));
             nueva.add(nuevo);
         }
         gokuFase4.calcularBase();
@@ -230,7 +230,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     public void removePCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().removePropertyChangeListener(pcl);
     }
-    
     private ActionListener al = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -243,6 +242,12 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             System.out.println(e.getActionCommand());
         }
     };
+
+    @Override
+    protected void done() {
+        getPropertyChangeSupport().firePropertyChange("resultados", generaciones.get(iteracionActual - 1),
+                generaciones.get(iteracionActual));
+    }
 
     public ActionListener getAl() {
         return al;

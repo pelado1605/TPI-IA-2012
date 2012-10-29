@@ -22,7 +22,7 @@ public class ValidacionNumerica extends InputVerifier {
             boolean valido = true;
             if (!text.equals("")) {
                 Integer value = new Integer(text);
-                if (value <= 0) {
+                if (value < 0) {
                     JOptionPane.showMessageDialog(null, "El valor de los gramos debe ser mayor a cero.", "Número no válido", JOptionPane.ERROR_MESSAGE);
                     valido = false;
                 }
