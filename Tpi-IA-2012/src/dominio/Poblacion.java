@@ -514,7 +514,8 @@ public class Poblacion implements Cloneable {
         individuos[0] = (Individuo) copia.get(posicion);
         for (int i = 1; i < 3; i++) {
             Individuo ultimo = (Individuo) copia.get(posicion);
-            while (ultimo.getAptitud()== ((Individuo) copia.get(posicion)).getAptitud()) {
+            while ((ultimo.getAptitud()== ((Individuo) copia.get(posicion)).getAptitud())
+                    && (posicion < copia.size()-1)) {
                 posicion++;             
             }
             individuos[i]=(Individuo) copia.get(posicion);

@@ -839,6 +839,12 @@ public class Principal extends javax.swing.JFrame {
             m6TextField.setEnabled(entrada);
             m7TextField.setEnabled(entrada);
             m8TextField.setEnabled(entrada);
+            limitadoCheckBox.setEnabled(entrada);
+            limitadoCheckBox.setSelected(false);
+            aleatorioButton.setEnabled(entrada);
+            rangoTextField.setEnabled(false);
+            baseTextField.setEnabled(false);
+            
         }
     };
     private PropertyChangeListener pclModelo = new PropertyChangeListener() {
@@ -859,14 +865,16 @@ public class Principal extends javax.swing.JFrame {
                 int cont = 1;
                 inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), individuo.factibilidad(getMatIngs()), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    String factible = individuo.factibilidad(getMatIngs())?"Sí":"No";
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }
                 poblacion = (Poblacion) evt.getOldValue();
                 cont = 1;
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), individuo.factibilidad(getMatIngs()), individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    String factible = individuo.factibilidad(getMatIngs())?"Sí":"No";
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }

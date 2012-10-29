@@ -817,7 +817,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
 
         for (int i = 0; i < 8; i++) {
 
-            while (totalconsumido[i] <= 0) {
+            while (totalconsumido[i] < 0) {
                 //buscar el menor material que no este en el minimo...
                 //en verdad hay que preguntar.. ¿¿Que salto se aproxima mas a cero??
                 aux = 0;

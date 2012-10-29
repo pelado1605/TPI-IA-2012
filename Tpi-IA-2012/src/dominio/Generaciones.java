@@ -19,24 +19,109 @@ import javax.swing.SwingWorker;
  */
 public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 
+    /**
+     * Tamaño de la población que se utilizará en el algoritmo. El número indica
+     * cuantos individuos existirán dentro de una población.
+     */
     public static final int CANTIDAD_POBLACION = 250;
+    /**
+     * Cantidad de iteraciones que realizará el algoritmo. El número indica
+     * cuantas veces se hará la selección, cruza y mutación de los individuos.
+     * Definirá la cantidad de generaciones que existirán.
+     */
     public static final int CANTIDAD_ITERACIONES = 1000;
+    /**
+     * Número de copias esperadas que se utilizará el algoritmo. Definido para
+     * utilizar en la selección por ranking.
+     */
     public static final float RMIN = 0.5f;
+    /**
+     * Probabilidad de mutación mínima. Utilizado para la mutación por
+     * temperatura ascendente/descendente.
+     */
     public static final float PROB_MUT_MIN = 0.02f;
+    /**
+     * Probabilidad de mutación máxima. Utilizado para la mutación por
+     * temperatura ascendente/descendente.
+     */
     public static final float PROB_MUT_MAX = 0.3f;
+    /**
+     * Probabilidad fija de mutación. Utilizado para determinar la probabilidad
+     * de mutación de un individuo.
+     *
+     * @deprecated NO SE UTILIZA, ya que se define una cantidad de población a
+     * ser mutada.
+     */
     public static final float PROB_FIJA = 1f;
+    /**
+     * Factor Lambda para la mutación por temperatura. Incremento (o decremento)
+     * de la probabilidad de mutación por temperatura ascendente (o descendente)
+     * por cada iteración ejecutada.
+     */
     public static final float LAMBDA = 0.005f;
+    /**
+     * Individuo óptimo inalcanzable. Cada producto que contiene es calculado
+     * como si no existiesen los otros. En la práctica, no se podrá alcanzar, ya
+     * que será un individuo infactible, con los materiales ingresados por el
+     * usuario. Se utiliza para comparar la aptitud con la de los demás
+     * individuos.
+     */
     public static Individuo gokuFase4;
+    /**
+     * Aptitud máxima. Máxima aptitud alcanzable.
+     *
+     * @deprecated NO SE UTILIZA, para determinar dicho valor, se utiliza el
+     * individuo óptimo "gokuFase4".
+     */
     public float aptitudMaxima;
+    /**
+     * Cantidad de individuos que serán obtenidos por selección. El número de
+     * individuos que serán pasados intactos a la próxima generación.
+     */
     private int cSeleccion;
+    /**
+     * Cantidad de individuos que serán obtenidos por cruza. El número de
+     * individuos resultantes de la cruza que serán parte de la próxima
+     * generación.
+     */
     private int cCruza;
+    /**
+     * Cantidad de individuos que serán obtenidos por mutación. El número de
+     * individuos sometidos a la mutación que serán parte de la próxima
+     * generación.
+     */
     private int cMutacion;
+    /**
+     * Arreglo con cada una de las poblaciones de cada generación. En cada
+     * iteración se genera una nueva población y será almacenada en este
+     * arreglo.
+     */
     private ArrayList<Poblacion> generaciones = new ArrayList();
+    /**
+     * Materiales ingresados por el usuario. Es un vector de enteros que
+     * contiene las cantidades de m1..m8 ingresados por el usuario.
+     */
     private int[] materialesIng;
+    /**
+     * Generador de aleatorios de uso múltiple. Será utilizado por los metodos
+     * que necesiten de números aleatorios.
+     */
     private Random suerte = new Random();
 //    private Archivador archivador;
+    /**
+     * Formateador de strings.
+     * @deprecated NO SE UTILIZA.
+     */
     private Formatter formato = new Formatter();
+    /**
+     * Variable booleana que determina el estado de ejecución del algoritmo. Si
+     * la variable es verdadera, el algoritmo se encuetra pausado, en caso
+     * contrario, esta en ejecución.
+     */
     private boolean pausado = false;
+    /**
+     * Iteración en la que se encuentra 
+     */
     private int iteracionActual = 0;
 
     @Override
