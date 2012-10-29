@@ -15,22 +15,30 @@ public class Recetas extends javax.swing.JDialog {
     /**
      * Creates new form Recetas
      */
-    public Recetas(java.awt.Frame parent, boolean modal) {
+    public Recetas(java.awt.Frame parent, boolean modal, String titulo) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        for (int i = 1; i < 5; i++) {
-            for (int j = 1; j < 9; j++) {
-                ((JLabel) recetaPanel.getComponent(i * 9 + j)).setText(i + "," + j);
-            }
-        }
+        setTitle(titulo);
     }
 
     public void cargarReceta(int[][] receta) {
         for (int i = 1; i < 5; i++) {
             for (int j = 1; j < 9; j++) {
-                ((JLabel) recetaPanel.getComponent(i * 9 + j)).setText(String.valueOf(receta[i-1][j-1]));
+                ((JLabel) recetaPanel.getComponent(i * 9 + j)).setText(String.valueOf(receta[i - 1][j - 1]));
             }
+        }
+    }
+
+    public void cargarDesperdicio(int[] desperdicio) {
+        for (int i = 8; i < desperdiciosPanel.getComponentCount(); i++) {
+            ((JLabel) desperdiciosPanel.getComponent(i)).setText(String.valueOf(desperdicio[i - 8]));
+        }
+    }
+
+    public void cargarUtilizacion(int[] utilizacion) {
+        for (int i = 8; i < utilizadosPanel.getComponentCount(); i++) {
+            ((JLabel) utilizadosPanel.getComponent(i)).setText(String.valueOf(utilizacion[i - 8]));
         }
     }
 
@@ -330,34 +338,42 @@ public class Recetas extends javax.swing.JDialog {
         utilizadosPanel.setPreferredSize(new java.awt.Dimension(706, 100));
         utilizadosPanel.setLayout(new java.awt.GridLayout(2, 8));
 
+        m1LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m1LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m1LabelU.setText("m1");
         utilizadosPanel.add(m1LabelU);
 
+        m2LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m2LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m2LabelU.setText("m2");
         utilizadosPanel.add(m2LabelU);
 
+        m3LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m3LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m3LabelU.setText("m3");
         utilizadosPanel.add(m3LabelU);
 
+        m4LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m4LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m4LabelU.setText("m4");
         utilizadosPanel.add(m4LabelU);
 
+        m5LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m5LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m5LabelU.setText("m5");
         utilizadosPanel.add(m5LabelU);
 
+        m6LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m6LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m6LabelU.setText("m6");
         utilizadosPanel.add(m6LabelU);
 
+        m7LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m7LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m7LabelU.setText("m7");
         utilizadosPanel.add(m7LabelU);
 
+        m8LabelU.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m8LabelU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m8LabelU.setText("m8");
         utilizadosPanel.add(m8LabelU);
@@ -390,34 +406,42 @@ public class Recetas extends javax.swing.JDialog {
         desperdiciosPanel.setPreferredSize(new java.awt.Dimension(706, 100));
         desperdiciosPanel.setLayout(new java.awt.GridLayout(2, 8));
 
+        m1LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m1LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m1LabelD.setText("m1");
         desperdiciosPanel.add(m1LabelD);
 
+        m2LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m2LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m2LabelD.setText("m2");
         desperdiciosPanel.add(m2LabelD);
 
+        m3LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m3LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m3LabelD.setText("m3");
         desperdiciosPanel.add(m3LabelD);
 
+        m4LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m4LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m4LabelD.setText("m4");
         desperdiciosPanel.add(m4LabelD);
 
+        m5LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m5LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m5LabelD.setText("m5");
         desperdiciosPanel.add(m5LabelD);
 
+        m6LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m6LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m6LabelD.setText("m6");
         desperdiciosPanel.add(m6LabelD);
 
+        m7LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m7LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m7LabelD.setText("m7");
         desperdiciosPanel.add(m7LabelD);
 
+        m8LabelD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         m8LabelD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m8LabelD.setText("m8");
         desperdiciosPanel.add(m8LabelD);
@@ -472,10 +496,10 @@ public class Recetas extends javax.swing.JDialog {
                 .addGap(5, 5, 5)
                 .addComponent(recetaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(utilizadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(utilizadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(desperdiciosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(desperdiciosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(aceptarButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -487,47 +511,6 @@ public class Recetas extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_aceptarButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Recetas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Recetas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Recetas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Recetas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Recetas dialog = new Recetas(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
     private javax.swing.JPanel desperdiciosPanel;

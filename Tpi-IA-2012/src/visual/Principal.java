@@ -12,11 +12,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Collections;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
@@ -407,7 +405,6 @@ public class Principal extends javax.swing.JFrame {
 
         tabla.setModel(modelo);
         tabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabla.setCellSelectionEnabled(true);
         tabla.setFillsViewportHeight(true);
         tabla.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tabla.setShowHorizontalLines(false);
@@ -482,9 +479,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ejecutarButtonActionPerformed
 
     private void resultadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadosButtonActionPerformed
-//        resultadoDialog = new Resultado(this, true, mIngresados)
-//        resultadoDialog.setLocationRelativeTo(null); 
-//        resultadoDialog.setVisible(true);
+        resultadoDialog.setVisible(true);
     }//GEN-LAST:event_resultadosButtonActionPerformed
 
     private void pausarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausarButtonActionPerformed
@@ -875,20 +870,10 @@ public class Principal extends javax.swing.JFrame {
                     modelo.addRow(fila);
                     cont++;
                 }
-                if ("resultados".equals(evt.getPropertyName())) {
-                }
-//                resultadoDialog.getInd1Label()
-//                        .setText(poblacion.getPoblado().get(0).mostrarProductos());
-//                resultadoDialog.getInd2Label()
-//                        .setText(poblacion.getPoblado().get(1).mostrarProductos());
-//                resultadoDialog.getInd3Label()
-//                        .setText(poblacion.getPoblado().get(2).mostrarProductos());
-//                resultadoDialog.getU1Label()
-//                        .setText(String.valueOf(poblacion.getPoblado().get(0).getUtilidad()));
-//                resultadoDialog.getU2Label()
-//                        .setText(String.valueOf(poblacion.getPoblado().get(1).getUtilidad()));
-//                resultadoDialog.getU3Label()
-//                        .setText(String.valueOf(poblacion.getPoblado().get(2).getUtilidad()));
+            }
+            if ("resultado".equals(evt.getPropertyName())) {
+                Poblacion poblacion = (Poblacion) evt.getNewValue();
+                resultadoDialog = new Resultado(null, true, poblacion.get3primerosIndividuos(), getMatIngs());
             }
         }
     };

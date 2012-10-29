@@ -10,7 +10,6 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Formatter;
-import java.util.List;
 import java.util.Random;
 import javax.swing.SwingWorker;
 
@@ -245,7 +244,9 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 
     @Override
     protected void done() {
-        getPropertyChangeSupport().firePropertyChange("resultados", generaciones.get(iteracionActual - 1),
+        getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
+                generaciones.get(iteracionActual));
+        getPropertyChangeSupport().firePropertyChange("resultado", generaciones.get(iteracionActual - 1),
                 generaciones.get(iteracionActual));
     }
 

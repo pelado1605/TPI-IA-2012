@@ -16,21 +16,22 @@ public class Resultado extends javax.swing.JDialog {
     /**
      * Creates new form Resultado
      */
-    
     private Individuo individuo1;
     private Individuo individuo2;
     private Individuo individuo3;
     private int[] materialesIngresados;
-    
+
     public Resultado(java.awt.Frame parent, boolean modal, Individuo[] individuos, int[] mIngresados) {
         super(parent, modal);
         initComponents();
+        setTitle("Resultados");
         setLocationRelativeTo(null);
-        pack();
         individuo1 = individuos[0];
         individuo2 = individuos[1];
         individuo3 = individuos[2];
         materialesIngresados = mIngresados;
+        agregarResultados();
+        pack();
     }
 
     /**
@@ -127,6 +128,11 @@ public class Resultado extends javax.swing.JDialog {
 
         receta2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
         receta2Label.setText("Ver");
+        receta2Label.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receta2LabelActionPerformed(evt);
+            }
+        });
         combinacionesPanel.add(receta2Label);
 
         pos3Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -146,6 +152,11 @@ public class Resultado extends javax.swing.JDialog {
 
         receta3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
         receta3Label.setText("Ver");
+        receta3Label.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receta3LabelActionPerformed(evt);
+            }
+        });
         combinacionesPanel.add(receta3Label);
 
         aceptarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
@@ -179,14 +190,47 @@ public class Resultado extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void receta1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta1LabelActionPerformed
-      Recetas r = new Recetas(null, true);
-      r.cargarReceta(individuo1.calcularReceta(materialesIngresados));
-      r.setVisible(true);
+        Recetas r = new Recetas(null, true,"Receta Primer Individuo");
+        int[][] receta = individuo1.calcularReceta(materialesIngresados);
+        r.cargarReceta(receta);
+        r.cargarDesperdicio(individuo1.calcularDesperdicios(receta, materialesIngresados));
+        r.cargarUtilizacion(individuo1.calcularUso(receta));
+        r.pack();
+        r.setVisible(true);
     }//GEN-LAST:event_receta1LabelActionPerformed
 
     private void aceptarLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarLabelActionPerformed
         this.dispose();
     }//GEN-LAST:event_aceptarLabelActionPerformed
+
+    private void receta2LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta2LabelActionPerformed
+        Recetas r = new Recetas(null, true,"Receta Segundo Individuo");
+        int[][] receta = individuo2.calcularReceta(materialesIngresados);
+        r.cargarReceta(receta);
+        r.cargarDesperdicio(individuo2.calcularDesperdicios(receta, materialesIngresados));
+        r.cargarUtilizacion(individuo2.calcularUso(receta));
+        r.pack();
+        r.setVisible(true);
+    }//GEN-LAST:event_receta2LabelActionPerformed
+
+    private void receta3LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta3LabelActionPerformed
+        Recetas r = new Recetas(null, true,"Receta Tercer Individuo");
+        int[][] receta = individuo2.calcularReceta(materialesIngresados);
+        r.cargarReceta(receta);
+        r.cargarDesperdicio(individuo2.calcularDesperdicios(receta, materialesIngresados));
+        r.cargarUtilizacion(individuo2.calcularUso(receta));
+        r.pack();
+        r.setVisible(true);
+    }//GEN-LAST:event_receta3LabelActionPerformed
+
+    private void agregarResultados() {
+        getInd1Label().setText(individuo1.mostrarProductos());
+        getInd2Label().setText(individuo2.mostrarProductos());
+        getInd3Label().setText(individuo3.mostrarProductos());
+        getU1Label().setText(String.valueOf(individuo1.getUtilidad()));
+        getU2Label().setText(String.valueOf(individuo2.getUtilidad()));
+        getU3Label().setText(String.valueOf(individuo3.getUtilidad()));
+    }
 
     public JLabel getInd1Label() {
         return ind1Label;
@@ -223,7 +267,6 @@ public class Resultado extends javax.swing.JDialog {
     public Individuo getIndividuo3() {
         return individuo3;
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarLabel;
     private javax.swing.JPanel combinacionesPanel;

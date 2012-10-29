@@ -6,6 +6,7 @@ package dominio;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -35,7 +36,7 @@ public class Poblacion implements Cloneable {
      */
     public static final int SELECCION_POR_COPIAS_ESPERADAS = 3;
     /**
-     * Constante de selección por torneo. Determina uno de los tipos de 
+     * Constante de selección por torneo. Determina uno de los tipos de
      * selecciones. Selección por torneo es 4.
      */
     public static final int SELECCION_POR_TORNEO = 4;
@@ -78,6 +79,7 @@ public class Poblacion implements Cloneable {
     /**
      * Probabilidad de mutación. Para determinar la posibilidad de que se
      * realice la mutación por temperatura.
+     *
      * @deprecated No se utiliza debido que se ha adoptado la mutación por
      * temperatura.
      */
@@ -94,11 +96,12 @@ public class Poblacion implements Cloneable {
     /**
      * Constructor de la población. Genera la población para que la misma sea
      * apta para su utilización.
-     * @param poblado ArrayList de los individuos que serán parte de la 
+     *
+     * @param poblado ArrayList de los individuos que serán parte de la
      * población.
      * @param probMutacion Probabilidad de mutación. No se utiliza actualmente,
      * ya que no hay mutación por temperatura ascendente/descendente.
-     * @param rMin Copias mínimas esperadas, utilizados para la selección por 
+     * @param rMin Copias mínimas esperadas, utilizados para la selección por
      * control de copias esperadas. Es un valor decimal entre 0 y 1.
      * @param generacion Número de la generación. Permite distinguir entre las
      * generaciones. Es asignado por la iteración en la que es generado.
@@ -112,9 +115,10 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Devuelve un individuo en la posición dada de la población. Ordena los 
+     * Devuelve un individuo en la posición dada de la población. Ordena los
      * individuos del poblado según la aptitud y devuelve el de la posición
      * deseada.
+     *
      * @param index Posición dentro de la población, deseado a obtener.
      * @return Individuo del poblado en la posición "index"
      */
@@ -132,7 +136,8 @@ public class Poblacion implements Cloneable {
      * Realiza la selección elitista de los individuos de una población.
      * Devuelve un arreglo de individuos ordenados según la aptitud. El tamaño
      * del arreglo es determinado por el parámetro "cantidad".
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param entrada El poblado de donde se realizará la selección.
      * @return El conjunto de individuos seleccionados de manera elitista.
@@ -151,7 +156,8 @@ public class Poblacion implements Cloneable {
     /**
      * Realiza la selección elitista de los individuos de esta población.
      * Utiliza el método selecciónElitista con el poblado de esta población.
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @return El conjunto de individuos seleccionados de manera elitista.
      */
@@ -161,9 +167,10 @@ public class Poblacion implements Cloneable {
 
     /**
      * Realiza la selección por ruleta de los individuos de una población.
-     * Devuelve un arreglo de individuos de manera aleatoria según una ruleta. 
+     * Devuelve un arreglo de individuos de manera aleatoria según una ruleta.
      * El tamaño del arreglo es determinado por el parámetro "cantidad".
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param entrada El poblado de donde se realizará la selección.
      * @return El conjunto de individuos seleccionados por la ruleta.
@@ -196,7 +203,8 @@ public class Poblacion implements Cloneable {
     /**
      * Realiza la selección por ruleta de los individuos de esta población.
      * Utiliza el método selecciónRuleta con el poblado de esta población.
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @return El conjunto de individuos seleccionados por la ruleta.
      */
@@ -207,9 +215,10 @@ public class Poblacion implements Cloneable {
     /**
      * Realiza la selección por ranking de los individuos de una población.
      * Devuelve un arreglo mediante el uso de ranking y numero de copias
-     * esperadas. El tamaño del arreglo es determinado por el parámetro 
+     * esperadas. El tamaño del arreglo es determinado por el parámetro
      * "cantidad".
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param rMin El numero de copias esperadas.
      * @param entrada El poblado de donde se realizará la selección.
@@ -254,7 +263,8 @@ public class Poblacion implements Cloneable {
     /**
      * Realiza la selección por ranking de los individuos de esta población.
      * Utiliza el método seleccionRanking con el poblado de esta población.
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param rMin El numero de copias esperadas.
      * @return El conjunto de individuos seleccionados por ranking.
@@ -265,9 +275,10 @@ public class Poblacion implements Cloneable {
 
     /**
      * Realiza la selección por control de copias esperadas de una población.
-     * Devuelve un arreglo mediante el uso control de copias esperadas. 
-     * El tamaño del arreglo es determinado por el parámetro "cantidad".
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     * Devuelve un arreglo mediante el uso control de copias esperadas. El
+     * tamaño del arreglo es determinado por el parámetro "cantidad".
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param entrada El poblado de donde se realizará la selección.
      * @return El conjunto de individuos seleccionados por control de copias
@@ -295,7 +306,8 @@ public class Poblacion implements Cloneable {
      * Realiza la selección por control de copias esperadas de esta población.
      * Utiliza el método seleccionContCopiasEsp con el poblado de esta
      * población.
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @return El conjunto de individuos seleccionados por control de copias
      * esperadas.
@@ -305,11 +317,12 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Realiza la selección por torneo de una población.
-     * Devuelve un arreglo mediante el uso de torneos. El tamaño del arreglo es
-     * determinado por el parámetro "cantidad". La cantidad de grupos se
-     * determina con el parámetro cantGrupos.
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     * Realiza la selección por torneo de una población. Devuelve un arreglo
+     * mediante el uso de torneos. El tamaño del arreglo es determinado por el
+     * parámetro "cantidad". La cantidad de grupos se determina con el parámetro
+     * cantGrupos.
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param entrada El poblado de donde se realizará la selección.
      * @param cantGrupos El número de grupos que se van a realizar.
@@ -341,7 +354,8 @@ public class Poblacion implements Cloneable {
 
     /**
      * Determina el tipo de selección a realizar dentro de un torneo.
-     * @param cantidad El número de individuos elegidos mediante el tipo de 
+     *
+     * @param cantidad El número de individuos elegidos mediante el tipo de
      * selección.
      * @param grupo Individuos que se encuentra dentro del grupo.
      * @param tipoDeSeleccion Elige el tipo de selección a realizar.
@@ -367,9 +381,10 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Realiza la selección por torneo de esta población.
-     * Utiliza el método seleccionXTorneo con el poblado de esta población.
-     * @param cantidad El número de individuos elegidos mediante este tipo de 
+     * Realiza la selección por torneo de esta población. Utiliza el método
+     * seleccionXTorneo con el poblado de esta población.
+     *
+     * @param cantidad El número de individuos elegidos mediante este tipo de
      * selección.
      * @param cantGrupos El número de grupos que se van a realizar.
      * @return El conjunto de individuos seleccionados por torneo.
@@ -380,7 +395,8 @@ public class Poblacion implements Cloneable {
 
     /**
      * Genera subgrupos dentro de una población dada.
-     * @param cantidadTotalInd Indica la cantidad de individuos dentro de la 
+     *
+     * @param cantidadTotalInd Indica la cantidad de individuos dentro de la
      * población dada.
      * @param cantGrupos Indica el número de subgrupos a realizar.
      * @param grupo La población del cual generar los subgrupos.
@@ -414,8 +430,9 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Genera un subgrupo único de una población dada de tamaño dado. Útil para 
+     * Genera un subgrupo único de una población dada de tamaño dado. Útil para
      * obtener una cantidad definida de individuos de una población dada.
+     *
      * @param cantidad Cantidad de individuos del subgrupo generado.
      * @param grupo La población de individuos de donde se generará el subgrupo.
      * @return El subgrupo generado con la cantidad de individuos definido.
@@ -428,6 +445,7 @@ public class Poblacion implements Cloneable {
      * Realiza la cruza de los individuos para generar la próxima generación. El
      * tipo de cruza puede ser simple, multipunto o binomial, según el parámetro
      * "tipo".
+     *
      * @param cantidad Cantidad de individuos que se cruzarán.
      * @param tipo Tipo de cruza a utilizar.
      * @return Arreglo de individuos cruzados.
@@ -445,8 +463,9 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Realiza la cruza de los individuos para generar la próxima generación, 
+     * Realiza la cruza de los individuos para generar la próxima generación,
      * tomando aleatoriamente el tipo de cruza.
+     *
      * @param cantidad Cantidad de individuos que se cruzarán.
      * @return Arreglo de individuos cruzados.
      */
@@ -456,6 +475,7 @@ public class Poblacion implements Cloneable {
 
     /**
      * Realiza la mutación de los individuos para la próxima generación.
+     *
      * @param cantidad La cantidad de individuos que serán mutados.
      * @return Arreglo de individuos mutados.
      */
@@ -486,9 +506,26 @@ public class Poblacion implements Cloneable {
         return mutados;
     }
 
+    public Individuo[] get3primerosIndividuos() {
+        Individuo[] individuos = new Individuo[3];
+        List copia = (List) poblado.clone();
+        Collections.sort(copia);
+        int posicion = 0;
+        individuos[0] = (Individuo) copia.get(posicion);
+        for (int i = 1; i < 3; i++) {
+            Individuo ultimo = (Individuo) copia.get(posicion);
+            while (ultimo.getAptitud()== ((Individuo) copia.get(posicion)).getAptitud()) {
+                posicion++;             
+            }
+            individuos[i]=(Individuo) copia.get(posicion);
+        }
+        return individuos;
+    }
+
     /**
-     * Calcula la sumatoria de la aptitud de la población, y lo setea a la 
+     * Calcula la sumatoria de la aptitud de la población, y lo setea a la
      * variable "aptitud".
+     *
      * @return El valor float de la sumatoria de las aptitudes.
      */
     public float getAptitudPoblacion() {
@@ -498,6 +535,7 @@ public class Poblacion implements Cloneable {
 
     /**
      * Calcula la sumatoria de la aptitud de un arreglo de individuos dado.
+     *
      * @param entrada El arreglo de individuos a calcular la sumatoria de
      * aptitud.
      * @return El valor float de la sumatoria de las aptitudes.
@@ -512,6 +550,7 @@ public class Poblacion implements Cloneable {
 
     /**
      * Calcula el promedio de la aptitud de la población.
+     *
      * @return El valor promedio de la aptitud.
      */
     public float getAptitudPromedio() {
@@ -522,9 +561,10 @@ public class Poblacion implements Cloneable {
 
     /**
      * Fuerza a realizar la evaluación de aptitud de cada uno de los individuos
-     * de la población. A diferencia de "getAptitudPoblacion()", este último 
-     * toma el valor del atributo, puede que no haya sido calculado aún, y dar 
+     * de la población. A diferencia de "getAptitudPoblacion()", este último
+     * toma el valor del atributo, puede que no haya sido calculado aún, y dar
      * valores erróneos.
+     *
      * @param materialesIng Materiales ingresados por el usuario.
      * @return El valor float de la sumatoria de las aptitudes.
      */
@@ -539,6 +579,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve el poblado de la población. Es un simple getter del atributo
      * "poblado".
+     *
      * @return Arreglo del poblado con los individuos que lo componen.
      */
     public ArrayList<Individuo> getPoblado() {
@@ -548,6 +589,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve la sumatoria de la aptitud de la población. Es un simple getter
      * del atributo "aptitud".
+     *
      * @return Float con la sumatoria de la aptitud.
      */
     public float getAptitud() {
@@ -557,6 +599,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve la probabilidad de mutación de la población. Es un simple getter
      * del atributo "probMutación".
+     *
      * @deprecated No se utiliza el atributo, por lo tanto, tampoco se debería
      * usar este método.
      * @return Float con la probabilidad de mutación.
@@ -566,8 +609,9 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Devuelve el número de copias esperadas para la selección por ranking de 
+     * Devuelve el número de copias esperadas para la selección por ranking de
      * esta población. Es un simple getter del atributo "rMin".
+     *
      * @return Float con el número de copias esperadas.
      */
     public float getrMin() {
@@ -577,6 +621,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve el número de la generación al cual pertenece esta población. Es
      * un simple getter del atributo "nroGeneracion".
+     *
      * @return Entero con el número de la generación de la población.
      */
     public int getNroGeneracion() {
@@ -586,6 +631,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve la cantidad de veces que se realizó selección elitista. Es un
      * simple getter del atributo estático "cont_selecElitista".
+     *
      * @return Entero con la cantidad de veces que se realizó dicho tipo de
      * selección.
      */
@@ -596,6 +642,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve la cantidad de veces que se realizó selección por ruleta. Es un
      * simple getter del atributo estático "cont_selecRuleta".
+     *
      * @return Entero con la cantidad de veces que se realizó dicho tipo de
      * selección.
      */
@@ -606,6 +653,7 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve la cantidad de veces que se realizó selección por ranking. Es un
      * simple getter del atributo estático "cont_selecRanking".
+     *
      * @return Entero con la cantidad de veces que se realizó dicho tipo de
      * selección.
      */
@@ -616,11 +664,11 @@ public class Poblacion implements Cloneable {
     /**
      * Devuelve la cantidad de veces que se realizó selección por control de
      * copias. Es un simple getter del atributo estático "cont_selecContCopias".
+     *
      * @return Entero con la cantidad de veces que se realizó dicho tipo de
      * selección.
      */
     public static int getCont_selecContCopias() {
         return cont_selecContCopias;
     }
-
 }
