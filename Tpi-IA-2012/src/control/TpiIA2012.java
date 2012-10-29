@@ -14,18 +14,38 @@ import visual.Grafica;
 import visual.Principal;
 
 /**
- *
+ * Clase principal del programa. Es la que inicializa la ejecución de la
+ * aplicación.
+ * 
  * @author Ruben
  */
 public class TpiIA2012 {
 
+    /**
+     * Materiales ingresados por el usuario. Arreglo de enteros correspondientes
+     * a los materiales m1..m8.
+     */
     int[] mIngresados;
+    /**
+     * Generaciones que maneja el algoritmo genético. Conjunto de las
+     * generaciones, con las poblaciones y sus individuos.
+     */
     private Generaciones generaciones;
+    /**
+     * Interfaz gráfica, pantalla principal de la aplicación.
+     */
     private Principal vPrincipal = new Principal();
-    private Grafica grafica = new Grafica("Super Grafica");
+    /**
+     * Interfaz grafica, pantalla de gráficas del avance de las generaciones.
+     */
+    private Grafica grafica = new Grafica("Gráfica del avance de las generaciones");
 
+    /**
+     * Constructor de la clase. Incluye escuchadores de acciones y muestra la
+     * pantalla principal.
+     */
     public TpiIA2012() {
-        
+
         vPrincipal.getEjecutarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPausarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPararButton().addActionListener(actionListenerEjecutar);
@@ -33,6 +53,10 @@ public class TpiIA2012 {
         vPrincipal.getGraficasButton().addActionListener(actionListenerEjecutar);
         vPrincipal.setVisible(true);
     }
+    /**
+     * Escuchadores de acciones necesarios para la ejecución de la aplicación.
+     * Tiene las acciones a realizar según el evento ocurrido.
+     */
     ActionListener actionListenerEjecutar = new ActionListener() {
         @Override
         public synchronized void actionPerformed(ActionEvent e) {
@@ -74,8 +98,12 @@ public class TpiIA2012 {
         }
     };
 
+    /**
+     * Inicializa la ejecución del algoritmo. Se utiliza ya que se puede
+     * ejecutar varias veces el algoritmo, en una corrida del programa.
+     */
     private void inicializarEjecucion() {
-        grafica = new Grafica("Super Grafica");
+        grafica = new Grafica("Gráfica del avance de las generaciones");
         if (generaciones != null) {
             generaciones.removePCl(vPrincipal.getPclModelo());
             generaciones.removePCl(grafica.getPclModel());
@@ -91,6 +119,8 @@ public class TpiIA2012 {
     }
 
     /**
+     * El main del programa.
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
