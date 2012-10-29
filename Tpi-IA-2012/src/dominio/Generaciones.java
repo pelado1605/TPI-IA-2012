@@ -63,8 +63,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * Individuo óptimo inalcanzable. Cada producto que contiene es calculado
      * como si no existiesen los otros. En la práctica, no se podrá alcanzar, ya
      * que será un individuo infactible, con los materiales ingresados por el
-     * usuario. Se utiliza para comparar la aptitud con la de los demás
-     * individuos.
+     * usuario. Se utiliza principalmente para la generación de la población
+     * inicial, y para comparar la aptitud con la de los demás individuos.
      */
     public static Individuo gokuFase4;
     /**
@@ -110,6 +110,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //    private Archivador archivador;
     /**
      * Formateador de strings.
+     *
      * @deprecated NO SE UTILIZA.
      */
     private Formatter formato = new Formatter();
@@ -120,10 +121,20 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      */
     private boolean pausado = false;
     /**
-     * Iteración en la que se encuentra 
+     * Iteración en la que se encuentra la ejecución del algoritmo. Es un valor
+     * entero que se inicia en 0.
      */
     private int iteracionActual = 0;
 
+    /**
+     * Ejecución del algoritmo genético. Implementación por Swingworker. Se
+     * ejecuta en segundo plano, para que permita el funcionamiento de la
+     * interfaz gráfica, además de la posibilidad de pausarlo a conveniencia.
+     *
+     * @return Booleano, ver api de Swingworker.
+     * @throws InterruptedException
+     * @throws Exception
+     */
     @Override
     protected Boolean doInBackground() throws InterruptedException, Exception {
 //        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
@@ -218,6 +229,16 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //             
 //        return aptpormedio;
 //         }
+    /**
+     * Genera la primera población, basandose en el individuo óptimo. Se toma a
+     * al individuo óptimo inalcanzable como parámetro para la generación de los
+     * individuos. El mayor individuo posible de generar tiene sus productos
+     * p1..p4 hasta 1.2 veces la del individuo óptimo (que será inalcanzable,
+     * dado al individuo óptimo). Esto elimina un espacio que se saben que serán
+     * infactibles (aquellos mayores a este individuo mayor).
+     *
+     * @return Un arreglo con los individuos de la población inicial.
+     */
     public ArrayList<Individuo> generarPoblacionInicial() {
         ArrayList<Individuo> nueva = new ArrayList<>();
         for (int i = 0; i < CANTIDAD_POBLACION; i++) {
@@ -233,6 +254,19 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         return nueva;
     }
 
+    /**
+     * Constructor de la clase Generaciones. Setea la cantidad de individuos que
+     * serán seleccionados, cruzados y mutados, para crear las siguientes
+     * generaciones. Toma los materiales ingresados por el usuario. Y por último
+     * crea al individuo óptimo inalcanzable, que se tomará como base para la
+     * creación de la población inicial.
+     *
+     * @param pSeleccion Float que indica el porcentaje de la población que será
+     * seleccionada para la generación de las próximas iteraciones.
+     * @param pCruza Float que indica el porcentaje de la población que será
+     * cruzada para la generación de las próximas iteraciones.
+     * @param materiales Arreglo de materiales m1..m8 ingresados por el usuario.
+     */
     public Generaciones(float pSeleccion, float pCruza,
             int[] materiales) {
         this.cSeleccion = convertPorcentACant(pSeleccion, CANTIDAD_POBLACION);
@@ -245,8 +279,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
     /**
      * Calcula la cantidad máxima posible de cada producto. Esto se utiliza para
      * realizar la generación inicial, y que los números aleatorios no superen
-     * los máximos. Debido a que esta combinación no es factible, no se estará
-     * sesgando alguna posible solución. <br/> El cálculo se realiza
+     * los máximos. Debido a que esta combinación no es factible, <b>no se
+     * estará sesgando alguna posible solución</b>. <br/> El cálculo se realiza
      * considerando a cada producto como único para la utilización de los
      * materiales ingresados. De esta manera obtenemos un valor máximo que no
      * podrá ser alcanzado, ya que en realidad, la utilizacion de los materiales
@@ -268,6 +302,18 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         gokuFase4 = superSayayin;
     }
 
+    /**
+     * Calcúla la probabilidad de mutación por temperatura ascendente según la
+     * iteración en la que se encuentra el algoritmo. Toma la iteración actual y
+     * la probabilidad anterior para realizar el cálculo. Utiliza los atributos
+     * de probabilidad máxima de mutación y de lambda.
+     *
+     * @param nroIteracion Iteración actual, en la que se encuentra la ejecución
+     * del algoritmo.
+     * @param probAnterior Probabilidad que tenía anteriormente la mutación por
+     * temperatura.
+     * @return Float con la probabilidad actual de mutación.
+     */
     public float calcularProbMutacion(int nroIteracion, float probAnterior) {
         float probActual = probAnterior;
         if (probActual < PROB_MUT_MAX) {
@@ -278,42 +324,102 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         return probActual;
     }
 
+    /**
+     * Convierte los porcentajes en cantidades. Se utiliza para pasar el
+     * porcentaje de selección/cruza/mutación en cantidades enteras para
+     * determinar el número de individuos que formarán la próxima generación con
+     * cada uno de estos operadores.
+     *
+     * @param porciento Float indicando el porcentaje.
+     * @param cantidadEntrada Entero indicando la cantidad de individuos.
+     * @return Entero indicando la cantidad de individuos que se generarán por
+     * el operador deseado.
+     */
     private int convertPorcentACant(float porciento, int cantidadEntrada) {
         int cantidad = (int) (porciento * cantidadEntrada);
         return cantidad;
     }
 
+    /**
+     * Devuelve la cantidad de individuos que se seleccionarán para la próxima
+     * iteración. Es un simple getter de "cSelección".
+     *
+     * @return Entero indicando la cantidad por selección.
+     */
     public int getcSeleccion() {
         return cSeleccion;
     }
 
+    /**
+     * Devuelve la cantidad de individuos que se generarán por cruza para la
+     * próxima iteración. Es un simple getter de "cCruza".
+     *
+     * @return Entero indicando la cantidad por cruza.
+     */
     public int getcCruza() {
         return cCruza;
     }
 
+    /**
+     * Devuelve la cantidad de individuos que se mutarán para la próxima
+     * iteración. Es un simple getter de "cMutacion".
+     *
+     * @return Entero indicando la cantidad por mutación.
+     */
     public int getcMutacion() {
         return cMutacion;
     }
 
+    /**
+     * Devuelve el arreglo de las poblaciones de la ejecución del algoritmo. Es
+     * un simple getter de "generaciones".
+     *
+     * @return Arreglo con todas las poblaciones de la ejecución del algoritmo.
+     */
     public ArrayList<Poblacion> getGeneraciones() {
         return generaciones;
     }
 
+    /**
+     * Devuelve el estado de ejecución del algoritmo: Está o no pausado. Es un
+     * simple getter del booleano "pausado".
+     *
+     * @return Booleano indicando si el algoritmo se encuentra pausado.
+     */
     public boolean isPausado() {
         return pausado;
     }
 
+    /**
+     * Setea el valor de "pausado", cambiando el estado de ejecución del
+     * algoritmo. Es un simple setter del booleano "pausado".
+     *
+     * @param pausado Booleano a settear a pausado.
+     */
     public void setPausado(boolean pausado) {
         this.pausado = pausado;
     }
 
+    /**
+     * Agrega un escuchador de cambio de propiedad.
+     *
+     * @param pcl
+     */
     public void addPCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().addPropertyChangeListener(pcl);
     }
 
+    /**
+     * Elimina un escuchador de cambio de propiedad.
+     *
+     * @param pcl
+     */
     public void removePCl(PropertyChangeListener pcl) {
         getPropertyChangeSupport().removePropertyChangeListener(pcl);
     }
+    /**
+     * Escuchador de acciones.
+     */
     private ActionListener al = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -327,6 +433,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         }
     };
 
+    /**
+     * Determina que se realizará al terminar la ejecución de "doInBackground".
+     * Eso existe dado a la implementación de SwingWorker.
+     */
     @Override
     protected void done() {
         getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
@@ -335,6 +445,11 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                 generaciones.get(iteracionActual));
     }
 
+    /**
+     * Devuelve al escuchador de la acción. Getter de "al".
+     *
+     * @return El escuchador de la acción.
+     */
     public ActionListener getAl() {
         return al;
     }
