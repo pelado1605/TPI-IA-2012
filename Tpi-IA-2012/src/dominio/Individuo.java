@@ -291,6 +291,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      * Cruza simple entre dos individuos. La posicion de los genes empieza en el
      * 0 y puede valer hasta 3. Este metodo devuelve un arreglo con los dos
      * hijos de la cruza
+     * @deprecated No se utiliza, debido a la ineficiencia.
      *
      * @param unIndividuo Individuo con el cual cruzarse.
      * @param posicion posicion a la cual cruzar [0..3].
