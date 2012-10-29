@@ -14,7 +14,10 @@ import java.util.Random;
 import javax.swing.SwingWorker;
 
 /**
- *
+ * Clase que representa al conjunto de las generaciones con sus poblaciones e
+ * individuos. Contiene la lógica de la ejecución del algoritmo, atributos y
+ * métodos para la ejecución completa del algoritmo.
+ * 
  * @author Ruben
  */
 public class Generaciones extends SwingWorker<Boolean, Poblacion> {

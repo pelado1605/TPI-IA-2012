@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * Clase que representa a una población, que es un conjunto de individuos en una
+ * generación dada. Tiene todos los atributos y métodos necesarios para realizar
+ * los cálculos requeridos por el algoritmo genético.
+ * 
  * @author Ruben
  */
 public class Poblacion implements Cloneable {
@@ -506,6 +509,13 @@ public class Poblacion implements Cloneable {
         return mutados;
     }
 
+    /**
+     * Devuelve los tres mejores individuos de la población. Se utiliza para 
+     * mostrar las tres mejores combinaciones encontradas durante la ejecución
+     * del algoritmo genético.
+     * 
+     * @return Arreglo con los tres mejores individuos.
+     */
     public Individuo[] get3primerosIndividuos() {
         Individuo[] individuos = new Individuo[3];
         List copia = (List) poblado.clone();
