@@ -110,7 +110,7 @@ public class TpiIA2012 {
         }
         vPrincipal.getPararButton().removeAll();
         vPrincipal.getPausarButton().removeAll();
-        generaciones = new Generaciones(.2f, .6f, vPrincipal.getMatIngs());
+        generaciones = new Generaciones(.2f, .5f, vPrincipal.getMatIngs());
         generaciones.addPCl(vPrincipal.getPclModelo());
         generaciones.addPCl(grafica.getPclModel());
         vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando

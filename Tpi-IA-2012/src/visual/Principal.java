@@ -13,6 +13,7 @@ import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -844,7 +845,7 @@ public class Principal extends javax.swing.JFrame {
             aleatorioButton.setEnabled(entrada);
             rangoTextField.setEnabled(false);
             baseTextField.setEnabled(false);
-            
+
         }
     };
     private PropertyChangeListener pclModelo = new PropertyChangeListener() {
@@ -865,16 +866,16 @@ public class Principal extends javax.swing.JFrame {
                 int cont = 1;
                 inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    String factible = individuo.factibilidad(getMatIngs())?"Sí":"No";
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }
                 poblacion = (Poblacion) evt.getOldValue();
                 cont = 1;
                 for (Individuo individuo : poblacion.getPoblado()) {
-                    String factible = individuo.factibilidad(getMatIngs())?"Sí":"No";
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                    String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
+                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
                     modelo.addRow(fila);
                     cont++;
                 }

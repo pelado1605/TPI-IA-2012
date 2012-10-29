@@ -4,6 +4,9 @@
  */
 package visual;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ruben
@@ -28,169 +31,208 @@ public class Configuracion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cantIterLabel = new javax.swing.JLabel();
+        cantIterTextField = new javax.swing.JTextField();
+        tamPobLabel = new javax.swing.JLabel();
+        tamPobTextField = new javax.swing.JTextField();
+        panelOperadores = new javax.swing.JPanel();
+        panelSeleccion = new javax.swing.JPanel();
+        panelChecksSelec = new javax.swing.JPanel();
+        elitistaCheck = new javax.swing.JCheckBox();
+        ruletaCheck = new javax.swing.JCheckBox();
+        rankingCheck = new javax.swing.JCheckBox();
+        controlCECheck = new javax.swing.JCheckBox();
+        porTorneoCheck = new javax.swing.JCheckBox();
+        porTorneoTextField = new javax.swing.JTextField();
+        porcentSelecLabel = new javax.swing.JLabel();
+        porcentSelecTextField = new javax.swing.JTextField();
+        editarSeleccionButton = new javax.swing.JButton();
+        panelCruza = new javax.swing.JPanel();
+        panelChecksCruza = new javax.swing.JPanel();
+        simpleCheck = new javax.swing.JCheckBox();
+        multipuntoCheck = new javax.swing.JCheckBox();
+        binomialCheck = new javax.swing.JCheckBox();
+        porcentCruzaLabel = new javax.swing.JLabel();
+        porcentCruzaTextField = new javax.swing.JTextField();
+        editarCruzaButton = new javax.swing.JButton();
+        editarCantIterButton = new javax.swing.JButton();
+        editarTamPobButton = new javax.swing.JButton();
+        aceptarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Configuración");
+        setIconImage(null);
+        setResizable(false);
 
-        jLabel1.setText("Cantidade de Iteraciones:");
+        cantIterLabel.setText("Cantidade de Iteraciones:");
 
-        jTextField1.setEnabled(false);
+        cantIterTextField.setEnabled(false);
 
-        jLabel2.setText("Tamaño de la Poblacion:");
+        tamPobLabel.setText("Tamaño de la Poblacion:");
 
-        jTextField2.setEnabled(false);
+        tamPobTextField.setEnabled(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Operadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
+        panelOperadores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Operadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Seleccion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
+        panelSeleccion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Seleccion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
 
-        jPanel3.setLayout(new java.awt.GridLayout(3, 0));
+        panelChecksSelec.setLayout(new java.awt.GridLayout(3, 0));
 
-        jCheckBox1.setText("Elitista");
-        jPanel3.add(jCheckBox1);
+        elitistaCheck.setText("Elitista");
+        panelChecksSelec.add(elitistaCheck);
 
-        jCheckBox2.setText("Ruleta");
-        jPanel3.add(jCheckBox2);
+        ruletaCheck.setText("Ruleta");
+        panelChecksSelec.add(ruletaCheck);
 
-        jCheckBox3.setText("Ranking");
-        jPanel3.add(jCheckBox3);
+        rankingCheck.setText("Ranking");
+        panelChecksSelec.add(rankingCheck);
 
-        jCheckBox4.setText("Control de copias esperada");
-        jPanel3.add(jCheckBox4);
+        controlCECheck.setText("Control de copias esperada");
+        panelChecksSelec.add(controlCECheck);
 
-        jCheckBox5.setText("Por torneo");
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+        porTorneoCheck.setText("Por torneo");
+        porTorneoCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
+                porTorneoCheckActionPerformed(evt);
             }
         });
-        jPanel3.add(jCheckBox5);
+        panelChecksSelec.add(porTorneoCheck);
 
-        jTextField3.setEditable(jCheckBox5.isSelected());
-        jTextField3.setMaximumSize(new java.awt.Dimension(6, 20));
-        jPanel3.add(jTextField3);
+        porTorneoTextField.setEnabled(false);
+        porTorneoTextField.setMaximumSize(new java.awt.Dimension(6, 20));
+        panelChecksSelec.add(porTorneoTextField);
 
-        jLabel3.setText("Porcentaje de Selección:");
+        porcentSelecLabel.setText("Porcentaje de Selección:");
 
-        jTextField4.setEnabled(false);
+        porcentSelecTextField.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        editarSeleccionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
+        editarSeleccionButton.setText("Editar");
+        editarSeleccionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarSeleccionButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSeleccionLayout = new javax.swing.GroupLayout(panelSeleccion);
+        panelSeleccion.setLayout(panelSeleccionLayout);
+        panelSeleccionLayout.setHorizontalGroup(
+            panelSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSeleccionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelChecksSelec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelSeleccionLayout.createSequentialGroup()
+                        .addComponent(porcentSelecLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(porcentSelecTextField)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editarSeleccionButton)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        panelSeleccionLayout.setVerticalGroup(
+            panelSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSeleccionLayout.createSequentialGroup()
+                .addComponent(panelChecksSelec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(porcentSelecLabel)
+                    .addComponent(porcentSelecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarSeleccionButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Cruza", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
+        panelCruza.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Cruza", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
 
-        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
+        panelChecksCruza.setLayout(new java.awt.GridLayout(1, 0));
 
-        jCheckBox6.setText("Simple");
-        jPanel5.add(jCheckBox6);
+        simpleCheck.setText("Simple");
+        panelChecksCruza.add(simpleCheck);
 
-        jCheckBox7.setText("Multipunto");
-        jPanel5.add(jCheckBox7);
+        multipuntoCheck.setText("Multipunto");
+        panelChecksCruza.add(multipuntoCheck);
 
-        jCheckBox8.setText("Binomial");
-        jPanel5.add(jCheckBox8);
+        binomialCheck.setText("Binomial");
+        panelChecksCruza.add(binomialCheck);
 
-        jLabel4.setText("Porcentaje de Cruza:");
+        porcentCruzaLabel.setText("Porcentaje de Cruza:");
 
-        jTextField5.setEnabled(false);
+        porcentCruzaTextField.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        jButton1.setText("Editar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        editarCruzaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
+        editarCruzaButton.setText("Editar");
+        editarCruzaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                editarCruzaButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Editar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout panelCruzaLayout = new javax.swing.GroupLayout(panelCruza);
+        panelCruza.setLayout(panelCruzaLayout);
+        panelCruzaLayout.setHorizontalGroup(
+            panelCruzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelChecksCruza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelCruzaLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(porcentCruzaLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(porcentCruzaTextField)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(editarCruzaButton)
+                .addContainerGap())
+        );
+        panelCruzaLayout.setVerticalGroup(
+            panelCruzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCruzaLayout.createSequentialGroup()
+                .addComponent(panelChecksCruza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCruzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(porcentCruzaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarCruzaButton)
+                    .addComponent(porcentCruzaLabel))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelOperadoresLayout = new javax.swing.GroupLayout(panelOperadores);
+        panelOperadores.setLayout(panelOperadoresLayout);
+        panelOperadoresLayout.setHorizontalGroup(
+            panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOperadoresLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelCruza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSeleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        panelOperadoresLayout.setVerticalGroup(
+            panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOperadoresLayout.createSequentialGroup()
+                .addComponent(panelSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCruza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(4, 4, 4))
+        );
+
+        editarCantIterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
+        editarCantIterButton.setText("Editar");
+        editarCantIterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                editarCantIterButtonActionPerformed(evt);
+            }
+        });
+
+        editarTamPobButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
+        editarTamPobButton.setText("Editar");
+        editarTamPobButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarTamPobButtonActionPerformed(evt);
+            }
+        });
+
+        aceptarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
+        aceptarButton.setText("Aceptar");
+        aceptarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarButtonActionPerformed(evt);
             }
         });
 
@@ -201,67 +243,106 @@ public class Configuracion extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(tamPobLabel)
+                            .addComponent(cantIterLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
+                            .addComponent(tamPobTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(cantIterTextField))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editarCantIterButton)
+                            .addComponent(editarTamPobButton)))
+                    .addComponent(panelOperadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aceptarButton)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(cantIterLabel)
+                    .addComponent(cantIterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarCantIterButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton2))
+                    .addComponent(tamPobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tamPobLabel)
+                    .addComponent(editarTamPobButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelOperadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(aceptarButton)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
-        jTextField3.setEnabled(jCheckBox5.isSelected());
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
+    private void porTorneoCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTorneoCheckActionPerformed
+        porTorneoTextField.setEnabled(porTorneoCheck.isSelected());
+    }//GEN-LAST:event_porTorneoCheckActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jTextField1.setEnabled(!jTextField1.isEnabled());
+    private void editarCantIterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarCantIterButtonActionPerformed
+        cantIterTextField.setEnabled(!cantIterTextField.isEnabled());
         String texto = "";
-        if (jTextField1.isEnabled()) {
+        if (cantIterTextField.isEnabled()) {
             texto = "Listo";
         } else {
             texto = "Editar";
         }
-        jButton1.setText(texto);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        editarCantIterButton.setText(texto);
+    }//GEN-LAST:event_editarCantIterButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTextField2.setEnabled(!jTextField2.isEnabled());
+    private void editarTamPobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarTamPobButtonActionPerformed
+        tamPobTextField.setEnabled(!tamPobTextField.isEnabled());
         String texto = "";
-        if (jTextField2.isEnabled()) {
+        if (tamPobTextField.isEnabled()) {
             texto = "Listo";
         } else {
             texto = "Editar";
         }
-        jButton2.setText(texto);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        editarTamPobButton.setText(texto);
+    }//GEN-LAST:event_editarTamPobButtonActionPerformed
+
+    private void editarSeleccionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSeleccionButtonActionPerformed
+        porcentSelecTextField.setEnabled(!porcentSelecTextField.isEnabled());
+        String texto = "";
+        if (porcentSelecTextField.isEnabled()) {
+            texto = "Listo";
+        } else {
+            texto = "Editar";
+        }
+        editarSeleccionButton.setText(texto);
+    }//GEN-LAST:event_editarSeleccionButtonActionPerformed
+
+    private void editarCruzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarCruzaButtonActionPerformed
+        porcentCruzaTextField.setEnabled(!porcentCruzaTextField.isEnabled());
+        String texto = "";
+        if (porcentCruzaTextField.isEnabled()) {
+            texto = "Listo";
+        } else {
+            texto = "Editar";
+        }
+        editarCruzaButton.setText(texto);
+    }//GEN-LAST:event_editarCruzaButtonActionPerformed
+
+    private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
+        if (cantIterTextField.isEnabled()
+                || tamPobTextField.isEnabled()
+                || porcentSelecTextField.isEnabled()
+                || porcentCruzaTextField.isEnabled()) {
+            JOptionPane.showMessageDialog(this, "Confirme 'listo' en las opciones de la configuracion", "Confirmacion de cambios", JOptionPane.WARNING_MESSAGE);
+        } else {
+        dispose();
+        }
+    }//GEN-LAST:event_aceptarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,29 +386,32 @@ public class Configuracion extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton aceptarButton;
+    private javax.swing.JCheckBox binomialCheck;
+    private javax.swing.JLabel cantIterLabel;
+    private javax.swing.JTextField cantIterTextField;
+    private javax.swing.JCheckBox controlCECheck;
+    private javax.swing.JButton editarCantIterButton;
+    private javax.swing.JButton editarCruzaButton;
+    private javax.swing.JButton editarSeleccionButton;
+    private javax.swing.JButton editarTamPobButton;
+    private javax.swing.JCheckBox elitistaCheck;
+    private javax.swing.JCheckBox multipuntoCheck;
+    private javax.swing.JPanel panelChecksCruza;
+    private javax.swing.JPanel panelChecksSelec;
+    private javax.swing.JPanel panelCruza;
+    private javax.swing.JPanel panelOperadores;
+    private javax.swing.JPanel panelSeleccion;
+    private javax.swing.JCheckBox porTorneoCheck;
+    private javax.swing.JTextField porTorneoTextField;
+    private javax.swing.JLabel porcentCruzaLabel;
+    private javax.swing.JTextField porcentCruzaTextField;
+    private javax.swing.JLabel porcentSelecLabel;
+    private javax.swing.JTextField porcentSelecTextField;
+    private javax.swing.JCheckBox rankingCheck;
+    private javax.swing.JCheckBox ruletaCheck;
+    private javax.swing.JCheckBox simpleCheck;
+    private javax.swing.JLabel tamPobLabel;
+    private javax.swing.JTextField tamPobTextField;
     // End of variables declaration//GEN-END:variables
 }
