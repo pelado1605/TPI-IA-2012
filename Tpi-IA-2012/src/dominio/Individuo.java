@@ -19,7 +19,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      * Factor multiplicativo de la utilidad para calcular la aptitud. Es un
      * float. Útil para probar distintas combinaciones para calcular la aptitud.
      */
-    private static final float PORC_APTITUD_X_UTILIDAD = 5f;
+    private static final float PORC_APTITUD_X_UTILIDAD = 2f;
     /**
      * Factor multiplicativo de la factibilidad para calcular la aptitud. Es un
      * float. Útil para probar distintas combinaciones para calcular la aptitud.
@@ -793,6 +793,13 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      */
     public static void setCont_cruzaSimple(int cont_cruzaSimple) {
         Individuo.cont_cruzaSimple = cont_cruzaSimple;
+    }
+
+    public static void reiniciarContadoresCruza() {
+        cont_cruzaBinomial = 0;
+        cont_cruzaMultipunto = 0;
+        cont_cruzaSimple = 0;
+
     }
 
     /**

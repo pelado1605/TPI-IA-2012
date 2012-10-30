@@ -215,10 +215,10 @@ public class Resultado extends javax.swing.JDialog {
 
     private void receta3LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta3LabelActionPerformed
         Recetas r = new Recetas(null, true,"Receta Tercer Individuo");
-        int[][] receta = individuo2.calcularReceta(materialesIngresados);
+        int[][] receta = individuo3.calcularReceta(materialesIngresados);
         r.cargarReceta(receta);
-        r.cargarDesperdicio(individuo2.calcularDesperdicios(receta, materialesIngresados));
-        r.cargarUtilizacion(individuo2.calcularUso(receta));
+        r.cargarDesperdicio(individuo3.calcularDesperdicios(receta, materialesIngresados));
+        r.cargarUtilizacion(individuo3.calcularUso(receta));
         r.pack();
         r.setVisible(true);
     }//GEN-LAST:event_receta3LabelActionPerformed

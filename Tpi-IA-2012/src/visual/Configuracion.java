@@ -4,8 +4,14 @@
  */
 package visual;
 
-import javax.swing.ImageIcon;
+import dominio.Generaciones;
+import dominio.Individuo;
+import dominio.Poblacion;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import visual.validaciones.ValidacionDecimalesPositivos;
 
 /**
  *
@@ -19,6 +25,7 @@ public class Configuracion extends javax.swing.JDialog {
     public Configuracion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        configPorDefecto();
         setLocationRelativeTo(null);
     }
 
@@ -31,6 +38,8 @@ public class Configuracion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupSeleccion = new javax.swing.ButtonGroup();
+        buttonGroupCruza = new javax.swing.ButtonGroup();
         cantIterLabel = new javax.swing.JLabel();
         cantIterTextField = new javax.swing.JTextField();
         tamPobLabel = new javax.swing.JLabel();
@@ -46,7 +55,6 @@ public class Configuracion extends javax.swing.JDialog {
         porTorneoTextField = new javax.swing.JTextField();
         porcentSelecLabel = new javax.swing.JLabel();
         porcentSelecTextField = new javax.swing.JTextField();
-        editarSeleccionButton = new javax.swing.JButton();
         panelCruza = new javax.swing.JPanel();
         panelChecksCruza = new javax.swing.JPanel();
         simpleCheck = new javax.swing.JCheckBox();
@@ -54,10 +62,9 @@ public class Configuracion extends javax.swing.JDialog {
         binomialCheck = new javax.swing.JCheckBox();
         porcentCruzaLabel = new javax.swing.JLabel();
         porcentCruzaTextField = new javax.swing.JTextField();
-        editarCruzaButton = new javax.swing.JButton();
-        editarCantIterButton = new javax.swing.JButton();
-        editarTamPobButton = new javax.swing.JButton();
         aceptarButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        editarCruzaButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuración");
@@ -67,10 +74,12 @@ public class Configuracion extends javax.swing.JDialog {
         cantIterLabel.setText("Cantidade de Iteraciones:");
 
         cantIterTextField.setEnabled(false);
+        cantIterTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
 
         tamPobLabel.setText("Tamaño de la Poblacion:");
 
         tamPobTextField.setEnabled(false);
+        tamPobTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
 
         panelOperadores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Operadores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
 
@@ -79,40 +88,38 @@ public class Configuracion extends javax.swing.JDialog {
         panelChecksSelec.setLayout(new java.awt.GridLayout(3, 0));
 
         elitistaCheck.setText("Elitista");
+        elitistaCheck.setEnabled(false);
         panelChecksSelec.add(elitistaCheck);
 
+        buttonGroupSeleccion.add(ruletaCheck);
         ruletaCheck.setText("Ruleta");
+        ruletaCheck.setEnabled(false);
         panelChecksSelec.add(ruletaCheck);
 
+        buttonGroupSeleccion.add(rankingCheck);
         rankingCheck.setText("Ranking");
+        rankingCheck.setEnabled(false);
         panelChecksSelec.add(rankingCheck);
 
+        buttonGroupSeleccion.add(controlCECheck);
         controlCECheck.setText("Control de copias esperada");
+        controlCECheck.setEnabled(false);
         panelChecksSelec.add(controlCECheck);
 
+        buttonGroupSeleccion.add(porTorneoCheck);
         porTorneoCheck.setText("Por torneo");
-        porTorneoCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                porTorneoCheckActionPerformed(evt);
-            }
-        });
+        porTorneoCheck.setEnabled(false);
         panelChecksSelec.add(porTorneoCheck);
 
         porTorneoTextField.setEnabled(false);
+        porTorneoTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         porTorneoTextField.setMaximumSize(new java.awt.Dimension(6, 20));
         panelChecksSelec.add(porTorneoTextField);
 
         porcentSelecLabel.setText("Porcentaje de Selección:");
 
         porcentSelecTextField.setEnabled(false);
-
-        editarSeleccionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
-        editarSeleccionButton.setText("Editar");
-        editarSeleccionButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarSeleccionButtonActionPerformed(evt);
-            }
-        });
+        porcentSelecTextField.setInputVerifier(new ValidacionDecimalesPositivos());
 
         javax.swing.GroupLayout panelSeleccionLayout = new javax.swing.GroupLayout(panelSeleccion);
         panelSeleccion.setLayout(panelSeleccionLayout);
@@ -125,9 +132,7 @@ public class Configuracion extends javax.swing.JDialog {
                     .addGroup(panelSeleccionLayout.createSequentialGroup()
                         .addComponent(porcentSelecLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(porcentSelecTextField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(editarSeleccionButton)))
+                        .addComponent(porcentSelecTextField)))
                 .addContainerGap())
         );
         panelSeleccionLayout.setVerticalGroup(
@@ -137,35 +142,33 @@ public class Configuracion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(porcentSelecLabel)
-                    .addComponent(porcentSelecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editarSeleccionButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(porcentSelecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelCruza.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Cruza", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
 
         panelChecksCruza.setLayout(new java.awt.GridLayout(1, 0));
 
+        buttonGroupCruza.add(simpleCheck);
         simpleCheck.setText("Simple");
+        simpleCheck.setEnabled(false);
         panelChecksCruza.add(simpleCheck);
 
+        buttonGroupCruza.add(multipuntoCheck);
         multipuntoCheck.setText("Multipunto");
+        multipuntoCheck.setEnabled(false);
         panelChecksCruza.add(multipuntoCheck);
 
+        buttonGroupCruza.add(binomialCheck);
         binomialCheck.setText("Binomial");
+        binomialCheck.setEnabled(false);
         panelChecksCruza.add(binomialCheck);
 
         porcentCruzaLabel.setText("Porcentaje de Cruza:");
 
         porcentCruzaTextField.setEnabled(false);
-
-        editarCruzaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
-        editarCruzaButton.setText("Editar");
-        editarCruzaButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarCruzaButtonActionPerformed(evt);
-            }
-        });
+        porcentCruzaTextField.setInputVerifier(new ValidacionDecimalesPositivos());
 
         javax.swing.GroupLayout panelCruzaLayout = new javax.swing.GroupLayout(panelCruza);
         panelCruza.setLayout(panelCruzaLayout);
@@ -177,8 +180,6 @@ public class Configuracion extends javax.swing.JDialog {
                 .addComponent(porcentCruzaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(porcentCruzaTextField)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editarCruzaButton)
                 .addContainerGap())
         );
         panelCruzaLayout.setVerticalGroup(
@@ -188,7 +189,6 @@ public class Configuracion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCruzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(porcentCruzaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editarCruzaButton)
                     .addComponent(porcentCruzaLabel))
                 .addContainerGap())
         );
@@ -212,27 +212,27 @@ public class Configuracion extends javax.swing.JDialog {
                 .addGap(4, 4, 4))
         );
 
-        editarCantIterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
-        editarCantIterButton.setText("Editar");
-        editarCantIterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarCantIterButtonActionPerformed(evt);
-            }
-        });
-
-        editarTamPobButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/lapicito edit 16.png"))); // NOI18N
-        editarTamPobButton.setText("Editar");
-        editarTamPobButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarTamPobButtonActionPerformed(evt);
-            }
-        });
-
         aceptarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
         aceptarButton.setText("Aceptar");
         aceptarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarButtonActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/default24.png"))); // NOI18N
+        jButton1.setText("Configuracion por defecto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        editarCruzaButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/edit24.png"))); // NOI18N
+        editarCruzaButton.setText("Editar");
+        editarCruzaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarCruzaButtonActionPerformed(evt);
             }
         });
 
@@ -242,23 +242,23 @@ public class Configuracion extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tamPobLabel)
                             .addComponent(cantIterLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tamPobTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                            .addComponent(cantIterTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editarCantIterButton)
-                            .addComponent(editarTamPobButton)))
+                            .addComponent(cantIterTextField)
+                            .addComponent(tamPobTextField)))
                     .addComponent(panelOperadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editarCruzaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aceptarButton)
                 .addContainerGap())
         );
@@ -268,62 +268,26 @@ public class Configuracion extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(cantIterLabel)
-                    .addComponent(cantIterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editarCantIterButton))
+                    .addComponent(cantIterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(tamPobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tamPobLabel)
-                    .addComponent(editarTamPobButton))
+                    .addComponent(tamPobLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOperadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(aceptarButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(aceptarButton)
+                    .addComponent(jButton1)
+                    .addComponent(editarCruzaButton))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void porTorneoCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porTorneoCheckActionPerformed
-        porTorneoTextField.setEnabled(porTorneoCheck.isSelected());
-    }//GEN-LAST:event_porTorneoCheckActionPerformed
-
-    private void editarCantIterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarCantIterButtonActionPerformed
-        cantIterTextField.setEnabled(!cantIterTextField.isEnabled());
-        String texto = "";
-        if (cantIterTextField.isEnabled()) {
-            texto = "Listo";
-        } else {
-            texto = "Editar";
-        }
-        editarCantIterButton.setText(texto);
-    }//GEN-LAST:event_editarCantIterButtonActionPerformed
-
-    private void editarTamPobButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarTamPobButtonActionPerformed
-        tamPobTextField.setEnabled(!tamPobTextField.isEnabled());
-        String texto = "";
-        if (tamPobTextField.isEnabled()) {
-            texto = "Listo";
-        } else {
-            texto = "Editar";
-        }
-        editarTamPobButton.setText(texto);
-    }//GEN-LAST:event_editarTamPobButtonActionPerformed
-
-    private void editarSeleccionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSeleccionButtonActionPerformed
-        porcentSelecTextField.setEnabled(!porcentSelecTextField.isEnabled());
-        String texto = "";
-        if (porcentSelecTextField.isEnabled()) {
-            texto = "Listo";
-        } else {
-            texto = "Editar";
-        }
-        editarSeleccionButton.setText(texto);
-    }//GEN-LAST:event_editarSeleccionButtonActionPerformed
-
     private void editarCruzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarCruzaButtonActionPerformed
-        porcentCruzaTextField.setEnabled(!porcentCruzaTextField.isEnabled());
+        editarCampos();
         String texto = "";
         if (porcentCruzaTextField.isEnabled()) {
             texto = "Listo";
@@ -334,68 +298,75 @@ public class Configuracion extends javax.swing.JDialog {
     }//GEN-LAST:event_editarCruzaButtonActionPerformed
 
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
-        if (cantIterTextField.isEnabled()
-                || tamPobTextField.isEnabled()
-                || porcentSelecTextField.isEnabled()
-                || porcentCruzaTextField.isEnabled()) {
+        if (cantIterTextField.isEnabled()) {
             JOptionPane.showMessageDialog(this, "Confirme 'listo' en las opciones de la configuracion", "Confirmacion de cambios", JOptionPane.WARNING_MESSAGE);
         } else {
-        dispose();
+            cantIterTextField.firePropertyChange("cantIteraciones", 0, Integer.valueOf(cantIterTextField.getText()));
+            tamPobTextField.firePropertyChange("tamPoblacion", 0, Integer.valueOf(tamPobTextField.getText()));
+            porcentSelecTextField.firePropertyChange("porcSeleccion", 0, Float.valueOf(porcentSelecTextField.getText()));
+            porcentCruzaTextField.firePropertyChange("porcCruza", 0, Float.valueOf(porcentCruzaTextField.getText()));
+            setVisible(false);
         }
     }//GEN-LAST:event_aceptarButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        configPorDefecto();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Configuracion dialog = new Configuracion(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    public JCheckBox getBinomialCheck() {
+        return binomialCheck;
+    }
+
+    public JTextField getCantIterTextField() {
+        return cantIterTextField;
+    }
+
+    public JCheckBox getControlCECheck() {
+        return controlCECheck;
+    }
+
+    public JCheckBox getElitistaCheck() {
+        return elitistaCheck;
+    }
+
+    public JCheckBox getMultipuntoCheck() {
+        return multipuntoCheck;
+    }
+
+    public JCheckBox getPorTorneoCheck() {
+        return porTorneoCheck;
+    }
+
+    public JTextField getPorTorneoTextField() {
+        return porTorneoTextField;
+    }
+
+    public JTextField getPorcentCruzaTextField() {
+        return porcentCruzaTextField;
+    }
+
+    public JTextField getPorcentSelecTextField() {
+        return porcentSelecTextField;
+    }
+
+    public JTextField getTamPobTextField() {
+        return tamPobTextField;
+    }
+
+    public JButton getAceptarButton() {
+        return aceptarButton;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
     private javax.swing.JCheckBox binomialCheck;
+    private javax.swing.ButtonGroup buttonGroupCruza;
+    private javax.swing.ButtonGroup buttonGroupSeleccion;
     private javax.swing.JLabel cantIterLabel;
     private javax.swing.JTextField cantIterTextField;
     private javax.swing.JCheckBox controlCECheck;
-    private javax.swing.JButton editarCantIterButton;
     private javax.swing.JButton editarCruzaButton;
-    private javax.swing.JButton editarSeleccionButton;
-    private javax.swing.JButton editarTamPobButton;
     private javax.swing.JCheckBox elitistaCheck;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox multipuntoCheck;
     private javax.swing.JPanel panelChecksCruza;
     private javax.swing.JPanel panelChecksSelec;
@@ -414,4 +385,69 @@ public class Configuracion extends javax.swing.JDialog {
     private javax.swing.JLabel tamPobLabel;
     private javax.swing.JTextField tamPobTextField;
     // End of variables declaration//GEN-END:variables
+
+    private void configPorDefecto() {
+        cantIterTextField.setText(String.valueOf(Generaciones.CANTIDAD_ITERACIONES));
+        tamPobTextField.setText(String.valueOf(Generaciones.CANTIDAD_POBLACION));
+        porcentSelecTextField.setText(String.valueOf(Generaciones.PORC_SELECCION));
+        porcentCruzaTextField.setText(String.valueOf(Generaciones.PORC_CRUZA));
+        //Seleccion
+        elitistaCheck.setSelected(true);
+        ruletaCheck.setSelected(true);
+        //Cruza
+        multipuntoCheck.setSelected(true);
+    }
+
+    private void editarCampos() {
+        boolean editar = !cantIterTextField.isEnabled();
+        cantIterTextField.setEnabled(editar);
+        tamPobTextField.setEnabled(editar);
+        porcentSelecTextField.setEnabled(editar);
+        porcentCruzaTextField.setEnabled(editar);
+        ruletaCheck.setEnabled(editar);
+        elitistaCheck.setEnabled(editar);
+        rankingCheck.setEnabled(editar);
+        porTorneoCheck.setEnabled(editar);
+        porTorneoTextField.setEnabled(editar);
+        controlCECheck.setEnabled(editar);
+        multipuntoCheck.setEnabled(editar);
+        simpleCheck.setEnabled(editar);
+        binomialCheck.setEnabled(editar);
+
+    }
+
+    public int getTipoSelec() {
+        int elitista = 0;
+        int otro = 0;
+
+        if (elitistaCheck.isSelected()) {
+            elitista = Poblacion.ELITISTA;
+        }
+        if (ruletaCheck.isSelected()) {
+            otro = Poblacion.RULETA;
+        }
+        if (rankingCheck.isSelected()) {
+            otro = Poblacion.RANKING;
+        }
+        if (controlCECheck.isSelected()) {
+            otro = Poblacion.CCE;
+        }
+        if (porTorneoCheck.isSelected()) {
+            otro = Poblacion.TORNEO;
+        }
+
+        return elitista + otro;
+    }
+
+    public int getTipoCruza() {
+        int tCruza = 0;
+        if (multipuntoCheck.isSelected()) {
+            tCruza = Individuo.CRUZA_MULTIPUNTO;
+        } else {
+            if (binomialCheck.isSelected()) {
+                tCruza = Individuo.CRUZA_BINOMIAL;
+            }
+        }
+        return tCruza;
+    }
 }

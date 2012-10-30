@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
-import visual.validaciones.ValidacionNumerica;
+import visual.validaciones.ValidacionEnterosPositivos;
 
 /**
  *
@@ -130,7 +130,7 @@ public class Principal extends javax.swing.JFrame {
 
         m1TextField.setColumns(5);
         m1TextField.setText(bundle.getString("Principal.m1TextField.text")); // NOI18N
-        m1TextField.setInputVerifier(new ValidacionNumerica());
+        m1TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m1TextFieldFocusGained(evt);
@@ -145,7 +145,7 @@ public class Principal extends javax.swing.JFrame {
 
         m2TextField.setColumns(5);
         m2TextField.setText(bundle.getString("Principal.m2TextField.text")); // NOI18N
-        m2TextField.setInputVerifier(new ValidacionNumerica());
+        m2TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m2TextFieldFocusGained(evt);
@@ -160,7 +160,7 @@ public class Principal extends javax.swing.JFrame {
 
         m3TextField.setColumns(5);
         m3TextField.setText(bundle.getString("Principal.m3TextField.text")); // NOI18N
-        m3TextField.setInputVerifier(new ValidacionNumerica());
+        m3TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m3TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m3TextFieldFocusGained(evt);
@@ -175,7 +175,7 @@ public class Principal extends javax.swing.JFrame {
 
         m4TextField.setColumns(5);
         m4TextField.setText(bundle.getString("Principal.m4TextField.text")); // NOI18N
-        m4TextField.setInputVerifier(new ValidacionNumerica());
+        m4TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m4TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m4TextFieldFocusGained(evt);
@@ -190,7 +190,7 @@ public class Principal extends javax.swing.JFrame {
 
         m5TextField.setColumns(5);
         m5TextField.setText(bundle.getString("Principal.m5TextField.text")); // NOI18N
-        m5TextField.setInputVerifier(new ValidacionNumerica());
+        m5TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m5TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m5TextFieldFocusGained(evt);
@@ -205,7 +205,7 @@ public class Principal extends javax.swing.JFrame {
 
         m6TextField.setColumns(5);
         m6TextField.setText(bundle.getString("Principal.m6TextField.text")); // NOI18N
-        m6TextField.setInputVerifier(new ValidacionNumerica());
+        m6TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m6TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m6TextFieldFocusGained(evt);
@@ -220,7 +220,7 @@ public class Principal extends javax.swing.JFrame {
 
         m7TextField.setColumns(5);
         m7TextField.setText(bundle.getString("Principal.m7TextField.text")); // NOI18N
-        m7TextField.setInputVerifier(new ValidacionNumerica());
+        m7TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m7TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m7TextFieldFocusGained(evt);
@@ -235,7 +235,7 @@ public class Principal extends javax.swing.JFrame {
 
         m8TextField.setColumns(5);
         m8TextField.setText(bundle.getString("Principal.m8TextField.text")); // NOI18N
-        m8TextField.setInputVerifier(new ValidacionNumerica());
+        m8TextField.setInputVerifier(new ValidacionEnterosPositivos());
         m8TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m8TextFieldFocusGained(evt);
@@ -251,7 +251,7 @@ public class Principal extends javax.swing.JFrame {
 
         genAleatoriaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.genAleatoriaPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
 
-        aleatorioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/1350794191_calculator.png"))); // NOI18N
+        aleatorioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/calculadora.png.png"))); // NOI18N
         aleatorioButton.setText(bundle.getString("Principal.aleatorioButton.text")); // NOI18N
         aleatorioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,14 +271,14 @@ public class Principal extends javax.swing.JFrame {
         baseTextField.setColumns(15);
         baseTextField.setText(bundle.getString("Principal.baseTextField.text")); // NOI18N
         baseTextField.setEnabled(false);
-        baseTextField.setInputVerifier(new ValidacionNumerica());
+        baseTextField.setInputVerifier(new ValidacionEnterosPositivos());
 
         rangoLabel.setText(bundle.getString("Principal.rangoLabel.text")); // NOI18N
 
         rangoTextField.setColumns(15);
         rangoTextField.setText(bundle.getString("Principal.rangoTextField.text")); // NOI18N
         rangoTextField.setEnabled(false);
-        rangoTextField.setInputVerifier(new ValidacionNumerica());
+        rangoTextField.setInputVerifier(new ValidacionEnterosPositivos());
 
         javax.swing.GroupLayout genAleatoriaPanelLayout = new javax.swing.GroupLayout(genAleatoriaPanel);
         genAleatoriaPanel.setLayout(genAleatoriaPanelLayout);
@@ -317,9 +317,8 @@ public class Principal extends javax.swing.JFrame {
 
         opcionesPanel.add(genAleatoriaPanel);
 
-        configButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/package_settings.png"))); // NOI18N
+        configButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/setting.png"))); // NOI18N
         configButton.setText(bundle.getString("Principal.configButton.text")); // NOI18N
-        configButton.setPreferredSize(null);
         configButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 configButtonActionPerformed(evt);
@@ -468,9 +467,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
 
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
-        //prueba
-        Configuracion configuracion = new Configuracion(this, true);
-        configuracion.setVisible(true);
+       
     }//GEN-LAST:event_configButtonActionPerformed
 
     private void ejecutarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarButtonActionPerformed
@@ -863,7 +860,7 @@ public class Principal extends javax.swing.JFrame {
             if ("genParaTabla".equals(evt.getPropertyName())) {
                 Poblacion poblacion = (Poblacion) evt.getNewValue();
                 NumberFormat formatter = new DecimalFormat("####0.00");
-                int cont = 1;
+                int cont = 0;
                 inicializarTabla();
                 for (Individuo individuo : poblacion.getPoblado()) {
                     String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
@@ -872,7 +869,7 @@ public class Principal extends javax.swing.JFrame {
                     cont++;
                 }
                 poblacion = (Poblacion) evt.getOldValue();
-                cont = 1;
+                cont = 0;
                 for (Individuo individuo : poblacion.getPoblado()) {
                     String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
                     Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};

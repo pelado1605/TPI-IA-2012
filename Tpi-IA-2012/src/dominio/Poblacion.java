@@ -13,7 +13,7 @@ import java.util.Random;
  * Clase que representa a una población, que es un conjunto de individuos en una
  * generación dada. Tiene todos los atributos y métodos necesarios para realizar
  * los cálculos requeridos por el algoritmo genético.
- * 
+ *
  * @author Ruben
  */
 public class Poblacion implements Cloneable {
@@ -22,27 +22,31 @@ public class Poblacion implements Cloneable {
      * Constante de selección elitista. Determina uno de los tipos de
      * selecciones. Selección elitista es 0.
      */
-    public static final int SELECCION_ELITISTA = 0;
+    public static final int ELITISTA = 1;
+    public static final int RULETA = 2;
+    public static final int RANKING = 4;
+    public static final int CCE = 6;
+    public static final int TORNEO = 8;
     /**
      * Constante de selección por ruleta. Determina uno de los tipos de
      * selecciones. Selección por ruleta es 1.
      */
-    public static final int SELECCION_POR_RULETA = 1;
+    public static final int ELITISTA_RULETA = 3;
     /**
      * Constante de selección por ranking. Determina uno de los tipos de
      * selecciones. Selección por ranking es 2.
      */
-    public static final int SELECCION_RANKING = 2;
+    public static final int ELITISTA_RANKING = 5;
     /**
      * Constante de selección por copias esperadas. Determina uno de los tipos
      * de selecciones. Selección por copias esperadas es 3.
      */
-    public static final int SELECCION_POR_COPIAS_ESPERADAS = 3;
+    public static final int ELITISTA_CCE = 7;
     /**
      * Constante de selección por torneo. Determina uno de los tipos de
      * selecciones. Selección por torneo es 4.
      */
-    public static final int SELECCION_POR_TORNEO = 4;
+    public static final int ELITISTA_TORNEO = 9;
     /**
      * Contador de selecciones elitistas. Sirve para las pruebas, para saber
      * cuantas veces se realizó este tipo de selección.
@@ -63,6 +67,7 @@ public class Poblacion implements Cloneable {
      * pruebas, para saber cuantas veces se realizó este tipo de selección.
      */
     private static int cont_selecContCopias = 0;
+    private static int cont_selecTorneo = 0;
     /**
      * Arreglo de los individuos de la población. Esta formado por un ArrayList
      * de longitud de la población. Cada elemento corresponde a un individuo de
@@ -200,6 +205,7 @@ public class Poblacion implements Cloneable {
             seleccionados.add(entrada.get(valor));
             cont_selecRuleta++;
         }
+//        cont_selecRuleta++;
         return seleccionados;
     }
 
@@ -260,6 +266,7 @@ public class Poblacion implements Cloneable {
             i++;
             rangos.add(parteDecimal);
         }
+//        cont_selecRanking++;
         return seleccionados;
     }
 
@@ -302,6 +309,7 @@ public class Poblacion implements Cloneable {
             }
             i++;
         }
+//        cont_selecContCopias++;
         return seleccionados;
     }
 
@@ -347,11 +355,12 @@ public class Poblacion implements Cloneable {
              */
             int cantidadXGrupo = cantidad / cantGrupos;
             int tipoSeleccion = suerte.nextInt(4); //el 4 no entra porque es seleccion x torneo.
-            seleccionados.addAll(seleccionXTipo(cantidadXGrupo, subgrupo, tipoSeleccion));
+            seleccionados.addAll(seleccionXTipo(cantidadXGrupo, subgrupo, tipoSeleccion, 0));//el ultimo parametro (0) no altera al metodo
         }
         if (seleccionados.size() < cantidad) {
             seleccionados.addAll(seleccionElitista(cantidad - seleccionados.size()));
         }
+        cont_selecTorneo++;
         return seleccionados;
     }
 
@@ -364,20 +373,41 @@ public class Poblacion implements Cloneable {
      * @param tipoDeSeleccion Elige el tipo de selección a realizar.
      * @return El conjunto de individuos del grupo del torneo.
      */
-    public ArrayList<Individuo> seleccionXTipo(int cantidad, ArrayList<Individuo> grupo, int tipoDeSeleccion) {
+    public ArrayList<Individuo> seleccionXTipo(int cantidad, ArrayList<Individuo> grupo, int tipoDeSeleccion, int cantGrupos) {
         ArrayList<Individuo> seleccionados = new ArrayList<>();
+        int cantElitista = (int) (.2f * cantidad);
+        int cantOtro = cantidad - cantElitista;
         switch (tipoDeSeleccion) {
-            case SELECCION_ELITISTA:
+            case ELITISTA:
                 seleccionados.addAll(seleccionElitista(cantidad, grupo));
                 break;
-            case SELECCION_POR_COPIAS_ESPERADAS:
+            case CCE:
                 seleccionados.addAll(seleccionContCopiasEsp(cantidad, grupo));
                 break;
-            case SELECCION_POR_RULETA:
+            case RULETA:
                 seleccionados.addAll(seleccionRuleta(cantidad, grupo));
                 break;
-            case SELECCION_RANKING:
+            case RANKING:
                 seleccionados.addAll(seleccionRanking(cantidad, rMin, grupo));
+                break;
+            case TORNEO:
+                seleccionados.addAll(seleccionXTorneo(cantidad, cantGrupos));
+                break;
+            case ELITISTA_RULETA:
+                seleccionados.addAll(seleccionElitista(cantElitista));
+                seleccionados.addAll(seleccionRuleta(cantOtro));
+                break;
+            case ELITISTA_RANKING:
+                seleccionados.addAll(seleccionElitista(cantElitista));
+                seleccionados.addAll(seleccionRanking(cantOtro, rMin, grupo));
+                break;
+            case ELITISTA_CCE:
+                seleccionados.addAll(seleccionElitista(cantElitista));
+                seleccionados.addAll(seleccionContCopiasEsp(cantOtro));
+                break;
+            case ELITISTA_TORNEO:
+                seleccionados.addAll(seleccionElitista(cantElitista));
+                seleccionados.addAll(seleccionXTorneo(cantOtro, cantGrupos));
                 break;
         }
         return seleccionados;
@@ -510,10 +540,10 @@ public class Poblacion implements Cloneable {
     }
 
     /**
-     * Devuelve los tres mejores individuos de la población. Se utiliza para 
+     * Devuelve los tres mejores individuos de la población. Se utiliza para
      * mostrar las tres mejores combinaciones encontradas durante la ejecución
      * del algoritmo genético.
-     * 
+     *
      * @return Arreglo con los tres mejores individuos.
      */
     public Individuo[] get3primerosIndividuos() {
@@ -524,11 +554,11 @@ public class Poblacion implements Cloneable {
         individuos[0] = (Individuo) copia.get(posicion);
         for (int i = 1; i < 3; i++) {
             Individuo ultimo = (Individuo) copia.get(posicion);
-            while ((ultimo.getAptitud()== ((Individuo) copia.get(posicion)).getAptitud())
-                    && (posicion < copia.size()-1)) {
-                posicion++;             
+            while ((ultimo.getAptitud() == ((Individuo) copia.get(posicion)).getAptitud())
+                    && (posicion < copia.size() - 1)) {
+                posicion++;
             }
-            individuos[i]=(Individuo) copia.get(posicion);
+            individuos[i] = (Individuo) copia.get(posicion);
         }
         return individuos;
     }
@@ -681,5 +711,17 @@ public class Poblacion implements Cloneable {
      */
     public static int getCont_selecContCopias() {
         return cont_selecContCopias;
+    }
+
+    public static int getCont_selecTorneo() {
+        return cont_selecTorneo;
+    }
+
+    public static void reiniciarContadoresSeleccion() {
+        cont_selecContCopias = 0;
+        cont_selecElitista = 0;
+        cont_selecRanking = 0;
+        cont_selecRuleta = 0;
+        cont_selecTorneo = 0;
     }
 }

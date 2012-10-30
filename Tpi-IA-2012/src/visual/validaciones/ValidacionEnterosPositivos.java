@@ -13,7 +13,7 @@ import javax.swing.JTextField;
  *
  * @author Ruben
  */
-public class ValidacionNumerica extends InputVerifier {
+public class ValidacionEnterosPositivos extends InputVerifier {
 
     @Override
     public boolean verify(JComponent input) {
