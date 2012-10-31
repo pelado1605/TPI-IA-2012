@@ -296,20 +296,25 @@ public class Poblacion implements Cloneable {
      */
     public ArrayList<Individuo> seleccionContCopiasEsp(int cantidad, ArrayList<Individuo> entrada) {
         float aptitudPromedio = getAptitudPoblacion(entrada) / entrada.size();
+        ArrayList<Individuo> copia = (ArrayList<Individuo>) entrada.clone();
+        Collections.shuffle(copia);
         ArrayList<Individuo> seleccionados = new ArrayList();
         int i = 0, cont = 0;
         while (cont < cantidad) {
             //agregar try-catch por si "i" supera el tamaño de la lista.
-            float valor = entrada.get(i).getAptitud() / aptitudPromedio;
+            float valor = copia.get(i).getAptitud() / aptitudPromedio;
             int entero = (int) valor;
             for (int j = 0; j < entero; j++) {
-                seleccionados.add(entrada.get(i));
+                seleccionados.add(copia.get(i));
                 cont++;
                 cont_selecContCopias++;
             }
             i++;
+            if (i == copia.size() - 1) {
+                i = 0;
+                Collections.shuffle(copia);
+            }
         }
-//        cont_selecContCopias++;
         return seleccionados;
     }
 

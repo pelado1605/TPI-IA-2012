@@ -265,7 +265,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
                  * eficiente (que el remanente de materiales sea 0), obtendra un
                  * premio en puntos de aptitud
                  */
-                nuevaAptitud += ((nuevaAptitud * 5) * PORC_APTITUD_X_EFICIENCIA);
+                nuevaAptitud += ((nuevaAptitud * 3) * PORC_APTITUD_X_EFICIENCIA);
             }
 
         } else {
@@ -280,7 +280,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
                     diferenciaTotal += Math.abs(diferencia[i]);
                 }
             }
-            nuevaAptitud = (nuevaAptitud - diferenciaTotal) * PORC_APTITUD_X_FACTIBILIDAD;
+            nuevaAptitud = nuevaAptitud - (diferenciaTotal * PORC_APTITUD_X_FACTIBILIDAD);
         }
         if (nuevaAptitud < 0) {
             nuevaAptitud = 0.009f;
@@ -491,17 +491,15 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
          * queden positivos, seran el remanente del material.
          */
         int[] diferencia = calcDiferencia(matIngs);
-        boolean valor = false;
+        boolean valor = true;
         int[] rangos = calcularMaterialesRango();
 
         for (int i = 0; i < rangos.length; i++) {
             diferencia[i] -= rangos[i];
-            if ((diferencia[i]) <= 0) {
-                valor = true;
-                diferencia[i] = 0;
+            if ((diferencia[i]) > 0) {
+                valor = false;
             }
         }
-
         return valor;
     }
 

@@ -111,6 +111,7 @@ public class Configuracion extends javax.swing.JDialog {
         porTorneoCheck.setEnabled(false);
         panelChecksSelec.add(porTorneoCheck);
 
+        porTorneoTextField.setText("1");
         porTorneoTextField.setEnabled(false);
         porTorneoTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         porTorneoTextField.setMaximumSize(new java.awt.Dimension(6, 20));
