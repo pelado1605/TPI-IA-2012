@@ -33,10 +33,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * Definirá la cantidad de generaciones que existirán.
      */
     public static final int CANTIDAD_ITERACIONES = 1000;
-    
-    public static final float PORC_SELECCION = 0.2f;
-    public static final float PORC_CRUZA = 0.5f;
-    
+    public static final float PORC_SELECCION = 0.25f;
+    public static final float PORC_CRUZA = 0.6f;
     /**
      * Número de copias esperadas que se utilizará el algoritmo. Definido para
      * utilizar en la selección por ranking.
@@ -151,7 +149,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * cruzada para la generación de las próximas iteraciones.
      * @param materiales Arreglo de materiales m1..m8 ingresados por el usuario.
      */
-    public Generaciones(int cantIter, int tamPob, float pSeleccion,int tipoSeleccion,
+    public Generaciones(int cantIter, int tamPob, float pSeleccion, int tipoSeleccion,
             int cantGrupos, float pCruza, int tipoCruza, int[] materiales) {
         this.tamañoPoblacion = tamPob;
         this.cantIteraciones = cantIter;
@@ -194,10 +192,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             ArrayList<Individuo> listaAnterior = (ArrayList<Individuo>) generacAnterior.getPoblado().clone();
             Poblacion copia = new Poblacion(listaAnterior, PROB_FIJA, RMIN, iteracionActual);
 //            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
-            Poblacion actual = new Poblacion(copia.seleccionXTipo(cSeleccion, copia.getPoblado(),tipoSeleccion ,cantGrupos), PROB_FIJA, RMIN, iteracionActual);
+            Poblacion actual = new Poblacion(copia.seleccionXTipo(cSeleccion, copia.getPoblado(), tipoSeleccion, cantGrupos), PROB_FIJA, RMIN, iteracionActual);
 //            Poblacion actual = new Poblacion(copia.seleccionElitista(cSeleccion - convertPorcentACant(.8f, cSeleccion)), PROB_FIJA, RMIN, iteracionActual);
 //            actual.getPoblado().addAll(copia.seleccionRuleta(convertPorcentACant(.8f, cSeleccion)));
-            actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza,tipoCruza));
+            actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza, tipoCruza));
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
@@ -214,7 +212,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             iteracionActual++;
             System.out.println(iteracionActual);
             publish(actual);
-            int progreso = iteracionActual / (cantIteraciones / 100);
+            int progreso = 0;
+            progreso = (int) (((float) iteracionActual) / ((float) cantIteraciones) * 100);
+
+            System.out.println(progreso);
             setProgress(progreso);
             getPropertyChangeSupport().firePropertyChange("genParaGrafica", generaciones.get(iteracionActual - 1),
                     generaciones.get(iteracionActual));
@@ -253,7 +254,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         System.out.println(Individuo.getCont_cruzaMultipunto());
         System.out.print("Cant BINOMIAL: ");
         System.out.println(Individuo.getCont_cruzaBinomial());
-        
+
         return true;
     }
 
@@ -492,6 +493,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                 generaciones.get(iteracionActual));
         Poblacion.reiniciarContadoresSeleccion();
         Individuo.reiniciarContadoresCruza();
+        System.gc();
     }
 
     /**

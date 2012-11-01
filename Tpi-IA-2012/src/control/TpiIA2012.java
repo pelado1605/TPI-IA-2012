@@ -141,7 +141,6 @@ public class TpiIA2012 {
         vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
         vPrincipal.getPararButton().addActionListener(generaciones.getAl());//lo mismo que arriba
         vPrincipal.getPasoApasoButton().addActionListener(generaciones.getAl());//lo mismo que arriba
-        System.gc();
     }
 
     /**

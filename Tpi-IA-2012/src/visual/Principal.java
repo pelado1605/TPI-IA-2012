@@ -12,8 +12,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Comparator;
 import java.util.Random;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
-import visual.validaciones.ValidacionEnterosPositivos;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -39,8 +39,10 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         pcs.addPropertyChangeListener(pclBotones);
         parado = true;
-        JTableHeader header = tabla.getTableHeader();
-        header.setDefaultRenderer(new HeaderRenderer(tabla));
+        JTableHeader header = genActTable.getTableHeader();
+        header.setDefaultRenderer(new HeaderRenderer(genActTable));
+        header.setDefaultRenderer(new HeaderRenderer(genAntTable));
+        
     }
 
     /**
@@ -96,14 +98,22 @@ public class Principal extends javax.swing.JFrame {
         graficasButton = new javax.swing.JButton();
         resultadosButton = new javax.swing.JButton();
         avanceEjecPanel = new javax.swing.JPanel();
-        barraDeProgreso = new javax.swing.JProgressBar();
+        tablasPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabla =         new javax.swing.JTable() {
+        genActTable =         new javax.swing.JTable() {
              @Override
              public boolean isCellEditable(int row, int column) {
                  return false;
              }
          };
+        jScrollPane3 = new javax.swing.JScrollPane();
+        genAntTable =         new javax.swing.JTable() {
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                 return false;
+             }
+         };
+        barraDeProgreso = new javax.swing.JProgressBar();
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         edicion = new javax.swing.JMenu();
@@ -130,7 +140,7 @@ public class Principal extends javax.swing.JFrame {
 
         m1TextField.setColumns(5);
         m1TextField.setText(bundle.getString("Principal.m1TextField.text")); // NOI18N
-        m1TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m1TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m1TextFieldFocusGained(evt);
@@ -145,7 +155,7 @@ public class Principal extends javax.swing.JFrame {
 
         m2TextField.setColumns(5);
         m2TextField.setText(bundle.getString("Principal.m2TextField.text")); // NOI18N
-        m2TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m2TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m2TextFieldFocusGained(evt);
@@ -160,7 +170,7 @@ public class Principal extends javax.swing.JFrame {
 
         m3TextField.setColumns(5);
         m3TextField.setText(bundle.getString("Principal.m3TextField.text")); // NOI18N
-        m3TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m3TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m3TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m3TextFieldFocusGained(evt);
@@ -175,7 +185,7 @@ public class Principal extends javax.swing.JFrame {
 
         m4TextField.setColumns(5);
         m4TextField.setText(bundle.getString("Principal.m4TextField.text")); // NOI18N
-        m4TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m4TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m4TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m4TextFieldFocusGained(evt);
@@ -190,7 +200,7 @@ public class Principal extends javax.swing.JFrame {
 
         m5TextField.setColumns(5);
         m5TextField.setText(bundle.getString("Principal.m5TextField.text")); // NOI18N
-        m5TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m5TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m5TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m5TextFieldFocusGained(evt);
@@ -205,7 +215,7 @@ public class Principal extends javax.swing.JFrame {
 
         m6TextField.setColumns(5);
         m6TextField.setText(bundle.getString("Principal.m6TextField.text")); // NOI18N
-        m6TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m6TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m6TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m6TextFieldFocusGained(evt);
@@ -220,7 +230,7 @@ public class Principal extends javax.swing.JFrame {
 
         m7TextField.setColumns(5);
         m7TextField.setText(bundle.getString("Principal.m7TextField.text")); // NOI18N
-        m7TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m7TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m7TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m7TextFieldFocusGained(evt);
@@ -235,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
 
         m8TextField.setColumns(5);
         m8TextField.setText(bundle.getString("Principal.m8TextField.text")); // NOI18N
-        m8TextField.setInputVerifier(new ValidacionEnterosPositivos());
+        m8TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
         m8TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m8TextFieldFocusGained(evt);
@@ -271,14 +281,14 @@ public class Principal extends javax.swing.JFrame {
         baseTextField.setColumns(15);
         baseTextField.setText(bundle.getString("Principal.baseTextField.text")); // NOI18N
         baseTextField.setEnabled(false);
-        baseTextField.setInputVerifier(new ValidacionEnterosPositivos());
+        baseTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
 
         rangoLabel.setText(bundle.getString("Principal.rangoLabel.text")); // NOI18N
 
         rangoTextField.setColumns(15);
         rangoTextField.setText(bundle.getString("Principal.rangoTextField.text")); // NOI18N
         rangoTextField.setEnabled(false);
-        rangoTextField.setInputVerifier(new ValidacionEnterosPositivos());
+        rangoTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
 
         javax.swing.GroupLayout genAleatoriaPanelLayout = new javax.swing.GroupLayout(genAleatoriaPanel);
         genAleatoriaPanel.setLayout(genAleatoriaPanelLayout);
@@ -398,20 +408,33 @@ public class Principal extends javax.swing.JFrame {
 
         avanceEjecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.avanceEjecPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
         avanceEjecPanel.setToolTipText(bundle.getString("Principal.avanceEjecPanel.toolTipText")); // NOI18N
-        avanceEjecPanel.setLayout(new java.awt.BorderLayout(0, 5));
+        avanceEjecPanel.setLayout(new java.awt.BorderLayout());
+
+        tablasPanel.setLayout(new javax.swing.BoxLayout(tablasPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        genActTable.setModel(modeloAct);
+        genActTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        genActTable.setFillsViewportHeight(true);
+        genActTable.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        genActTable.setShowHorizontalLines(false);
+        genActTable.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(genActTable);
+
+        tablasPanel.add(jScrollPane2);
+
+        genAntTable.setModel(modeloAnt);
+        genAntTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        genAntTable.setFillsViewportHeight(true);
+        genAntTable.setShowHorizontalLines(false);
+        genAntTable.setShowVerticalLines(false);
+        jScrollPane3.setViewportView(genAntTable);
+
+        tablasPanel.add(jScrollPane3);
+
+        avanceEjecPanel.add(tablasPanel, java.awt.BorderLayout.CENTER);
 
         barraDeProgreso.setStringPainted(true);
         avanceEjecPanel.add(barraDeProgreso, java.awt.BorderLayout.SOUTH);
-
-        tabla.setModel(modelo);
-        tabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabla.setFillsViewportHeight(true);
-        tabla.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        tabla.setShowHorizontalLines(false);
-        tabla.setShowVerticalLines(false);
-        jScrollPane2.setViewportView(tabla);
-
-        avanceEjecPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         barraMenu.setFont(getFont());
 
@@ -441,8 +464,8 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(entMaterialesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -467,7 +490,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_limitadoCheckBoxActionPerformed
 
     private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configButtonActionPerformed
-       
     }//GEN-LAST:event_configButtonActionPerformed
 
     private void ejecutarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarButtonActionPerformed
@@ -514,7 +536,7 @@ public class Principal extends javax.swing.JFrame {
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
         setParado(true);
         setEjecutandose(false);
-        inicializarTabla();
+        inicializarTablas();
         barraDeProgreso.setValue(0);
         for (int i = 0; i < 8; i++) {
             setMatIng(i, 1000);
@@ -558,47 +580,6 @@ public class Principal extends javax.swing.JFrame {
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the form
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
     }
 
     public int[] getMatIngs() {
@@ -750,21 +731,72 @@ public class Principal extends javax.swing.JFrame {
         return m8TextField;
     }
 
-    private void inicializarTabla() {
-        modelo = new DefaultTableModel(
+    private void inicializarTablas() {
+        modeloAct = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
                 });
+        genActTable.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                }) {
+            Class[] tipos = new Class[]{
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
+                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+            };
 
-        tabla.setModel(modelo);
+            @Override
+            public Class getColumnClass(int indiceColum) {
+                return tipos[indiceColum];
+            }
+        });
+        modeloAnt = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                });
+        genAntTable.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                }) {
+            Class[] tipos = new Class[]{
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
+                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+            };
+
+            @Override
+            public Class getColumnClass(int indiceColum) {
+                return tipos[indiceColum];
+            }
+        });
+
+        TableRowSorter sorter = new TableRowSorter(modeloAct);
+        sorter.setComparator(0, comparadorEnteros);
+        sorter.setComparator(1, comparadorEnteros);
+        sorter.setComparator(4, comparadorEnteros);
+        TableRowSorter sorter1 = new TableRowSorter(modeloAnt);
+        sorter1.setComparator(0, comparadorEnteros);
+        sorter1.setComparator(1, comparadorEnteros);
+        sorter1.setComparator(4, comparadorEnteros);
+        genActTable.setModel(modeloAct);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        tabla.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        tabla.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        tabla.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        tabla.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        tabla.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        genActTable.setRowSorter(sorter);
+        genAntTable.setModel(modeloAnt);
+        genAntTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        genAntTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        genAntTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        genAntTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        genAntTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        genAntTable.setRowSorter(sorter1);
     }
 
     private static class HeaderRenderer implements TableCellRenderer {
@@ -861,11 +893,11 @@ public class Principal extends javax.swing.JFrame {
                 Poblacion poblacion = (Poblacion) evt.getNewValue();
                 NumberFormat formatter = new DecimalFormat("####0.00");
                 int cont = 0;
-                inicializarTabla();
+                inicializarTablas();
                 for (Individuo individuo : poblacion.getPoblado()) {
                     String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
                     Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
-                    modelo.addRow(fila);
+                    modeloAct.addRow(fila);
                     cont++;
                 }
                 poblacion = (Poblacion) evt.getOldValue();
@@ -873,7 +905,7 @@ public class Principal extends javax.swing.JFrame {
                 for (Individuo individuo : poblacion.getPoblado()) {
                     String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
                     Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
-                    modelo.addRow(fila);
+                    modeloAnt.addRow(fila);
                     cont++;
                 }
             }
@@ -883,11 +915,24 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     };
-    private DefaultTableModel modelo = new DefaultTableModel(
+    private DefaultTableModel modeloAct = new DefaultTableModel(
             new Object[][]{},
             new String[]{
                 "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
             });
+    private DefaultTableModel modeloAnt = modeloAct;
+    private Comparator<Integer> comparadorEnteros = new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return Integer.compare(o1, o2);
+        }
+    };
+//    private Comparator<Float> comparadorDecimal = new Comparator<Float>() {
+//        @Override
+//        public int compare(Float o1, Float o2) {
+//            return Float.compare(o1, o2);
+//        }
+//    };
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean ejecutandose;
     private boolean parado;
@@ -907,10 +952,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel ejecucionPanel;
     private javax.swing.JButton ejecutarButton;
     private javax.swing.JPanel entMaterialesPanel;
+    private javax.swing.JTable genActTable;
     private javax.swing.JPanel genAleatoriaPanel;
+    private javax.swing.JTable genAntTable;
     private javax.swing.JMenu graficas;
     private javax.swing.JButton graficasButton;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JCheckBox limitadoCheckBox;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JLabel m1Label;
@@ -947,6 +995,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel rangoLabel;
     private javax.swing.JTextField rangoTextField;
     private javax.swing.JButton resultadosButton;
-    private javax.swing.JTable tabla;
+    private javax.swing.JPanel tablasPanel;
     // End of variables declaration//GEN-END:variables
 }
