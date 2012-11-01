@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
+import utilidad.AlphanumComparator;
 
 /**
  *
@@ -42,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
         JTableHeader header = genActTable.getTableHeader();
         header.setDefaultRenderer(new HeaderRenderer(genActTable));
         header.setDefaultRenderer(new HeaderRenderer(genAntTable));
-        
+
     }
 
     /**
@@ -772,16 +773,20 @@ public class Principal extends javax.swing.JFrame {
                 return tipos[indiceColum];
             }
         });
-
+        utilidad.AlphanumComparator comparadorStrings = new AlphanumComparator();
         TableRowSorter sorter = new TableRowSorter(modeloAct);
         sorter.setComparator(0, comparadorEnteros);
         sorter.setComparator(1, comparadorEnteros);
         sorter.setComparator(4, comparadorEnteros);
+        sorter.setComparator(5, comparadorStrings);
         TableRowSorter sorter1 = new TableRowSorter(modeloAnt);
         sorter1.setComparator(0, comparadorEnteros);
         sorter1.setComparator(1, comparadorEnteros);
         sorter1.setComparator(4, comparadorEnteros);
+        sorter1.setComparator(5, comparadorStrings);
         genActTable.setModel(modeloAct);
+        genActTable.getColumnModel().getColumn(0).setMinWidth(10);
+        genActTable.getColumnModel().getColumn(0).setMaxWidth(50);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         genActTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -789,13 +794,17 @@ public class Principal extends javax.swing.JFrame {
         genActTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         genActTable.setRowSorter(sorter);
         genAntTable.setModel(modeloAnt);
+        genAntTable.getColumnModel().getColumn(0).setMinWidth(10);
+        genAntTable.getColumnModel().getColumn(0).setMaxWidth(50);
         genAntTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        genAntTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         genAntTable.setRowSorter(sorter1);
     }
 
@@ -927,12 +936,6 @@ public class Principal extends javax.swing.JFrame {
             return Integer.compare(o1, o2);
         }
     };
-//    private Comparator<Float> comparadorDecimal = new Comparator<Float>() {
-//        @Override
-//        public int compare(Float o1, Float o2) {
-//            return Float.compare(o1, o2);
-//        }
-//    };
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean ejecutandose;
     private boolean parado;

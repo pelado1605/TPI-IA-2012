@@ -33,8 +33,8 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * Definirá la cantidad de generaciones que existirán.
      */
     public static final int CANTIDAD_ITERACIONES = 1000;
-    public static final float PORC_SELECCION = 0.25f;
-    public static final float PORC_CRUZA = 0.6f;
+    public static final float PORC_SELECCION = 0.2f;
+    public static final float PORC_CRUZA = 0.65f;
     /**
      * Número de copias esperadas que se utilizará el algoritmo. Definido para
      * utilizar en la selección por ranking.
