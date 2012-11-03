@@ -4,18 +4,47 @@
  */
 package visual;
 
+import dominio.Individuo;
+import dominio.Poblacion;
+import java.awt.Component;
+import java.awt.HeadlessException;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
+import utilidad.AlphanumComparator;
+import visual.validaciones.ValidacionEnterosPositivos;
+
 /**
  *
  * @author Ruben
  */
-public class VisorGeneraciones extends javax.swing.JDialog {
+public class VisorGeneraciones extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VisorGeneraciones
-     */
-    public VisorGeneraciones(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public VisorGeneraciones(int[] mIngs, ArrayList<Poblacion> generaciones, String title) throws HeadlessException {
+        super(title);
         initComponents();
+        pcs.addPropertyChangeListener(pcl);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        this.indice = 0;
+        JTableHeader header = jTable1.getTableHeader();
+        header.setDefaultRenderer(new VisorGeneraciones.HeaderRenderer(jTable1));
+        this.generaciones = generaciones;
+        this.mIngs = mIngs;
+        cargarTabla(indice);
+        //ver si puedo poner los listeners solo en el cambio de propiedad del textfield
     }
 
     /**
@@ -27,63 +56,327 @@ public class VisorGeneraciones extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        inicioButton = new javax.swing.JButton();
+        retrocederButton = new javax.swing.JButton();
+        avanzarButton = new javax.swing.JButton();
+        finButton = new javax.swing.JButton();
+        irAButton = new javax.swing.JButton();
+        irATextField = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel2.setPreferredSize(new java.awt.Dimension(200, 260));
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        jTable1.setModel(modelo);
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setFillsViewportHeight(true);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jTable1.setShowHorizontalLines(false);
+        jTable1.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane1);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+
+        inicioButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/inicio.png"))); // NOI18N
+        inicioButton.setText("Inicio");
+        inicioButton.setEnabled(false);
+        inicioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicioButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(inicioButton);
+
+        retrocederButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/retroceder.png"))); // NOI18N
+        retrocederButton.setText("Retroceder");
+        retrocederButton.setEnabled(false);
+        retrocederButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retrocederButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(retrocederButton);
+
+        avanzarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/avanzar.png"))); // NOI18N
+        avanzarButton.setText("Avanzar");
+        avanzarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avanzarButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(avanzarButton);
+
+        finButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/fin.png"))); // NOI18N
+        finButton.setText("Fin");
+        finButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(finButton);
+
+        irAButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/index.png"))); // NOI18N
+        irAButton.setText("Ir a:");
+        irAButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                irAButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(irAButton);
+
+        irATextField.setInputVerifier(new ValidacionEnterosPositivos());
+        irATextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                irATextFieldActionPerformed(evt);
+            }
+        });
+        irATextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                irATextFieldFocusGained(evt);
+            }
+        });
+        jPanel1.add(irATextField);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void inicioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioButtonActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VisorGeneraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VisorGeneraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VisorGeneraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VisorGeneraciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            vaciarTabla();
+            setIndice(0);
+            cargarTabla(indice);
+            irATextField.setText(String.valueOf(indice));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
+                    "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
         }
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                VisorGeneraciones dialog = new VisorGeneraciones(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
+    }//GEN-LAST:event_inicioButtonActionPerformed
+
+    private void retrocederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrocederButtonActionPerformed
+        try {
+            vaciarTabla();
+            setIndice(indice - 1);
+            cargarTabla(indice);
+            irATextField.setText(String.valueOf(indice));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
+                    "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_retrocederButtonActionPerformed
+
+    private void avanzarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avanzarButtonActionPerformed
+        try {
+            vaciarTabla();
+            setIndice(indice + 1);
+            cargarTabla(indice);
+            irATextField.setText(String.valueOf(indice));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
+                    "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_avanzarButtonActionPerformed
+
+    private void finButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finButtonActionPerformed
+        try {
+            vaciarTabla();
+            setIndice(generaciones.size() - 1);
+            cargarTabla(indice);
+            irATextField.setText(String.valueOf(indice));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
+                    "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_finButtonActionPerformed
+
+    private void irAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_irAButtonActionPerformed
+        try {
+            vaciarTabla();
+            int valor = Integer.valueOf(irATextField.getText());
+            setIndice(valor);
+            cargarTabla(indice);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
+                    "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_irAButtonActionPerformed
+
+    private void irATextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_irATextFieldActionPerformed
+        try {
+            vaciarTabla();
+            int valor = Integer.valueOf(irATextField.getText());
+            setIndice(valor);
+            cargarTabla(indice);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
+                    "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_irATextFieldActionPerformed
+
+    private void irATextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_irATextFieldFocusGained
+        irATextField.selectAll();
+    }//GEN-LAST:event_irATextFieldFocusGained
+
+    private void inicializarTabla() {
+        modelo = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
                 });
-                dialog.setVisible(true);
+        jTable1.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                }) {
+            Class[] tipos = new Class[]{
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
+                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+            };
+
+            @Override
+            public Class getColumnClass(int indiceColum) {
+                return tipos[indiceColum];
             }
         });
+        utilidad.AlphanumComparator comparadorStrings = new AlphanumComparator();
+        TableRowSorter sorter = new TableRowSorter(modelo);
+        sorter.setComparator(0, comparadorEnteros);
+        sorter.setComparator(1, comparadorEnteros);
+        sorter.setComparator(4, comparadorEnteros);
+        sorter.setComparator(5, comparadorStrings);
+        TableRowSorter sorter1 = new TableRowSorter(modelo);
+        sorter1.setComparator(0, comparadorEnteros);
+        sorter1.setComparator(1, comparadorEnteros);
+        sorter1.setComparator(4, comparadorEnteros);
+        sorter1.setComparator(5, comparadorStrings);
+        jTable1.setModel(modelo);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(10);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        jTable1.setRowSorter(sorter);
     }
+
+    private void cargarTabla(int indice) {
+        Poblacion poblacion = generaciones.get(indice);
+        int cont = 0;
+        inicializarTabla();
+        for (Individuo individuo : poblacion.getPoblado()) {
+            String factible = individuo.factibilidad(mIngs) ? "Sí" : "No";
+            Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+            modelo.addRow(fila);
+            ++cont;
+        }
+    }
+
+    private void vaciarTabla() {
+        while (modelo.getRowCount() > 0) {
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                modelo.removeRow(i);
+            }
+        }
+        jTable1.repaint();
+
+    }
+
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int nuevo) {
+        int viejo = this.indice;
+        this.indice = nuevo;
+        pcs.firePropertyChange("indice", viejo, nuevo);
+    }
+    private PropertyChangeListener pcl = new PropertyChangeListener() {
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            System.out.println(String.valueOf("ultimo" + (generaciones.size() - 1)));
+            System.out.println(String.valueOf("nuevo" + evt.getNewValue()));
+            System.out.println(String.valueOf("viejo" + evt.getOldValue()));
+            int maxValue = generaciones.size() - 1;
+            if (evt.getPropertyName().equals("indice")) {
+                if (evt.getNewValue() == 0) {
+                    inicioButton.setEnabled(false);
+                    retrocederButton.setEnabled(false);
+                }
+                if (evt.getNewValue() == maxValue) {
+                    finButton.setEnabled(false);
+                    avanzarButton.setEnabled(false);
+                }
+                if (evt.getOldValue() == 0) {
+                    inicioButton.setEnabled(true);
+                    retrocederButton.setEnabled(true);
+                }
+                if (evt.getOldValue() == maxValue) {
+                    finButton.setEnabled(true);
+                    avanzarButton.setEnabled(true);
+                }
+            }
+        }
+    };
+
+    private static class HeaderRenderer implements TableCellRenderer {
+
+        DefaultTableCellRenderer renderer;
+
+        public HeaderRenderer(JTable table) {
+            renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int col) {
+            return renderer.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, col);
+        }
+    }
+    private DefaultTableModel modelo = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{
+                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+            });
+    private Comparator<Integer> comparadorEnteros = new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return Integer.compare(o1, o2);
+        }
+    };
+    private int indice;
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(indice);
+    private final int[] mIngs;
+    private ArrayList<Poblacion> generaciones;
+    private NumberFormat formatter = new DecimalFormat("####0.00");
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton avanzarButton;
+    private javax.swing.JButton finButton;
+    private javax.swing.JButton inicioButton;
+    private javax.swing.JButton irAButton;
+    private javax.swing.JTextField irATextField;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JButton retrocederButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -192,6 +192,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             ArrayList<Individuo> listaAnterior = (ArrayList<Individuo>) generacAnterior.getPoblado().clone();
             Poblacion copia = new Poblacion(listaAnterior, PROB_FIJA, RMIN, iteracionActual);
 //            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
+            iteracionActual++;
             Poblacion actual = new Poblacion(copia.seleccionXTipo(cSeleccion, copia.getPoblado(), tipoSeleccion, cantGrupos), PROB_FIJA, RMIN, iteracionActual);
 //            Poblacion actual = new Poblacion(copia.seleccionElitista(cSeleccion - convertPorcentACant(.8f, cSeleccion)), PROB_FIJA, RMIN, iteracionActual);
 //            actual.getPoblado().addAll(copia.seleccionRuleta(convertPorcentACant(.8f, cSeleccion)));
@@ -199,7 +200,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-            Thread.sleep(8);
+            Thread.sleep(5);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 
@@ -209,7 +210,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //                archivador.agregarRegistros(indiv);
 //            }
 //            archivador.agregar("-----------------------------");
-            iteracionActual++;
             System.out.println(iteracionActual);
             publish(actual);
             int progreso = 0;
@@ -448,6 +448,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         this.pausado = pausado;
     }
 
+    public int[] getMaterialesIng() {
+        return materialesIng;
+    }
+
     /**
      * Agrega un escuchador de cambio de propiedad.
      *
@@ -473,7 +477,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("Pausar")
                     | e.getActionCommand().equals("Parar")
-                    | e.getActionCommand().equals("Ste. Iteracion")) {
+                    | e.getActionCommand().equals("Siguiente")) {
                 getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
                         generaciones.get(iteracionActual));
             }
@@ -487,10 +491,11 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      */
     @Override
     protected void done() {
-        getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
+        getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual-1),
                 generaciones.get(iteracionActual));
-        getPropertyChangeSupport().firePropertyChange("resultado", generaciones.get(iteracionActual - 1),
+        getPropertyChangeSupport().firePropertyChange("resultado", generaciones.get(iteracionActual-1),
                 generaciones.get(iteracionActual));
+        getPropertyChangeSupport().firePropertyChange("revisar", null, generaciones);
         Poblacion.reiniciarContadoresSeleccion();
         Individuo.reiniciarContadoresCruza();
         System.gc();

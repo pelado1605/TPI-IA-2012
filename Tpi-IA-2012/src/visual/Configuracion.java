@@ -7,6 +7,7 @@ package visual;
 import dominio.Generaciones;
 import dominio.Individuo;
 import dominio.Poblacion;
+import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -62,6 +63,10 @@ public class Configuracion extends javax.swing.JDialog {
         binomialCheck = new javax.swing.JCheckBox();
         porcentCruzaLabel = new javax.swing.JLabel();
         porcentCruzaTextField = new javax.swing.JTextField();
+        panelMutacion = new javax.swing.JPanel();
+        mutacionCheck = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        mutacionTextField = new javax.swing.JTextField();
         aceptarButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         editarCruzaButton = new javax.swing.JButton();
@@ -194,23 +199,63 @@ public class Configuracion extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        panelMutacion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Mutación (no editable)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
+
+        mutacionCheck.setText("Mutación Fija");
+        mutacionCheck.setEnabled(false);
+
+        jLabel1.setText("Porcentaje de Mutación:");
+
+        mutacionTextField.setEnabled(false);
+
+        javax.swing.GroupLayout panelMutacionLayout = new javax.swing.GroupLayout(panelMutacion);
+        panelMutacion.setLayout(panelMutacionLayout);
+        panelMutacionLayout.setHorizontalGroup(
+            panelMutacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMutacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelMutacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMutacionLayout.createSequentialGroup()
+                        .addComponent(mutacionCheck)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelMutacionLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mutacionTextField)))
+                .addContainerGap())
+        );
+        panelMutacionLayout.setVerticalGroup(
+            panelMutacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMutacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mutacionCheck)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelMutacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(mutacionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelOperadoresLayout = new javax.swing.GroupLayout(panelOperadores);
         panelOperadores.setLayout(panelOperadoresLayout);
         panelOperadoresLayout.setHorizontalGroup(
             panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOperadoresLayout.createSequentialGroup()
+            .addGroup(panelOperadoresLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelCruza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelSeleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCruza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSeleccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMutacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelOperadoresLayout.setVerticalGroup(
             panelOperadoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOperadoresLayout.createSequentialGroup()
                 .addComponent(panelSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCruza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(4, 4, 4))
+                .addComponent(panelCruza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelMutacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         aceptarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
@@ -222,7 +267,7 @@ public class Configuracion extends javax.swing.JDialog {
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/default24.png"))); // NOI18N
-        jButton1.setText("Configuracion por defecto");
+        jButton1.setText("Por defecto");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -275,7 +320,7 @@ public class Configuracion extends javax.swing.JDialog {
                     .addComponent(tamPobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tamPobLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelOperadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelOperadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(aceptarButton)
@@ -368,10 +413,14 @@ public class Configuracion extends javax.swing.JDialog {
     private javax.swing.JButton editarCruzaButton;
     private javax.swing.JCheckBox elitistaCheck;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JCheckBox multipuntoCheck;
+    private javax.swing.JCheckBox mutacionCheck;
+    private javax.swing.JTextField mutacionTextField;
     private javax.swing.JPanel panelChecksCruza;
     private javax.swing.JPanel panelChecksSelec;
     private javax.swing.JPanel panelCruza;
+    private javax.swing.JPanel panelMutacion;
     private javax.swing.JPanel panelOperadores;
     private javax.swing.JPanel panelSeleccion;
     private javax.swing.JCheckBox porTorneoCheck;
@@ -390,13 +439,18 @@ public class Configuracion extends javax.swing.JDialog {
     private void configPorDefecto() {
         cantIterTextField.setText(String.valueOf(Generaciones.CANTIDAD_ITERACIONES));
         tamPobTextField.setText(String.valueOf(Generaciones.CANTIDAD_POBLACION));
-        porcentSelecTextField.setText(String.valueOf(Generaciones.PORC_SELECCION));
-        porcentCruzaTextField.setText(String.valueOf(Generaciones.PORC_CRUZA));
         //Seleccion
+        porcentSelecTextField.setText(String.valueOf(Generaciones.PORC_SELECCION));
         elitistaCheck.setSelected(true);
         ruletaCheck.setSelected(true);
         //Cruza
+        porcentCruzaTextField.setText(String.valueOf(Generaciones.PORC_CRUZA));
         multipuntoCheck.setSelected(true);
+        //Mutacion
+        float porcMutacion = 1 - Generaciones.PORC_SELECCION - Generaciones.PORC_CRUZA;
+        DecimalFormat formatter  = new DecimalFormat("####0.00");
+        mutacionTextField.setText(String.valueOf(formatter.format(porcMutacion)));
+        mutacionCheck.setSelected(true);
     }
 
     private void editarCampos() {

@@ -359,7 +359,7 @@ public class Poblacion implements Cloneable {
              * Tener en cuenta si cantidad no es multiplo de cantGrupos
              */
             int cantidadXGrupo = cantidad / cantGrupos;
-            int tipoSeleccion = suerte.nextInt(4); //el 4 no entra porque es seleccion x torneo.
+            int tipoSeleccion = suerte.nextInt(7) + 1; //el 4 no entra porque es seleccion x torneo.
             seleccionados.addAll(seleccionXTipo(cantidadXGrupo, subgrupo, tipoSeleccion, 0));//el ultimo parametro (0) no altera al metodo
         }
         if (seleccionados.size() < cantidad) {

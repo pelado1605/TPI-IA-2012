@@ -84,7 +84,7 @@ public class TpiIA2012 {
             if (e.getActionCommand().equals("Parar")) {
                 generaciones.cancel(true);
             }
-            if (e.getActionCommand().equals("Ste. Iteracion")) {
+            if (e.getActionCommand().equals("Siguiente")) {
                 if (vPrincipal.isParado()) {
                     inicializarEjecucion();
                     generaciones.setPausado(true);

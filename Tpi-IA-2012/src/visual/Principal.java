@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 import javax.swing.JButton;
@@ -97,6 +98,7 @@ public class Principal extends javax.swing.JFrame {
         pararButton = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
         graficasButton = new javax.swing.JButton();
+        revisarButton = new javax.swing.JButton();
         resultadosButton = new javax.swing.JButton();
         avanceEjecPanel = new javax.swing.JPanel();
         tablasPanel = new javax.swing.JPanel();
@@ -355,6 +357,11 @@ public class Principal extends javax.swing.JFrame {
         pasoApasoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/next.png"))); // NOI18N
         pasoApasoButton.setText(bundle.getString("Principal.pasoApasoButton.text")); // NOI18N
         pasoApasoButton.setEnabled(false);
+        pasoApasoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasoApasoButtonActionPerformed(evt);
+            }
+        });
         ejecucionPanel.add(pasoApasoButton);
 
         pausarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Pause.png"))); // NOI18N
@@ -396,6 +403,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         ejecucionPanel.add(graficasButton);
+
+        revisarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/report.png"))); // NOI18N
+        revisarButton.setText(bundle.getString("Principal.revisarButton.text")); // NOI18N
+        revisarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                revisarButtonActionPerformed(evt);
+            }
+        });
+        ejecucionPanel.add(revisarButton);
 
         resultadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/flag.png"))); // NOI18N
         resultadosButton.setText(bundle.getString("Principal.resultadosButton.text")); // NOI18N
@@ -465,7 +481,7 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(avanceEjecPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
                 .addComponent(ejecucionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(entMaterialesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
@@ -578,6 +594,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void graficasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficasButtonActionPerformed
     }//GEN-LAST:event_graficasButtonActionPerformed
+
+    private void revisarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revisarButtonActionPerformed
+        visorGeneracionesDialog.setVisible(true);
+    }//GEN-LAST:event_revisarButtonActionPerformed
+
+    private void pasoApasoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasoApasoButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pasoApasoButtonActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -836,6 +860,7 @@ public class Principal extends javax.swing.JFrame {
                     limpiarButton.setEnabled(false);
 //                    graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(false);
+                    revisarButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
                     habilitarEntradasm(false);
                 } else {
@@ -855,6 +880,7 @@ public class Principal extends javax.swing.JFrame {
                     limpiarButton.setEnabled(true);
 //                    graficasButton.setEnabled(false);
                     resultadosButton.setEnabled(true);
+                    revisarButton.setEnabled(true);
                     pasoApasoButton.setEnabled(false);
                     habilitarEntradasm(true);
                 } else {
@@ -889,38 +915,45 @@ public class Principal extends javax.swing.JFrame {
     private PropertyChangeListener pclModelo = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
-            if ("progress".equals(evt.getPropertyName())) {
-                barraDeProgreso.setValue((int) evt.getNewValue());
-            }
-            if ("state".equals(evt.getPropertyName())) {
-                if (SwingWorker.StateValue.DONE.equals(evt.getNewValue())) {
-                    setEjecutandose(false);
-                    setParado(true);
-                }
-            }
-            if ("genParaTabla".equals(evt.getPropertyName())) {
-                Poblacion poblacion = (Poblacion) evt.getNewValue();
-                NumberFormat formatter = new DecimalFormat("####0.00");
-                int cont = 0;
-                inicializarTablas();
-                for (Individuo individuo : poblacion.getPoblado()) {
-                    String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
-                    modeloAct.addRow(fila);
-                    cont++;
-                }
-                poblacion = (Poblacion) evt.getOldValue();
-                cont = 0;
-                for (Individuo individuo : poblacion.getPoblado()) {
-                    String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
-                    Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
-                    modeloAnt.addRow(fila);
-                    cont++;
-                }
-            }
-            if ("resultado".equals(evt.getPropertyName())) {
-                Poblacion poblacion = (Poblacion) evt.getNewValue();
-                resultadoDialog = new Resultado(null, true, poblacion.get3primerosIndividuos(), getMatIngs());
+            switch (evt.getPropertyName()) {
+                case "progress":
+                    barraDeProgreso.setValue((int) evt.getNewValue());
+                    break;
+                case "state":
+                    if (SwingWorker.StateValue.DONE.equals(evt.getNewValue())) {
+                        setEjecutandose(false);
+                        setParado(true);
+                    }
+                    ;
+                    break;
+                case "genParaTabla":
+                    Poblacion poblacion = (Poblacion) evt.getNewValue();
+                    int cont = 0;
+                    inicializarTablas();
+                    for (Individuo individuo : poblacion.getPoblado()) {
+                        String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
+                        Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                        modeloAct.addRow(fila);
+                        cont++;
+                    }
+                    poblacion = (Poblacion) evt.getOldValue();
+                    cont = 0;
+                    for (Individuo individuo : poblacion.getPoblado()) {
+                        String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
+                        Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                        modeloAnt.addRow(fila);
+                        cont++;
+                    }
+                    ;
+                    break;
+                case "resultado":
+                    Poblacion poblacion1 = (Poblacion) evt.getNewValue();
+                    resultadoDialog = new Resultado(null, true, poblacion1.get3primerosIndividuos(), getMatIngs());
+                    break;
+                case "revisar":
+                    ArrayList<Poblacion> generacion = (ArrayList<Poblacion>) evt.getNewValue();
+                    visorGeneracionesDialog = new VisorGeneraciones(getMatIngs(),generacion,"Visor de generaciones");
+                    break;
             }
         }
     };
@@ -941,6 +974,8 @@ public class Principal extends javax.swing.JFrame {
     private boolean parado;
     private Random random = new Random();
     private Resultado resultadoDialog;
+    private VisorGeneraciones visorGeneracionesDialog;
+    private NumberFormat formatter = new DecimalFormat("####0.00");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ApPromMenuItem;
     private javax.swing.JButton aleatorioButton;
@@ -998,6 +1033,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel rangoLabel;
     private javax.swing.JTextField rangoTextField;
     private javax.swing.JButton resultadosButton;
+    private javax.swing.JButton revisarButton;
     private javax.swing.JPanel tablasPanel;
     // End of variables declaration//GEN-END:variables
 }

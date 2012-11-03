@@ -85,7 +85,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="103" groupAlignment="2" attributes="0">
-              <Component id="avanceEjecPanel" alignment="2" pref="0" max="32767" attributes="0"/>
+              <Component id="avanceEjecPanel" alignment="2" pref="977" max="32767" attributes="0"/>
               <Component id="ejecucionPanel" alignment="2" max="32767" attributes="0"/>
               <Component id="entMaterialesPanel" alignment="2" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -728,6 +728,9 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pasoApasoButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="pausarButton">
           <Properties>
@@ -787,6 +790,19 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="graficasButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="revisarButton">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/visual/icons/report.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="visual/Bundle.properties" key="Principal.revisarButton.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="revisarButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="resultadosButton">
