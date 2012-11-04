@@ -406,6 +406,7 @@ public class Principal extends javax.swing.JFrame {
 
         revisarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/report.png"))); // NOI18N
         revisarButton.setText(bundle.getString("Principal.revisarButton.text")); // NOI18N
+        revisarButton.setEnabled(false);
         revisarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 revisarButtonActionPerformed(evt);

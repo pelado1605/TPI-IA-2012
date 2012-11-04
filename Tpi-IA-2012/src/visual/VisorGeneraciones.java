@@ -133,7 +133,6 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         });
         jPanel1.add(irAButton);
 
-        irATextField.setInputVerifier(new ValidacionEnterosPositivos());
         irATextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 irATextFieldActionPerformed(evt);
@@ -171,6 +170,8 @@ public class VisorGeneraciones extends javax.swing.JFrame {
             cargarTabla(indice);
             irATextField.setText(String.valueOf(indice));
         } catch (Exception e) {
+            setIndice(indice + 1);
+            cargarTabla(indice);
             JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
                     "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
         }
@@ -183,6 +184,8 @@ public class VisorGeneraciones extends javax.swing.JFrame {
             cargarTabla(indice);
             irATextField.setText(String.valueOf(indice));
         } catch (Exception e) {
+            setIndice(indice - 1);
+            cargarTabla(indice);
             JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
                     "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
         }
@@ -202,26 +205,33 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_finButtonActionPerformed
 
     private void irAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_irAButtonActionPerformed
+        int indiceActual = getIndice();
         try {
             vaciarTabla();
             int valor = Integer.valueOf(irATextField.getText());
             setIndice(valor);
             cargarTabla(indice);
         } catch (Exception e) {
+            setIndice(indiceActual);
+            irATextField.setText(String.valueOf(indiceActual));
             JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
                     "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_irAButtonActionPerformed
 
     private void irATextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_irATextFieldActionPerformed
+        int indiceActual = getIndice();
         try {
             vaciarTabla();
             int valor = Integer.valueOf(irATextField.getText());
             setIndice(valor);
             cargarTabla(indice);
         } catch (Exception e) {
+            setIndice(indiceActual);
+            irATextField.setText(String.valueOf(indiceActual));
             JOptionPane.showMessageDialog(this, "No se puede acceder a esa posición",
                     "Posición incorrecta", JOptionPane.WARNING_MESSAGE);
+
         }
     }//GEN-LAST:event_irATextFieldActionPerformed
 
@@ -288,13 +298,10 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     }
 
     private void vaciarTabla() {
-        while (modelo.getRowCount() > 0) {
-            for (int i = 0; i < modelo.getRowCount(); i++) {
-                modelo.removeRow(i);
-            }
+        int tamaño = modelo.getRowCount();
+        for (int i = tamaño; i < 0; i--) {
+            modelo.removeRow(i);
         }
-        jTable1.repaint();
-
     }
 
     public int getIndice() {
@@ -318,7 +325,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
                     inicioButton.setEnabled(false);
                     retrocederButton.setEnabled(false);
                 }
-                if (evt.getNewValue() == maxValue) {
+                if (evt.getNewValue() == maxValue || indice == maxValue) {
                     finButton.setEnabled(false);
                     avanzarButton.setEnabled(false);
                 }
@@ -326,7 +333,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
                     inicioButton.setEnabled(true);
                     retrocederButton.setEnabled(true);
                 }
-                if (evt.getOldValue() == maxValue) {
+                if (evt.getOldValue() == maxValue || indice != maxValue) {
                     finButton.setEnabled(true);
                     avanzarButton.setEnabled(true);
                 }

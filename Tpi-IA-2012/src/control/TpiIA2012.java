@@ -114,7 +114,7 @@ public class TpiIA2012 {
      * ejecutar varias veces el algoritmo, en una corrida del programa.
      */
     private void inicializarEjecucion() {
-        grafica = null;
+        grafica.dispose();
         grafica = new Grafica("Gráfica del avance de las generaciones");
         if (generaciones != null) {
             generaciones.removePCl(vPrincipal.getPclModelo());

@@ -200,7 +200,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-            Thread.sleep(5);
 //            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
 //            Collections.sort(prueba);
 
@@ -210,11 +209,11 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 //                archivador.agregarRegistros(indiv);
 //            }
 //            archivador.agregar("-----------------------------");
+            Thread.sleep(8);
             System.out.println(iteracionActual);
             publish(actual);
             int progreso = 0;
             progreso = (int) (((float) iteracionActual) / ((float) cantIteraciones) * 100);
-
             System.out.println(progreso);
             setProgress(progreso);
             getPropertyChangeSupport().firePropertyChange("genParaGrafica", generaciones.get(iteracionActual - 1),
@@ -295,7 +294,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             nueva.add(nuevo);
         }
         gokuFase4.calcularBase();
-        Poblacion nuevaPob = new Poblacion(nueva, 0f, 0, iteracionActual);
+        Poblacion nuevaPob = new Poblacion(nueva, 0f, 0, 0);
         generaciones.add(nuevaPob);
         return nueva;
     }
@@ -491,9 +490,9 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      */
     @Override
     protected void done() {
-        getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual-1),
+        getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
                 generaciones.get(iteracionActual));
-        getPropertyChangeSupport().firePropertyChange("resultado", generaciones.get(iteracionActual-1),
+        getPropertyChangeSupport().firePropertyChange("resultado", generaciones.get(iteracionActual - 1),
                 generaciones.get(iteracionActual));
         getPropertyChangeSupport().firePropertyChange("revisar", null, generaciones);
         Poblacion.reiniciarContadoresSeleccion();
