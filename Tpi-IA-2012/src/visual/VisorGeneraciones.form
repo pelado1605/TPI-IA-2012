@@ -59,6 +59,9 @@
                 <Property name="showHorizontalLines" type="boolean" value="false"/>
                 <Property name="showVerticalLines" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="        new javax.swing.JTable() {&#xd;             @Override&#xd;             public boolean isCellEditable(int row, int column) {&#xd;                 return false;&#xd;             }&#xd;         }"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

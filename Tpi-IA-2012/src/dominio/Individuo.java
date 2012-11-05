@@ -913,6 +913,12 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
     }
 
+    public float getPorcEficiencia() {
+        float porcentaje = 0f;
+        porcentaje = aptitud/Generaciones.gokuFase4.getAptitud();
+        return porcentaje;
+    }
+
     public static void main(String[] args) {
         Individuo ind = new Individuo(43, 71, 18, 0);
         int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};

@@ -56,7 +56,7 @@ public class Grafica extends JFrame {
                 }
             }
         };
-        this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private JFreeChart crearChart(XYDataset dataset) {

@@ -119,11 +119,14 @@ public class Principal extends javax.swing.JFrame {
         barraDeProgreso = new javax.swing.JProgressBar();
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         edicion = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         graficas = new javax.swing.JMenu();
-        mejorIndivMenuItem = new javax.swing.JMenuItem();
-        peorIndivMenuItem = new javax.swing.JMenuItem();
         ApPromMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
@@ -457,23 +460,35 @@ public class Principal extends javax.swing.JFrame {
         barraMenu.setFont(getFont());
 
         archivo.setText(bundle.getString("Principal.archivo.text")); // NOI18N
+
+        jMenuItem1.setText(bundle.getString("Principal.jMenuItem1.text")); // NOI18N
+        archivo.add(jMenuItem1);
+
         barraMenu.add(archivo);
 
         edicion.setText(bundle.getString("Principal.edicion.text")); // NOI18N
+
+        jMenuItem2.setText(bundle.getString("Principal.jMenuItem2.text")); // NOI18N
+        edicion.add(jMenuItem2);
+
         barraMenu.add(edicion);
 
         graficas.setText(bundle.getString("Principal.graficas.text")); // NOI18N
-
-        mejorIndivMenuItem.setText(bundle.getString("Principal.mejorIndivMenuItem.text")); // NOI18N
-        graficas.add(mejorIndivMenuItem);
-
-        peorIndivMenuItem.setText(bundle.getString("Principal.peorIndivMenuItem.text")); // NOI18N
-        graficas.add(peorIndivMenuItem);
 
         ApPromMenuItem.setText(bundle.getString("Principal.ApPromMenuItem.text")); // NOI18N
         graficas.add(ApPromMenuItem);
 
         barraMenu.add(graficas);
+
+        jMenu1.setText(bundle.getString("Principal.jMenu1.text")); // NOI18N
+
+        jMenuItem4.setText(bundle.getString("Principal.jMenuItem4.text")); // NOI18N
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem3.setText(bundle.getString("Principal.jMenuItem3.text")); // NOI18N
+        jMenu1.add(jMenuItem3);
+
+        barraMenu.add(jMenu1);
 
         setJMenuBar(barraMenu);
 
@@ -761,16 +776,17 @@ public class Principal extends javax.swing.JFrame {
         modeloAct = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 });
         genActTable.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 }) {
             Class[] tipos = new Class[]{
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
+                java.lang.Float.class
             };
 
             @Override
@@ -781,16 +797,17 @@ public class Principal extends javax.swing.JFrame {
         modeloAnt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 });
         genAntTable.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 }) {
             Class[] tipos = new Class[]{
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
+                java.lang.Float.class
             };
 
             @Override
@@ -804,22 +821,24 @@ public class Principal extends javax.swing.JFrame {
         sorter.setComparator(1, comparadorEnteros);
         sorter.setComparator(4, comparadorEnteros);
         sorter.setComparator(5, comparadorStrings);
+        sorter.setComparator(6, comparadorStrings);
         TableRowSorter sorter1 = new TableRowSorter(modeloAnt);
         sorter1.setComparator(0, comparadorEnteros);
         sorter1.setComparator(1, comparadorEnteros);
         sorter1.setComparator(4, comparadorEnteros);
         sorter1.setComparator(5, comparadorStrings);
+        sorter1.setComparator(6, comparadorStrings);
         genActTable.setModel(modeloAct);
-        genActTable.getColumnModel().getColumn(0).setMinWidth(10);
-        genActTable.getColumnModel().getColumn(0).setMaxWidth(50);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        genActTable.getColumnModel().getColumn(0).setMinWidth(10);
+        genActTable.getColumnModel().getColumn(0).setMaxWidth(50);
         genActTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        genActTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         genActTable.setRowSorter(sorter);
         genAntTable.setModel(modeloAnt);
         genAntTable.getColumnModel().getColumn(0).setMinWidth(10);
@@ -933,7 +952,10 @@ public class Principal extends javax.swing.JFrame {
                     inicializarTablas();
                     for (Individuo individuo : poblacion.getPoblado()) {
                         String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
-                        Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                        Object[] fila = {cont, poblacion.getNroGeneracion(), 
+                            individuo.mostrarProductos(), factible, individuo.getUtilidad(), 
+                            formatter.format(individuo.getAptitud()),
+                        formatter.format(individuo.getPorcEficiencia())};
                         modeloAct.addRow(fila);
                         cont++;
                     }
@@ -941,7 +963,10 @@ public class Principal extends javax.swing.JFrame {
                     cont = 0;
                     for (Individuo individuo : poblacion.getPoblado()) {
                         String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
-                        Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+                        Object[] fila = {cont, poblacion.getNroGeneracion(),
+                            individuo.mostrarProductos(), factible, 
+                            individuo.getUtilidad(), 
+                            formatter.format(individuo.getAptitud()),formatter.format(individuo.getPorcEficiencia())};
                         modeloAnt.addRow(fila);
                         cont++;
                     }
@@ -953,7 +978,7 @@ public class Principal extends javax.swing.JFrame {
                     break;
                 case "revisar":
                     ArrayList<Poblacion> generacion = (ArrayList<Poblacion>) evt.getNewValue();
-                    visorGeneracionesDialog = new VisorGeneraciones(getMatIngs(),generacion,"Visor de generaciones");
+                    visorGeneracionesDialog = new VisorGeneraciones(getMatIngs(), generacion, "Visor de generaciones");
                     break;
             }
         }
@@ -961,7 +986,7 @@ public class Principal extends javax.swing.JFrame {
     private DefaultTableModel modeloAct = new DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relacion"
             });
     private DefaultTableModel modeloAnt = modeloAct;
     private Comparator<Integer> comparadorEnteros = new Comparator<Integer>() {
@@ -996,6 +1021,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTable genAntTable;
     private javax.swing.JMenu graficas;
     private javax.swing.JButton graficasButton;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JCheckBox limitadoCheckBox;
@@ -1025,12 +1055,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel material7;
     private javax.swing.JPanel material8;
     private javax.swing.JPanel materiales;
-    private javax.swing.JMenuItem mejorIndivMenuItem;
     private javax.swing.JPanel opcionesPanel;
     private javax.swing.JButton pararButton;
     private javax.swing.JButton pasoApasoButton;
     private javax.swing.JButton pausarButton;
-    private javax.swing.JMenuItem peorIndivMenuItem;
     private javax.swing.JLabel rangoLabel;
     private javax.swing.JTextField rangoTextField;
     private javax.swing.JButton resultadosButton;

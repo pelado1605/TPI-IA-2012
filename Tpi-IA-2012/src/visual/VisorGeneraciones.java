@@ -58,7 +58,12 @@ public class VisorGeneraciones extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1 =         new javax.swing.JTable() {
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                 return false;
+             }
+         };
         jPanel1 = new javax.swing.JPanel();
         inicioButton = new javax.swing.JButton();
         retrocederButton = new javax.swing.JButton();
@@ -243,12 +248,12 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         modelo = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
                 });
         jTable1.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
                 }) {
             Class[] tipos = new Class[]{
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
@@ -266,11 +271,13 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         sorter.setComparator(1, comparadorEnteros);
         sorter.setComparator(4, comparadorEnteros);
         sorter.setComparator(5, comparadorStrings);
+        sorter.setComparator(6, comparadorStrings);
         TableRowSorter sorter1 = new TableRowSorter(modelo);
         sorter1.setComparator(0, comparadorEnteros);
         sorter1.setComparator(1, comparadorEnteros);
         sorter1.setComparator(4, comparadorEnteros);
         sorter1.setComparator(5, comparadorStrings);
+        sorter1.setComparator(6, comparadorStrings);
         jTable1.setModel(modelo);
         jTable1.getColumnModel().getColumn(0).setMinWidth(10);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -281,7 +288,8 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         jTable1.setRowSorter(sorter);
     }
 
@@ -291,7 +299,9 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         inicializarTabla();
         for (Individuo individuo : poblacion.getPoblado()) {
             String factible = individuo.factibilidad(mIngs) ? "Sí" : "No";
-            Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(), factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud())};
+            Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),
+                factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud()),
+            formatter.format(individuo.getPorcEficiencia())};
             modelo.addRow(fila);
             ++cont;
         }
@@ -361,7 +371,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     private DefaultTableModel modelo = new DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud"
+                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
             });
     private Comparator<Integer> comparadorEnteros = new Comparator<Integer>() {
         @Override

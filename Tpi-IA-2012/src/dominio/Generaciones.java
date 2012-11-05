@@ -23,48 +23,6 @@ import javax.swing.SwingWorker;
 public class Generaciones extends SwingWorker<Boolean, Poblacion> {
 
     /**
-     * Tamaño de la población que se utilizará en el algoritmo. El número indica
-     * cuantos individuos existirán dentro de una población.
-     */
-    public static final int CANTIDAD_POBLACION = 250;
-    /**
-     * Cantidad de iteraciones que realizará el algoritmo. El número indica
-     * cuantas veces se hará la selección, cruza y mutación de los individuos.
-     * Definirá la cantidad de generaciones que existirán.
-     */
-    public static final int CANTIDAD_ITERACIONES = 1000;
-    public static final float PORC_SELECCION = 0.2f;
-    public static final float PORC_CRUZA = 0.65f;
-    /**
-     * Número de copias esperadas que se utilizará el algoritmo. Definido para
-     * utilizar en la selección por ranking.
-     */
-    public static final float RMIN = 0.5f;
-    /**
-     * Probabilidad de mutación mínima. Utilizado para la mutación por
-     * temperatura ascendente/descendente.
-     */
-    public static final float PROB_MUT_MIN = 0.02f;
-    /**
-     * Probabilidad de mutación máxima. Utilizado para la mutación por
-     * temperatura ascendente/descendente.
-     */
-    public static final float PROB_MUT_MAX = 0.3f;
-    /**
-     * Probabilidad fija de mutación. Utilizado para determinar la probabilidad
-     * de mutación de un individuo.
-     *
-     * @deprecated NO SE UTILIZA, ya que se define una cantidad de población a
-     * ser mutada.
-     */
-    public static final float PROB_FIJA = 1f;
-    /**
-     * Factor Lambda para la mutación por temperatura. Incremento (o decremento)
-     * de la probabilidad de mutación por temperatura ascendente (o descendente)
-     * por cada iteración ejecutada.
-     */
-    public static final float LAMBDA = 0.005f;
-    /**
      * Individuo óptimo inalcanzable. Cada producto que contiene es calculado
      * como si no existiesen los otros. En la práctica, no se podrá alcanzar, ya
      * que será un individuo infactible, con los materiales ingresados por el
@@ -149,14 +107,14 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * cruzada para la generación de las próximas iteraciones.
      * @param materiales Arreglo de materiales m1..m8 ingresados por el usuario.
      */
-    public Generaciones(int cantIter, int tamPob, float pSeleccion, int tipoSeleccion,
-            int cantGrupos, float pCruza, int tipoCruza, int[] materiales) {
-        this.tamañoPoblacion = tamPob;
-        this.cantIteraciones = cantIter;
-        this.cSeleccion = convertPorcentACant(pSeleccion, tamañoPoblacion);
+    public Generaciones(int tipoSeleccion,int cantGrupos, int tipoCruza,
+            int[] materiales) {
+        this.tamañoPoblacion = Configuracion.getCANTIDAD_POBLACION();
+        this.cantIteraciones = Configuracion.getCANTIDAD_ITERACIONES();
+        this.cSeleccion = convertPorcentACant(Configuracion.getPORC_SELECCION(), tamañoPoblacion);
         this.tipoSeleccion = tipoSeleccion;
         this.cantGrupos = cantGrupos;
-        this.cCruza = convertPorcentACant(pCruza, tamañoPoblacion);
+        this.cCruza = convertPorcentACant(Configuracion.getPORC_CRUZA(), tamañoPoblacion);
         this.tipoCruza = tipoCruza;
         this.cMutacion = tamañoPoblacion - cCruza - cSeleccion;
         this.materialesIng = materiales;
@@ -190,12 +148,12 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             }
             Poblacion generacAnterior = generaciones.get(iteracionActual);
             ArrayList<Individuo> listaAnterior = (ArrayList<Individuo>) generacAnterior.getPoblado().clone();
-            Poblacion copia = new Poblacion(listaAnterior, PROB_FIJA, RMIN, iteracionActual);
+            Poblacion copia = new Poblacion(listaAnterior, Configuracion.getPROB_FIJA(),
+                    Configuracion.getRMIN(), iteracionActual);
 //            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
             iteracionActual++;
-            Poblacion actual = new Poblacion(copia.seleccionXTipo(cSeleccion, copia.getPoblado(), tipoSeleccion, cantGrupos), PROB_FIJA, RMIN, iteracionActual);
-//            Poblacion actual = new Poblacion(copia.seleccionElitista(cSeleccion - convertPorcentACant(.8f, cSeleccion)), PROB_FIJA, RMIN, iteracionActual);
-//            actual.getPoblado().addAll(copia.seleccionRuleta(convertPorcentACant(.8f, cSeleccion)));
+            Poblacion actual = new Poblacion(copia.seleccionXTipo(cSeleccion, copia.getPoblado(), tipoSeleccion, cantGrupos),
+                    Configuracion.getPROB_FIJA(),Configuracion.getRMIN(), iteracionActual);
             actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza, tipoCruza));
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
@@ -339,10 +297,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      */
     public float calcularProbMutacion(int nroIteracion, float probAnterior) {
         float probActual = probAnterior;
-        if (probActual < PROB_MUT_MAX) {
-            probActual = probActual + (LAMBDA * (nroIteracion + 1));
+        if (probActual < Configuracion.getPROB_MUT_MAX()) {
+            probActual = probActual + (Configuracion.getLAMBDA() * (nroIteracion + 1));
         } else {
-            probActual = PROB_MUT_MAX;
+            probActual = Configuracion.getPROB_MUT_MAX();
         }
         return probActual;
     }

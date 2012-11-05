@@ -122,20 +122,15 @@ public class TpiIA2012 {
         }
         vPrincipal.getPararButton().removeAll();
         vPrincipal.getPausarButton().removeAll();
-        int cIteraciones = Integer.valueOf(configuracion.getCantIterTextField().getText());
-        int tPoblacion = Integer.valueOf(configuracion.getTamPobTextField().getText());
-        float pSeleccion = Float.valueOf(configuracion.getPorcentSelecTextField().getText());
-        float pCruza = Float.valueOf(configuracion.getPorcentCruzaTextField().getText());
         int tSeleccion = configuracion.getTipoSelec();
-        System.out.println("SELECCION" + tSeleccion);
+        System.out.println("SELECCION" + tSeleccion);//SSSSSSSSSAAAAAAAAAACCCCCCCCCAAAAAAAAAAAAARRRRRRRRRRRRR
         int cantGrupos = 0;
         if (tSeleccion == Poblacion.ELITISTA_TORNEO || tSeleccion == Poblacion.TORNEO) {
             cantGrupos = Integer.valueOf(configuracion.getPorTorneoTextField().getText());
         }
         int tCruza = configuracion.getTipoCruza();
-        System.out.println("CRUZA " + tCruza);
-        generaciones = new Generaciones(cIteraciones, tPoblacion, pSeleccion,
-                tSeleccion, cantGrupos, pCruza, tCruza, vPrincipal.getMatIngs());
+        System.out.println("CRUZA " + tCruza);//SSSSSSSSSAAAAAAAAAACCCCCCCCCAAAAAAAAAAAAARRRRRRRRRRRRR
+        generaciones = new Generaciones(tSeleccion, cantGrupos,tCruza, vPrincipal.getMatIngs());
         generaciones.addPCl(vPrincipal.getPclModelo());
         generaciones.addPCl(grafica.getPclModel());
         vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
