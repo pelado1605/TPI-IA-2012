@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.8" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -22,21 +29,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="combinacionesPanel" alignment="0" pref="608" max="32767" attributes="0"/>
+          <Component id="combinacionesPanel" alignment="0" pref="738" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
               <Component id="aceptarLabel" min="-2" pref="142" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
+          <Component id="maximoPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="combinacionesPanel" min="-2" pref="189" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="aceptarLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="maximoPanel" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="aceptarLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -86,8 +96,26 @@
               <Font name="Tahoma" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Utilidad [$]"/>
+            <Property name="text" type="java.lang.String" value="Utilidad"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="aptitudLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Aptitud"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="posicionLabel" sourcePath="${font}" target="aptitudLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="relacionLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Relaci&#xf3;n"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="posicionLabel" sourcePath="${font}" target="relacionLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
         </Component>
         <Component class="javax.swing.JLabel" name="recetaLabel">
           <Properties>
@@ -122,10 +150,28 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="0.0"/>
+            <Property name="text" type="java.lang.String" value="$0.0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="receta1Label">
+        <Component class="javax.swing.JLabel" name="a1Label">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="a1Label" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="r1Label">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0.00%"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="r1Label" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JButton" name="receta1Button">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/visual/icons/quimica.png"/>
@@ -133,7 +179,7 @@
             <Property name="text" type="java.lang.String" value="Ver"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receta1LabelActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receta1ButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="pos2Label">
@@ -160,10 +206,28 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="0.0"/>
+            <Property name="text" type="java.lang.String" value="$0.0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="receta2Label">
+        <Component class="javax.swing.JLabel" name="a2Label">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="a2Label" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="r2Label">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0.00%"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="r2Label" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JButton" name="receta2Button">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/visual/icons/quimica.png"/>
@@ -171,7 +235,7 @@
             <Property name="text" type="java.lang.String" value="Ver"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receta2LabelActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receta2ButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="pos3Label">
@@ -198,10 +262,28 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="0.0"/>
+            <Property name="text" type="java.lang.String" value="$0.0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="receta3Label">
+        <Component class="javax.swing.JLabel" name="a3Label">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="a3Label" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="r3Label">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0.00%"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="r3Label" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JButton" name="receta3Button">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/visual/icons/quimica.png"/>
@@ -209,7 +291,7 @@
             <Property name="text" type="java.lang.String" value="Ver"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receta3LabelActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receta3ButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -225,5 +307,80 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aceptarLabelActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JPanel" name="maximoPanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="M&#xe1;ximo Te&#xf3;rico">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder bevelType="0"/>
+              </Border>
+              <Color PropertyName="color" blue="66" green="66" red="66" type="rgb"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+        <Property name="columns" type="int" value="0"/>
+        <Property name="rows" type="int" value="2"/>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="indMaxLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Individuo"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="indivLabel" sourcePath="${font}" target="indMaxLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="apMaxLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Aptitud"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="posicionLabel" sourcePath="${font}" target="apMaxLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="utMaxLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Utilidad"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="posicionLabel" sourcePath="${font}" target="utMaxLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="indMaxValorLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="(0,0,0,0)"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="indMaxValorLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="apMaxValorLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="apMaxValorLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="utMaxValorLabel">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="$0.0"/>
+          </Properties>
+          <BindingProperties>
+            <BindingProperty name="font" source="pos1Label" sourcePath="${font}" target="utMaxValorLabel" targetPath="font" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

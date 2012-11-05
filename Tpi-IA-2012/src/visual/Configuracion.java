@@ -82,7 +82,7 @@ public class Configuracion extends javax.swing.JDialog {
         setIconImage(null);
         setResizable(false);
 
-        cantIterLabel.setText("Cantidade de Iteraciones:");
+        cantIterLabel.setText("Cantidad de Iteraciones:");
 
         cantIterTextField.setEnabled(false);
         cantIterTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());

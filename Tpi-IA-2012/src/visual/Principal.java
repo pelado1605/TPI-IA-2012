@@ -7,9 +7,12 @@ package visual;
 import dominio.Individuo;
 import dominio.Poblacion;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ import java.util.Comparator;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
@@ -25,7 +30,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
+import sun.security.krb5.internal.TGSRep;
 import utilidad.AlphanumComparator;
+import utilidad.OSDetector;
 
 /**
  *
@@ -119,20 +126,21 @@ public class Principal extends javax.swing.JFrame {
         barraDeProgreso = new javax.swing.JProgressBar();
         barraMenu = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        salirMenuItem = new javax.swing.JMenuItem();
         edicion = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        configMenuItem = new javax.swing.JMenuItem();
         graficas = new javax.swing.JMenu();
-        ApPromMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        graficaMenuItem = new javax.swing.JMenuItem();
+        ayuda = new javax.swing.JMenu();
+        manUsuMenuItem = new javax.swing.JMenuItem();
+        acercaDeMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("visual/Bundle"); // NOI18N
+        setTitle(bundle.getString("Principal.title")); // NOI18N
         setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         setMinimumSize(new java.awt.Dimension(900, 500));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("visual/Bundle"); // NOI18N
         entMaterialesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), bundle.getString("Principal.entMaterialesPanel.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102))); // NOI18N
         entMaterialesPanel.setPreferredSize(new java.awt.Dimension(850, 176));
         entMaterialesPanel.setLayout(new java.awt.BorderLayout());
@@ -461,34 +469,49 @@ public class Principal extends javax.swing.JFrame {
 
         archivo.setText(bundle.getString("Principal.archivo.text")); // NOI18N
 
-        jMenuItem1.setText(bundle.getString("Principal.jMenuItem1.text")); // NOI18N
-        archivo.add(jMenuItem1);
+        salirMenuItem.setText(bundle.getString("Principal.salirMenuItem.text")); // NOI18N
+        salirMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirMenuItemActionPerformed(evt);
+            }
+        });
+        archivo.add(salirMenuItem);
 
         barraMenu.add(archivo);
 
         edicion.setText(bundle.getString("Principal.edicion.text")); // NOI18N
 
-        jMenuItem2.setText(bundle.getString("Principal.jMenuItem2.text")); // NOI18N
-        edicion.add(jMenuItem2);
+        configMenuItem.setText(bundle.getString("Principal.configMenuItem.text")); // NOI18N
+        configMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configMenuItemActionPerformed(evt);
+            }
+        });
+        edicion.add(configMenuItem);
 
         barraMenu.add(edicion);
 
         graficas.setText(bundle.getString("Principal.graficas.text")); // NOI18N
 
-        ApPromMenuItem.setText(bundle.getString("Principal.ApPromMenuItem.text")); // NOI18N
-        graficas.add(ApPromMenuItem);
+        graficaMenuItem.setText(bundle.getString("Principal.graficaMenuItem.text")); // NOI18N
+        graficas.add(graficaMenuItem);
 
         barraMenu.add(graficas);
 
-        jMenu1.setText(bundle.getString("Principal.jMenu1.text")); // NOI18N
+        ayuda.setText(bundle.getString("Principal.ayuda.text")); // NOI18N
 
-        jMenuItem4.setText(bundle.getString("Principal.jMenuItem4.text")); // NOI18N
-        jMenu1.add(jMenuItem4);
+        manUsuMenuItem.setText(bundle.getString("Principal.manUsuMenuItem.text")); // NOI18N
+        manUsuMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manUsuMenuItemActionPerformed(evt);
+            }
+        });
+        ayuda.add(manUsuMenuItem);
 
-        jMenuItem3.setText(bundle.getString("Principal.jMenuItem3.text")); // NOI18N
-        jMenu1.add(jMenuItem3);
+        acercaDeMenuItem.setText(bundle.getString("Principal.acercaDeMenuItem.text")); // NOI18N
+        ayuda.add(acercaDeMenuItem);
 
-        barraMenu.add(jMenu1);
+        barraMenu.add(ayuda);
 
         setJMenuBar(barraMenu);
 
@@ -618,6 +641,50 @@ public class Principal extends javax.swing.JFrame {
     private void pasoApasoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasoApasoButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pasoApasoButtonActionPerformed
+
+    private void salirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuItemActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_salirMenuItemActionPerformed
+
+    private void configMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configMenuItemActionPerformed
+    }//GEN-LAST:event_configMenuItemActionPerformed
+
+    private void manUsuMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manUsuMenuItemActionPerformed
+        File pdf = new File("Manual de usuario/guia.pdf");
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(pdf);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al intentar abrir el archivo",
+                        "Imposible abrir el archivo.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_manUsuMenuItemActionPerformed
+
+//    public static boolean open(File f) {
+//        try {
+//            if (OSDetector.isWindows()) {
+//                Runtime.getRuntime().exec(new String[]{"rundll32 url.dll,FileProtocolHandler",
+//                            f.getAbsolutePath()});
+//                return true;
+//            } else if (OSDetector.isLinux() || OSDetector.isMac()) {
+//                Runtime.getRuntime().exec(new String[]{"/usr/bin/open",
+//                            f.getAbsolutePath()});
+//                return true;
+//            } else {
+//                // Unknown OS, try with desktop
+//                if (Desktop.isDesktopSupported()) {
+//                    Desktop.getDesktop().open(f);
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace(System.err);
+//            return false;
+//        }
+//    }
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -772,83 +839,103 @@ public class Principal extends javax.swing.JFrame {
         return m8TextField;
     }
 
+    public JMenuItem getConfigMenuItem() {
+        return configMenuItem;
+    }
+
+    public JMenuItem getGraficaMenuItem() {
+        return graficaMenuItem;
+    }
+
     private void inicializarTablas() {
         modeloAct = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 });
-        genActTable.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
-                }) {
-            Class[] tipos = new Class[]{
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
-                java.lang.Float.class
-            };
-
-            @Override
-            public Class getColumnClass(int indiceColum) {
-                return tipos[indiceColum];
-            }
-        });
+//        genActTable.setModel(new DefaultTableModel(
+//                new Object[][]{},
+//                new String[]{
+//                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
+//                }) {
+//            Class[] tipos = new Class[]{
+//                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
+//                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
+//                java.lang.Float.class
+//            };
+//
+//            @Override
+//            public Class getColumnClass(int indiceColum) {
+//                return tipos[indiceColum];
+//            }
+//        });
         modeloAnt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 });
-        genAntTable.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
-                }) {
-            Class[] tipos = new Class[]{
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
-                java.lang.Float.class
-            };
-
-            @Override
-            public Class getColumnClass(int indiceColum) {
-                return tipos[indiceColum];
-            }
-        });
+//        genAntTable.setModel(new DefaultTableModel(
+//                new Object[][]{},
+//                new String[]{
+//                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
+//                }) {
+//            Class[] tipos = new Class[]{
+//                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
+//                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
+//                java.lang.Float.class
+//            };
+//
+//            @Override
+//            public Class getColumnClass(int indiceColum) {
+//                return tipos[indiceColum];
+//            }
+//        });
         utilidad.AlphanumComparator comparadorStrings = new AlphanumComparator();
         TableRowSorter sorter = new TableRowSorter(modeloAct);
         sorter.setComparator(0, comparadorEnteros);
         sorter.setComparator(1, comparadorEnteros);
-        sorter.setComparator(4, comparadorEnteros);
+        sorter.setComparator(2, comparadorStrings);
+        sorter.setComparator(4, comparadorStrings);
         sorter.setComparator(5, comparadorStrings);
         sorter.setComparator(6, comparadorStrings);
         TableRowSorter sorter1 = new TableRowSorter(modeloAnt);
         sorter1.setComparator(0, comparadorEnteros);
         sorter1.setComparator(1, comparadorEnteros);
-        sorter1.setComparator(4, comparadorEnteros);
+        sorter1.setComparator(2, comparadorStrings);
+        sorter1.setComparator(4, comparadorStrings);
         sorter1.setComparator(5, comparadorStrings);
         sorter1.setComparator(6, comparadorStrings);
         genActTable.setModel(modeloAct);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        genActTable.getColumnModel().getColumn(0).setMinWidth(10);
+        genActTable.getColumnModel().getColumn(0).setMinWidth(30);
+        genActTable.getColumnModel().getColumn(0).setPreferredWidth(35);
         genActTable.getColumnModel().getColumn(0).setMaxWidth(50);
+        genActTable.getColumnModel().getColumn(3).setMinWidth(60);
+        genActTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+        genActTable.getColumnModel().getColumn(3).setMaxWidth(60);
         genActTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        genActTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         genActTable.setRowSorter(sorter);
         genAntTable.setModel(modeloAnt);
-        genAntTable.getColumnModel().getColumn(0).setMinWidth(10);
+        genAntTable.getColumnModel().getColumn(0).setMinWidth(30);
+        genAntTable.getColumnModel().getColumn(0).setPreferredWidth(35);
         genAntTable.getColumnModel().getColumn(0).setMaxWidth(50);
+        genAntTable.getColumnModel().getColumn(3).setMinWidth(60);
+        genAntTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+        genAntTable.getColumnModel().getColumn(3).setMaxWidth(60);
         genAntTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        genAntTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         genAntTable.setRowSorter(sorter1);
     }
 
@@ -952,10 +1039,11 @@ public class Principal extends javax.swing.JFrame {
                     inicializarTablas();
                     for (Individuo individuo : poblacion.getPoblado()) {
                         String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
-                        Object[] fila = {cont, poblacion.getNroGeneracion(), 
-                            individuo.mostrarProductos(), factible, individuo.getUtilidad(), 
-                            formatter.format(individuo.getAptitud()),
-                        formatter.format(individuo.getPorcEficiencia())};
+                        Object[] fila = {cont, poblacion.getNroGeneracion(),
+                            individuo.mostrarProductos(), factible,
+                            fUt.format(individuo.getUtilidad()),
+                            fApt.format(individuo.getAptitud()),
+                            fPorc.format(individuo.getPorcEficiencia())};
                         modeloAct.addRow(fila);
                         cont++;
                     }
@@ -964,9 +1052,10 @@ public class Principal extends javax.swing.JFrame {
                     for (Individuo individuo : poblacion.getPoblado()) {
                         String factible = individuo.factibilidad(getMatIngs()) ? "Sí" : "No";
                         Object[] fila = {cont, poblacion.getNroGeneracion(),
-                            individuo.mostrarProductos(), factible, 
-                            individuo.getUtilidad(), 
-                            formatter.format(individuo.getAptitud()),formatter.format(individuo.getPorcEficiencia())};
+                            individuo.mostrarProductos(), factible,
+                            fUt.format(individuo.getUtilidad()),
+                            fApt.format(individuo.getAptitud()),
+                            fPorc.format(individuo.getPorcEficiencia())};
                         modeloAnt.addRow(fila);
                         cont++;
                     }
@@ -986,7 +1075,7 @@ public class Principal extends javax.swing.JFrame {
     private DefaultTableModel modeloAct = new DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relacion"
+                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
             });
     private DefaultTableModel modeloAnt = modeloAct;
     private Comparator<Integer> comparadorEnteros = new Comparator<Integer>() {
@@ -1001,17 +1090,21 @@ public class Principal extends javax.swing.JFrame {
     private Random random = new Random();
     private Resultado resultadoDialog;
     private VisorGeneraciones visorGeneracionesDialog;
-    private NumberFormat formatter = new DecimalFormat("####0.00");
+    private NumberFormat fApt = new DecimalFormat("####0.00");
+    private NumberFormat fPorc = new DecimalFormat("##.##%");
+    private NumberFormat fUt = new DecimalFormat("$####0.00");
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem ApPromMenuItem;
+    private javax.swing.JMenuItem acercaDeMenuItem;
     private javax.swing.JButton aleatorioButton;
     private javax.swing.JMenu archivo;
     private javax.swing.JPanel avanceEjecPanel;
+    private javax.swing.JMenu ayuda;
     private javax.swing.JProgressBar barraDeProgreso;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JLabel baseLabel;
     private javax.swing.JTextField baseTextField;
     private javax.swing.JButton configButton;
+    private javax.swing.JMenuItem configMenuItem;
     private javax.swing.JMenu edicion;
     private javax.swing.JPanel ejecucionPanel;
     private javax.swing.JButton ejecutarButton;
@@ -1019,13 +1112,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTable genActTable;
     private javax.swing.JPanel genAleatoriaPanel;
     private javax.swing.JTable genAntTable;
+    private javax.swing.JMenuItem graficaMenuItem;
     private javax.swing.JMenu graficas;
     private javax.swing.JButton graficasButton;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JCheckBox limitadoCheckBox;
@@ -1046,6 +1135,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField m7TextField;
     private javax.swing.JLabel m8Label;
     private javax.swing.JTextField m8TextField;
+    private javax.swing.JMenuItem manUsuMenuItem;
     private javax.swing.JPanel material1;
     private javax.swing.JPanel material2;
     private javax.swing.JPanel material3;
@@ -1063,6 +1153,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField rangoTextField;
     private javax.swing.JButton resultadosButton;
     private javax.swing.JButton revisarButton;
+    private javax.swing.JMenuItem salirMenuItem;
     private javax.swing.JPanel tablasPanel;
     // End of variables declaration//GEN-END:variables
 }

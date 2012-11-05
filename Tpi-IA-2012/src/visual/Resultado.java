@@ -4,7 +4,10 @@
  */
 package visual;
 
+import dominio.Generaciones;
 import dominio.Individuo;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.JLabel;
 
 /**
@@ -42,25 +45,44 @@ public class Resultado extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        jLabel2 = new javax.swing.JLabel();
         combinacionesPanel = new javax.swing.JPanel();
         posicionLabel = new javax.swing.JLabel();
         indivLabel = new javax.swing.JLabel();
         utilidadLabel = new javax.swing.JLabel();
+        aptitudLabel = new javax.swing.JLabel();
+        relacionLabel = new javax.swing.JLabel();
         recetaLabel = new javax.swing.JLabel();
         pos1Label = new javax.swing.JLabel();
         ind1Label = new javax.swing.JLabel();
         u1Label = new javax.swing.JLabel();
-        receta1Label = new javax.swing.JButton();
+        a1Label = new javax.swing.JLabel();
+        r1Label = new javax.swing.JLabel();
+        receta1Button = new javax.swing.JButton();
         pos2Label = new javax.swing.JLabel();
         ind2Label = new javax.swing.JLabel();
         u2Label = new javax.swing.JLabel();
-        receta2Label = new javax.swing.JButton();
+        a2Label = new javax.swing.JLabel();
+        r2Label = new javax.swing.JLabel();
+        receta2Button = new javax.swing.JButton();
         pos3Label = new javax.swing.JLabel();
         ind3Label = new javax.swing.JLabel();
         u3Label = new javax.swing.JLabel();
-        receta3Label = new javax.swing.JButton();
+        a3Label = new javax.swing.JLabel();
+        r3Label = new javax.swing.JLabel();
+        receta3Button = new javax.swing.JButton();
         aceptarLabel = new javax.swing.JButton();
+        maximoPanel = new javax.swing.JPanel();
+        indMaxLabel = new javax.swing.JLabel();
+        apMaxLabel = new javax.swing.JLabel();
+        utMaxLabel = new javax.swing.JLabel();
+        indMaxValorLabel = new javax.swing.JLabel();
+        apMaxValorLabel = new javax.swing.JLabel();
+        utMaxValorLabel = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
 
         setResizable(false);
 
@@ -79,8 +101,24 @@ public class Resultado extends javax.swing.JDialog {
 
         utilidadLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         utilidadLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        utilidadLabel.setText("Utilidad [$]");
+        utilidadLabel.setText("Utilidad");
         combinacionesPanel.add(utilidadLabel);
+
+        aptitudLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        aptitudLabel.setText("Aptitud");
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, posicionLabel, org.jdesktop.beansbinding.ELProperty.create("${font}"), aptitudLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(aptitudLabel);
+
+        relacionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        relacionLabel.setText("Relación");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, posicionLabel, org.jdesktop.beansbinding.ELProperty.create("${font}"), relacionLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(relacionLabel);
 
         recetaLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         recetaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,17 +137,33 @@ public class Resultado extends javax.swing.JDialog {
 
         u1Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         u1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        u1Label.setText("0.0");
+        u1Label.setText("$0.0");
         combinacionesPanel.add(u1Label);
 
-        receta1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
-        receta1Label.setText("Ver");
-        receta1Label.addActionListener(new java.awt.event.ActionListener() {
+        a1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        a1Label.setText("0");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), a1Label, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(a1Label);
+
+        r1Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        r1Label.setText("0.00%");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), r1Label, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(r1Label);
+
+        receta1Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
+        receta1Button.setText("Ver");
+        receta1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                receta1LabelActionPerformed(evt);
+                receta1ButtonActionPerformed(evt);
             }
         });
-        combinacionesPanel.add(receta1Label);
+        combinacionesPanel.add(receta1Button);
 
         pos2Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         pos2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -123,17 +177,33 @@ public class Resultado extends javax.swing.JDialog {
 
         u2Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         u2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        u2Label.setText("0.0");
+        u2Label.setText("$0.0");
         combinacionesPanel.add(u2Label);
 
-        receta2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
-        receta2Label.setText("Ver");
-        receta2Label.addActionListener(new java.awt.event.ActionListener() {
+        a2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        a2Label.setText("0");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), a2Label, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(a2Label);
+
+        r2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        r2Label.setText("0.00%");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), r2Label, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(r2Label);
+
+        receta2Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
+        receta2Button.setText("Ver");
+        receta2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                receta2LabelActionPerformed(evt);
+                receta2ButtonActionPerformed(evt);
             }
         });
-        combinacionesPanel.add(receta2Label);
+        combinacionesPanel.add(receta2Button);
 
         pos3Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         pos3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,17 +217,33 @@ public class Resultado extends javax.swing.JDialog {
 
         u3Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         u3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        u3Label.setText("0.0");
+        u3Label.setText("$0.0");
         combinacionesPanel.add(u3Label);
 
-        receta3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
-        receta3Label.setText("Ver");
-        receta3Label.addActionListener(new java.awt.event.ActionListener() {
+        a3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        a3Label.setText("0");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), a3Label, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(a3Label);
+
+        r3Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        r3Label.setText("0.00%");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), r3Label, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        combinacionesPanel.add(r3Label);
+
+        receta3Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/quimica.png"))); // NOI18N
+        receta3Button.setText("Ver");
+        receta3Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                receta3LabelActionPerformed(evt);
+                receta3ButtonActionPerformed(evt);
             }
         });
-        combinacionesPanel.add(receta3Label);
+        combinacionesPanel.add(receta3Button);
 
         aceptarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
         aceptarLabel.setText("Aceptar");
@@ -167,69 +253,156 @@ public class Resultado extends javax.swing.JDialog {
             }
         });
 
+        maximoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Máximo Teórico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(102, 102, 102)));
+        maximoPanel.setLayout(new java.awt.GridLayout(2, 0));
+
+        indMaxLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        indMaxLabel.setText("Individuo");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indivLabel, org.jdesktop.beansbinding.ELProperty.create("${font}"), indMaxLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        maximoPanel.add(indMaxLabel);
+
+        apMaxLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        apMaxLabel.setText("Aptitud");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, posicionLabel, org.jdesktop.beansbinding.ELProperty.create("${font}"), apMaxLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        maximoPanel.add(apMaxLabel);
+
+        utMaxLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        utMaxLabel.setText("Utilidad");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, posicionLabel, org.jdesktop.beansbinding.ELProperty.create("${font}"), utMaxLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        maximoPanel.add(utMaxLabel);
+
+        indMaxValorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        indMaxValorLabel.setText("(0,0,0,0)");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), indMaxValorLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        maximoPanel.add(indMaxValorLabel);
+
+        apMaxValorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        apMaxValorLabel.setText("0");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), apMaxValorLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        maximoPanel.add(apMaxValorLabel);
+
+        utMaxValorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        utMaxValorLabel.setText("$0.0");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pos1Label, org.jdesktop.beansbinding.ELProperty.create("${font}"), utMaxValorLabel, org.jdesktop.beansbinding.BeanProperty.create("font"));
+        bindingGroup.addBinding(binding);
+
+        maximoPanel.add(utMaxValorLabel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(combinacionesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+            .addComponent(combinacionesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(230, 230, 230)
+                .addGap(275, 275, 275)
                 .addComponent(aceptarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(maximoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(combinacionesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(maximoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aceptarLabel)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void receta1LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta1LabelActionPerformed
-        Recetas r = new Recetas(null, true,"Receta Primer Individuo");
+    private void receta1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta1ButtonActionPerformed
+        Recetas r = new Recetas(null, true, "Receta Primer Individuo");
         int[][] receta = individuo1.calcularReceta(materialesIngresados);
         r.cargarReceta(receta);
         r.cargarDesperdicio(individuo1.calcularDesperdicios(receta, materialesIngresados));
         r.cargarUtilizacion(individuo1.calcularUso(receta));
         r.pack();
         r.setVisible(true);
-    }//GEN-LAST:event_receta1LabelActionPerformed
+    }//GEN-LAST:event_receta1ButtonActionPerformed
 
     private void aceptarLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarLabelActionPerformed
         this.dispose();
     }//GEN-LAST:event_aceptarLabelActionPerformed
 
-    private void receta2LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta2LabelActionPerformed
-        Recetas r = new Recetas(null, true,"Receta Segundo Individuo");
+    private void receta2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta2ButtonActionPerformed
+        Recetas r = new Recetas(null, true, "Receta Segundo Individuo");
         int[][] receta = individuo2.calcularReceta(materialesIngresados);
         r.cargarReceta(receta);
         r.cargarDesperdicio(individuo2.calcularDesperdicios(receta, materialesIngresados));
         r.cargarUtilizacion(individuo2.calcularUso(receta));
         r.pack();
         r.setVisible(true);
-    }//GEN-LAST:event_receta2LabelActionPerformed
+    }//GEN-LAST:event_receta2ButtonActionPerformed
 
-    private void receta3LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta3LabelActionPerformed
-        Recetas r = new Recetas(null, true,"Receta Tercer Individuo");
+    private void receta3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receta3ButtonActionPerformed
+        Recetas r = new Recetas(null, true, "Receta Tercer Individuo");
         int[][] receta = individuo3.calcularReceta(materialesIngresados);
         r.cargarReceta(receta);
         r.cargarDesperdicio(individuo3.calcularDesperdicios(receta, materialesIngresados));
         r.cargarUtilizacion(individuo3.calcularUso(receta));
         r.pack();
         r.setVisible(true);
-    }//GEN-LAST:event_receta3LabelActionPerformed
+    }//GEN-LAST:event_receta3ButtonActionPerformed
 
     private void agregarResultados() {
+        NumberFormat fNum = new DecimalFormat("####0.00");
+        NumberFormat fPorc = new DecimalFormat("##.##%");
+        NumberFormat fUt = new DecimalFormat("$####0.00");
         getInd1Label().setText(individuo1.mostrarProductos());
         getInd2Label().setText(individuo2.mostrarProductos());
         getInd3Label().setText(individuo3.mostrarProductos());
-        getU1Label().setText(String.valueOf(individuo1.getUtilidad()));
-        getU2Label().setText(String.valueOf(individuo2.getUtilidad()));
-        getU3Label().setText(String.valueOf(individuo3.getUtilidad()));
+        getU1Label().setText(String.valueOf(
+                fUt.format(individuo1.getUtilidad())));
+        getU2Label().setText(String.valueOf(
+                fUt.format(individuo2.getUtilidad())));
+        getU3Label().setText(String.valueOf(
+                fUt.format(individuo3.getUtilidad())));
+        a1Label.setText(fNum.format(individuo1.getAptitud()));
+        a2Label.setText(fNum.format(individuo2.getAptitud()));
+        a3Label.setText(fNum.format(individuo3.getAptitud()));
+        r1Label.setText(fPorc.format(individuo1.getPorcEficiencia()));
+        r2Label.setText(fPorc.format(individuo2.getPorcEficiencia()));
+        r3Label.setText(fPorc.format(individuo3.getPorcEficiencia()));
+        if (individuo1.mostrarProductos().equals(
+                individuo2.mostrarProductos())) {
+            getInd2Label().setText("-");
+            u2Label.setText("-");
+            a2Label.setText("-");
+            r2Label.setText("-");
+            receta2Button.setEnabled(false);
+        }
+        if (individuo2.mostrarProductos().equals(
+                individuo3.mostrarProductos())) {
+            getInd3Label().setText("-");
+            u3Label.setText("-");
+            a3Label.setText("-");
+            r3Label.setText("-");
+            receta3Button.setEnabled(false);
+        }
+        indMaxValorLabel.setText(Generaciones.gokuFase4.mostrarProductos());
+        utMaxValorLabel.setText(fUt.format(Generaciones.gokuFase4.getUtilidad()));
+        apMaxValorLabel.setText(fNum.format(Generaciones.gokuFase4.getAptitud()));
     }
 
     public JLabel getInd1Label() {
@@ -268,23 +441,40 @@ public class Resultado extends javax.swing.JDialog {
         return individuo3;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel a1Label;
+    private javax.swing.JLabel a2Label;
+    private javax.swing.JLabel a3Label;
     private javax.swing.JButton aceptarLabel;
+    private javax.swing.JLabel apMaxLabel;
+    private javax.swing.JLabel apMaxValorLabel;
+    private javax.swing.JLabel aptitudLabel;
     private javax.swing.JPanel combinacionesPanel;
     private javax.swing.JLabel ind1Label;
     private javax.swing.JLabel ind2Label;
     private javax.swing.JLabel ind3Label;
+    private javax.swing.JLabel indMaxLabel;
+    private javax.swing.JLabel indMaxValorLabel;
     private javax.swing.JLabel indivLabel;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel maximoPanel;
     private javax.swing.JLabel pos1Label;
     private javax.swing.JLabel pos2Label;
     private javax.swing.JLabel pos3Label;
     private javax.swing.JLabel posicionLabel;
-    private javax.swing.JButton receta1Label;
-    private javax.swing.JButton receta2Label;
-    private javax.swing.JButton receta3Label;
+    private javax.swing.JLabel r1Label;
+    private javax.swing.JLabel r2Label;
+    private javax.swing.JLabel r3Label;
+    private javax.swing.JButton receta1Button;
+    private javax.swing.JButton receta2Button;
+    private javax.swing.JButton receta3Button;
     private javax.swing.JLabel recetaLabel;
+    private javax.swing.JLabel relacionLabel;
     private javax.swing.JLabel u1Label;
     private javax.swing.JLabel u2Label;
     private javax.swing.JLabel u3Label;
+    private javax.swing.JLabel utMaxLabel;
+    private javax.swing.JLabel utMaxValorLabel;
     private javax.swing.JLabel utilidadLabel;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

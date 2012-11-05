@@ -90,7 +90,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="cantIterLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cantidade de Iteraciones:"/>
+        <Property name="text" type="java.lang.String" value="Cantidad de Iteraciones:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cantIterTextField">

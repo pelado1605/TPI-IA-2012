@@ -54,7 +54,9 @@ public class TpiIA2012 {
         vPrincipal.getPararButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPasoApasoButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getGraficasButton().addActionListener(actionListenerEjecutar);
+        vPrincipal.getGraficaMenuItem().addActionListener(actionListenerEjecutar);
         vPrincipal.getConfigButton().addActionListener(actionListenerConfig);
+        vPrincipal.getConfigMenuItem().addActionListener(actionListenerConfig);
         vPrincipal.setVisible(true);
         configuracion = new Configuracion(vPrincipal, true);
     }
@@ -94,7 +96,9 @@ public class TpiIA2012 {
                     generaciones.notify();
                 }
             }
-            if (e.getActionCommand().equals("Graficas")) {
+            if (e.getActionCommand().equals("Graficas")||
+                    e.getActionCommand().equals(
+                    "Mejor, Peor individuo y aptitud promedio")) {
                 grafica.pack();
                 RefineryUtilities.centerFrameOnScreen(grafica);
                 grafica.setVisible(true);

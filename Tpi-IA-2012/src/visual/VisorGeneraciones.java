@@ -24,7 +24,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 import utilidad.AlphanumComparator;
-import visual.validaciones.ValidacionEnterosPositivos;
 
 /**
  *
@@ -248,39 +247,38 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         modelo = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
+                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relación"
                 });
-        jTable1.setModel(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
-                }) {
-            Class[] tipos = new Class[]{
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
-            };
-
-            @Override
-            public Class getColumnClass(int indiceColum) {
-                return tipos[indiceColum];
-            }
-        });
+//        jTable1.setModel(new DefaultTableModel(
+//                new Object[][]{},
+//                new String[]{
+//                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
+//                }) {
+//            Class[] tipos = new Class[]{
+//                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
+//                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+//            };
+//
+//            @Override
+//            public Class getColumnClass(int indiceColum) {
+//                return tipos[indiceColum];
+//            }
+//        });
         utilidad.AlphanumComparator comparadorStrings = new AlphanumComparator();
         TableRowSorter sorter = new TableRowSorter(modelo);
         sorter.setComparator(0, comparadorEnteros);
         sorter.setComparator(1, comparadorEnteros);
-        sorter.setComparator(4, comparadorEnteros);
+        sorter.setComparator(1, comparadorStrings);
+        sorter.setComparator(4, comparadorStrings);
         sorter.setComparator(5, comparadorStrings);
         sorter.setComparator(6, comparadorStrings);
-        TableRowSorter sorter1 = new TableRowSorter(modelo);
-        sorter1.setComparator(0, comparadorEnteros);
-        sorter1.setComparator(1, comparadorEnteros);
-        sorter1.setComparator(4, comparadorEnteros);
-        sorter1.setComparator(5, comparadorStrings);
-        sorter1.setComparator(6, comparadorStrings);
         jTable1.setModel(modelo);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(10);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(30);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(35);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+        jTable1.getColumnModel().getColumn(3).setMinWidth(60);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(60);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jTable1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -300,8 +298,8 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         for (Individuo individuo : poblacion.getPoblado()) {
             String factible = individuo.factibilidad(mIngs) ? "Sí" : "No";
             Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),
-                factible, individuo.getUtilidad(), formatter.format(individuo.getAptitud()),
-            formatter.format(individuo.getPorcEficiencia())};
+                factible,fUt.format(individuo.getUtilidad()), fApt.format(individuo.getAptitud()),
+                fPorc.format(individuo.getPorcEficiencia())};
             modelo.addRow(fila);
             ++cont;
         }
@@ -371,7 +369,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     private DefaultTableModel modelo = new DefaultTableModel(
             new Object[][]{},
             new String[]{
-                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
+                "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relación"
             });
     private Comparator<Integer> comparadorEnteros = new Comparator<Integer>() {
         @Override
@@ -383,7 +381,9 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(indice);
     private final int[] mIngs;
     private ArrayList<Poblacion> generaciones;
-    private NumberFormat formatter = new DecimalFormat("####0.00");
+    private NumberFormat fApt = new DecimalFormat("####0.00");
+    private NumberFormat fPorc = new DecimalFormat("##.##%");
+    private NumberFormat fUt = new DecimalFormat("$####0.00");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avanzarButton;
     private javax.swing.JButton finButton;
