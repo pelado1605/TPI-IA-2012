@@ -516,6 +516,11 @@ public class Principal extends javax.swing.JFrame {
         ayuda.add(manUsuMenuItem);
 
         acercaDeMenuItem.setText(bundle.getString("Principal.acercaDeMenuItem.text")); // NOI18N
+        acercaDeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acercaDeMenuItemActionPerformed(evt);
+            }
+        });
         ayuda.add(acercaDeMenuItem);
 
         barraMenu.add(ayuda);
@@ -671,7 +676,7 @@ public class Principal extends javax.swing.JFrame {
                 Desktop.getDesktop().open(pdf);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error al intentar abrir el archivo: "
-                        + ruta, "Imposible abrir el archivo.", JOptionPane.ERROR_MESSAGE);
+                        + "'" + ruta + "'", "Imposible abrir el archivo.", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_manUsuMenuItemActionPerformed
@@ -683,6 +688,11 @@ public class Principal extends javax.swing.JFrame {
     private void rangoTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rangoTextFieldFocusGained
         rangoTextField.selectAll();
     }//GEN-LAST:event_rangoTextFieldFocusGained
+
+    private void acercaDeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaDeMenuItemActionPerformed
+        Creditos creditos = new Creditos(this, true);
+        creditos.setVisible(true);
+    }//GEN-LAST:event_acercaDeMenuItemActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
