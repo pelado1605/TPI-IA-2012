@@ -27,17 +27,147 @@ public class Creditos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fondo = new javax.swing.JPanel();
+        ia = new javax.swing.JLabel();
+        german = new javax.swing.JLabel();
+        ruben = new javax.swing.JLabel();
+        esteban = new javax.swing.JLabel();
+        realizadoPor = new javax.swing.JLabel();
+        aceptar = new javax.swing.JButton();
+        pie = new javax.swing.JLabel();
+        subTitulo2 = new javax.swing.JLabel();
+        estebanMail = new javax.swing.JLabel();
+        germanMail = new javax.swing.JLabel();
+        rubenMail = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
+        subTitulo1 = new javax.swing.JLabel();
+        imagen = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Acerca de...");
+        setBackground(new java.awt.Color(240, 240, 240));
+        setForeground(new java.awt.Color(240, 240, 240));
+        setIconImage(null);
+        setModal(true);
+        setResizable(false);
+
+        fondo.setBackground(new java.awt.Color(242, 242, 242));
+
+        ia.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        ia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ia.setText("Inteligencia Artificial");
+
+        german.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        german.setText("Schacht, Germán A. R.");
+
+        ruben.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        ruben.setText("Di Bernardo, Rubén R.");
+
+        esteban.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        esteban.setText("Colcombet, J. Esteban");
+
+        realizadoPor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        realizadoPor.setText("Realizado por Grupo 3:");
+
+        aceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/icon_confirm.png"))); // NOI18N
+        aceptar.setText("Aceptar");
+
+        pie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pie.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pie.setText("2012 - Universidad Tecnológica Nacional - Facultad Regional Resistencia");
+
+        subTitulo2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        subTitulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        subTitulo2.setText("Algoritmos Genéticos.");
+
+        estebanMail.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        estebanMail.setText("quinont@gmail.com");
+
+        germanMail.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        germanMail.setText("schacht.german@gmail.com");
+
+        rubenMail.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        rubenMail.setText("rrdibernardo@gmail.com");
+
+        titulo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setText("Asignación de Recursos AG");
+
+        subTitulo1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        subTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        subTitulo1.setText("Aplicación de asignación de recursos mediante");
+
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Creditos.png"))); // NOI18N
+
+        javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
+        fondo.setLayout(fondoLayout);
+        fondoLayout.setHorizontalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(realizadoPor)
+                    .addComponent(esteban)
+                    .addComponent(ruben)
+                    .addComponent(german)
+                    .addComponent(estebanMail)
+                    .addComponent(rubenMail)
+                    .addComponent(germanMail)
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addComponent(pie, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(subTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(subTitulo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        fondoLayout.setVerticalGroup(
+            fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(subTitulo1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(subTitulo2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ia)
+                .addGap(18, 18, 18)
+                .addComponent(realizadoPor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(esteban)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(estebanMail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ruben)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rubenMail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(german)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(germanMail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pie)
+                    .addComponent(aceptar))
+                .addContainerGap())
+            .addComponent(imagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -85,5 +215,20 @@ public class Creditos extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aceptar;
+    private javax.swing.JLabel esteban;
+    private javax.swing.JLabel estebanMail;
+    private javax.swing.JPanel fondo;
+    private javax.swing.JLabel german;
+    private javax.swing.JLabel germanMail;
+    private javax.swing.JLabel ia;
+    private javax.swing.JLabel imagen;
+    private javax.swing.JLabel pie;
+    private javax.swing.JLabel realizadoPor;
+    private javax.swing.JLabel ruben;
+    private javax.swing.JLabel rubenMail;
+    private javax.swing.JLabel subTitulo1;
+    private javax.swing.JLabel subTitulo2;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
