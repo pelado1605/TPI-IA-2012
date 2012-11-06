@@ -130,6 +130,7 @@ public class Principal extends javax.swing.JFrame {
         graficaMenuItem = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
         manUsuMenuItem = new javax.swing.JMenuItem();
+        documentacionMenuItem = new javax.swing.JMenuItem();
         acercaDeMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -515,6 +516,14 @@ public class Principal extends javax.swing.JFrame {
         });
         ayuda.add(manUsuMenuItem);
 
+        documentacionMenuItem.setText(bundle.getString("Principal.documentacionMenuItem.text")); // NOI18N
+        documentacionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                documentacionMenuItemActionPerformed(evt);
+            }
+        });
+        ayuda.add(documentacionMenuItem);
+
         acercaDeMenuItem.setText(bundle.getString("Principal.acercaDeMenuItem.text")); // NOI18N
         acercaDeMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,7 +667,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_revisarButtonActionPerformed
 
     private void pasoApasoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasoApasoButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_pasoApasoButtonActionPerformed
 
     private void salirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuItemActionPerformed
@@ -693,6 +701,19 @@ public class Principal extends javax.swing.JFrame {
         Creditos creditos = new Creditos(this, true);
         creditos.setVisible(true);
     }//GEN-LAST:event_acercaDeMenuItemActionPerformed
+
+    private void documentacionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_documentacionMenuItemActionPerformed
+        String ruta = "javadoc/index.html";
+        File pdf = new File(ruta);
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(pdf);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al intentar abrir el archivo: "
+                        + "'" + ruta + "'", "Imposible abrir el archivo.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_documentacionMenuItemActionPerformed
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -1087,6 +1108,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField baseTextField;
     private javax.swing.JButton configButton;
     private javax.swing.JMenuItem configMenuItem;
+    private javax.swing.JMenuItem documentacionMenuItem;
     private javax.swing.JMenu edicion;
     private javax.swing.JPanel ejecucionPanel;
     private javax.swing.JButton ejecutarButton;
