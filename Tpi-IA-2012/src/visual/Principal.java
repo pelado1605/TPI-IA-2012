@@ -12,7 +12,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -30,9 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
-import sun.security.krb5.internal.TGSRep;
-import utilidad.AlphanumComparator;
-import utilidad.OSDetector;
+import utilidad.comparadorStrings.AlphanumComparator;
 
 /**
  *
@@ -154,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
 
         m1TextField.setColumns(5);
         m1TextField.setText(bundle.getString("Principal.m1TextField.text")); // NOI18N
-        m1TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m1TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m1TextFieldFocusGained(evt);
@@ -169,7 +166,7 @@ public class Principal extends javax.swing.JFrame {
 
         m2TextField.setColumns(5);
         m2TextField.setText(bundle.getString("Principal.m2TextField.text")); // NOI18N
-        m2TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m2TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m2TextFieldFocusGained(evt);
@@ -184,7 +181,7 @@ public class Principal extends javax.swing.JFrame {
 
         m3TextField.setColumns(5);
         m3TextField.setText(bundle.getString("Principal.m3TextField.text")); // NOI18N
-        m3TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m3TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m3TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m3TextFieldFocusGained(evt);
@@ -199,7 +196,7 @@ public class Principal extends javax.swing.JFrame {
 
         m4TextField.setColumns(5);
         m4TextField.setText(bundle.getString("Principal.m4TextField.text")); // NOI18N
-        m4TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m4TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m4TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m4TextFieldFocusGained(evt);
@@ -214,7 +211,7 @@ public class Principal extends javax.swing.JFrame {
 
         m5TextField.setColumns(5);
         m5TextField.setText(bundle.getString("Principal.m5TextField.text")); // NOI18N
-        m5TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m5TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m5TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m5TextFieldFocusGained(evt);
@@ -229,7 +226,7 @@ public class Principal extends javax.swing.JFrame {
 
         m6TextField.setColumns(5);
         m6TextField.setText(bundle.getString("Principal.m6TextField.text")); // NOI18N
-        m6TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m6TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m6TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m6TextFieldFocusGained(evt);
@@ -244,7 +241,7 @@ public class Principal extends javax.swing.JFrame {
 
         m7TextField.setColumns(5);
         m7TextField.setText(bundle.getString("Principal.m7TextField.text")); // NOI18N
-        m7TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m7TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m7TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m7TextFieldFocusGained(evt);
@@ -259,7 +256,7 @@ public class Principal extends javax.swing.JFrame {
 
         m8TextField.setColumns(5);
         m8TextField.setText(bundle.getString("Principal.m8TextField.text")); // NOI18N
-        m8TextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        m8TextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         m8TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 m8TextFieldFocusGained(evt);
@@ -295,14 +292,24 @@ public class Principal extends javax.swing.JFrame {
         baseTextField.setColumns(15);
         baseTextField.setText(bundle.getString("Principal.baseTextField.text")); // NOI18N
         baseTextField.setEnabled(false);
-        baseTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        baseTextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
+        baseTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                baseTextFieldFocusGained(evt);
+            }
+        });
 
         rangoLabel.setText(bundle.getString("Principal.rangoLabel.text")); // NOI18N
 
         rangoTextField.setColumns(15);
         rangoTextField.setText(bundle.getString("Principal.rangoTextField.text")); // NOI18N
         rangoTextField.setEnabled(false);
-        rangoTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        rangoTextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
+        rangoTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                rangoTextFieldFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout genAleatoriaPanelLayout = new javax.swing.GroupLayout(genAleatoriaPanel);
         genAleatoriaPanel.setLayout(genAleatoriaPanelLayout);
@@ -581,10 +588,17 @@ public class Principal extends javax.swing.JFrame {
             rango = random.nextInt(99000) + 1;
             rangoTextField.setText(String.valueOf(rango));
         }
+        try {
+            for (int i = 0; i < 8; i++) {
+                int valor = base + random.nextInt(rango);
+                setMatIng(i, valor);
+            }
 
-        for (int i = 0; i < 8; i++) {
-            int valor = base + random.nextInt(rango);
-            setMatIng(i, valor);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Los valores ingresados en la base y el rango son invalidos",
+                    "Parametros invalidos", JOptionPane.ERROR_MESSAGE);
+            rangoTextField.setText(String.valueOf(1000));
+
         }
 
     }//GEN-LAST:event_aleatorioButtonActionPerformed
@@ -650,41 +664,25 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_configMenuItemActionPerformed
 
     private void manUsuMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manUsuMenuItemActionPerformed
-        File pdf = new File("Manual de usuario/guia.pdf");
+        String ruta = "Manual de usuario/Guía de uso rápido.pdf";
+        File pdf = new File(ruta);
         if (Desktop.isDesktopSupported()) {
             try {
                 Desktop.getDesktop().open(pdf);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error al intentar abrir el archivo",
-                        "Imposible abrir el archivo.", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al intentar abrir el archivo: "
+                        + ruta, "Imposible abrir el archivo.", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_manUsuMenuItemActionPerformed
 
-//    public static boolean open(File f) {
-//        try {
-//            if (OSDetector.isWindows()) {
-//                Runtime.getRuntime().exec(new String[]{"rundll32 url.dll,FileProtocolHandler",
-//                            f.getAbsolutePath()});
-//                return true;
-//            } else if (OSDetector.isLinux() || OSDetector.isMac()) {
-//                Runtime.getRuntime().exec(new String[]{"/usr/bin/open",
-//                            f.getAbsolutePath()});
-//                return true;
-//            } else {
-//                // Unknown OS, try with desktop
-//                if (Desktop.isDesktopSupported()) {
-//                    Desktop.getDesktop().open(f);
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace(System.err);
-//            return false;
-//        }
-//    }
+    private void baseTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_baseTextFieldFocusGained
+        baseTextField.selectAll();
+    }//GEN-LAST:event_baseTextFieldFocusGained
+
+    private void rangoTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rangoTextFieldFocusGained
+        rangoTextField.selectAll();
+    }//GEN-LAST:event_rangoTextFieldFocusGained
 
     public void agregarPCL(PropertyChangeListener pcl) {
         pcs.addPropertyChangeListener(pcl);
@@ -807,6 +805,10 @@ public class Principal extends javax.swing.JFrame {
         return pasoApasoButton;
     }
 
+    public JButton getLimpiarButton() {
+        return limpiarButton;
+    }
+
     public JTextField getM1TextField() {
         return m1TextField;
     }
@@ -853,44 +855,12 @@ public class Principal extends javax.swing.JFrame {
                 new String[]{
                     "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 });
-//        genActTable.setModel(new DefaultTableModel(
-//                new Object[][]{},
-//                new String[]{
-//                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
-//                }) {
-//            Class[] tipos = new Class[]{
-//                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-//                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
-//                java.lang.Float.class
-//            };
-//
-//            @Override
-//            public Class getColumnClass(int indiceColum) {
-//                return tipos[indiceColum];
-//            }
-//        });
         modeloAnt = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
                 });
-//        genAntTable.setModel(new DefaultTableModel(
-//                new Object[][]{},
-//                new String[]{
-//                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relacion"
-//                }) {
-//            Class[] tipos = new Class[]{
-//                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-//                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class,
-//                java.lang.Float.class
-//            };
-//
-//            @Override
-//            public Class getColumnClass(int indiceColum) {
-//                return tipos[indiceColum];
-//            }
-//        });
-        utilidad.AlphanumComparator comparadorStrings = new AlphanumComparator();
+        utilidad.comparadorStrings.AlphanumComparator comparadorStrings = new AlphanumComparator();
         TableRowSorter sorter = new TableRowSorter(modeloAct);
         sorter.setComparator(0, comparadorEnteros);
         sorter.setComparator(1, comparadorEnteros);
@@ -914,6 +884,9 @@ public class Principal extends javax.swing.JFrame {
         genActTable.getColumnModel().getColumn(3).setMinWidth(60);
         genActTable.getColumnModel().getColumn(3).setPreferredWidth(60);
         genActTable.getColumnModel().getColumn(3).setMaxWidth(60);
+        genActTable.getColumnModel().getColumn(1).setMinWidth(80);
+        genActTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+        genActTable.getColumnModel().getColumn(1).setMaxWidth(80);
         genActTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         genActTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
@@ -929,6 +902,9 @@ public class Principal extends javax.swing.JFrame {
         genAntTable.getColumnModel().getColumn(3).setMinWidth(60);
         genAntTable.getColumnModel().getColumn(3).setPreferredWidth(60);
         genAntTable.getColumnModel().getColumn(3).setMaxWidth(60);
+        genAntTable.getColumnModel().getColumn(1).setMinWidth(80);
+        genAntTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+        genAntTable.getColumnModel().getColumn(1).setMaxWidth(80);
         genAntTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         genAntTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
@@ -965,7 +941,6 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(true);
                     pararButton.setEnabled(true);
                     limpiarButton.setEnabled(false);
-//                    graficasButton.setEnabled(true);
                     resultadosButton.setEnabled(false);
                     revisarButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
@@ -973,7 +948,6 @@ public class Principal extends javax.swing.JFrame {
                 } else {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
-//                    graficasButton.setEnabled(true);
                     pasoApasoButton.setEnabled(true);
 
                 }
@@ -985,7 +959,6 @@ public class Principal extends javax.swing.JFrame {
                     pausarButton.setEnabled(false);
                     pararButton.setEnabled(false);
                     limpiarButton.setEnabled(true);
-//                    graficasButton.setEnabled(false);
                     resultadosButton.setEnabled(true);
                     revisarButton.setEnabled(true);
                     pasoApasoButton.setEnabled(false);
@@ -994,8 +967,7 @@ public class Principal extends javax.swing.JFrame {
                     ejecutarButton.setEnabled(true);
                     pausarButton.setEnabled(false);
                     pararButton.setEnabled(true);
-                    limpiarButton.setEnabled(false);
-//                    graficasButton.setEnabled(true);
+
                     resultadosButton.setEnabled(false);
                     pasoApasoButton.setEnabled(false);
                 }

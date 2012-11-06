@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
-import utilidad.AlphanumComparator;
+import utilidad.comparadorStrings.AlphanumComparator;
 
 /**
  *
@@ -43,7 +43,6 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         this.generaciones = generaciones;
         this.mIngs = mIngs;
         cargarTabla(indice);
-        //ver si puedo poner los listeners solo en el cambio de propiedad del textfield
     }
 
     /**
@@ -249,22 +248,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
                 new String[]{
                     "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud", "Relación"
                 });
-//        jTable1.setModel(new DefaultTableModel(
-//                new Object[][]{},
-//                new String[]{
-//                    "#", "Generación", "Individuo", "Factible", "Utilidad", "Aptitud","Relación"
-//                }) {
-//            Class[] tipos = new Class[]{
-//                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class,
-//                java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
-//            };
-//
-//            @Override
-//            public Class getColumnClass(int indiceColum) {
-//                return tipos[indiceColum];
-//            }
-//        });
-        utilidad.AlphanumComparator comparadorStrings = new AlphanumComparator();
+        utilidad.comparadorStrings.AlphanumComparator comparadorStrings = new AlphanumComparator();
         TableRowSorter sorter = new TableRowSorter(modelo);
         sorter.setComparator(0, comparadorEnteros);
         sorter.setComparator(1, comparadorEnteros);
@@ -298,7 +282,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
         for (Individuo individuo : poblacion.getPoblado()) {
             String factible = individuo.factibilidad(mIngs) ? "Sí" : "No";
             Object[] fila = {cont, poblacion.getNroGeneracion(), individuo.mostrarProductos(),
-                factible,fUt.format(individuo.getUtilidad()), fApt.format(individuo.getAptitud()),
+                factible, fUt.format(individuo.getUtilidad()), fApt.format(individuo.getAptitud()),
                 fPorc.format(individuo.getPorcEficiencia())};
             modelo.addRow(fila);
             ++cont;

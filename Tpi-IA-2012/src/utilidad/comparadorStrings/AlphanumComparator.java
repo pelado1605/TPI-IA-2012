@@ -1,4 +1,4 @@
-package utilidad;
+package utilidad.comparadorStrings;
 
 import java.util.Comparator;
 

@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Formatter;
 import java.util.Random;
 import javax.swing.SwingWorker;
 
@@ -70,17 +69,11 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * que necesiten de números aleatorios.
      */
     private Random suerte = new Random();
-//    private Archivador archivador;
     /**
-     * Formateador de strings.
-     *
-     * @deprecated NO SE UTILIZA.
-     */
-    private Formatter formato = new Formatter();
-    /**
-     * Variable booleana que determina el estado de ejecución del algoritmo. Si
-     * la variable es verdadera, el algoritmo se encuetra pausado, en caso
-     * contrario, esta en ejecución.
+     * Bandera que permite manejar la pausa de la ejecución. Esta bandera
+     * booleana permite llevar el control de la ejecución y pausado del
+     * algoritmo. El valor "true" indica que se encuentra pausado y el valor
+     * "false" indica que se encuentra en ejecución.
      */
     private boolean pausado = false;
     /**
@@ -88,10 +81,34 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * entero que se inicia en 0.
      */
     private int iteracionActual = 0;
+    /**
+     * Cantidad de iteraciones a realizar. Indica las iteraciones que realizará
+     * el algoritmo genético.
+     */
     private int cantIteraciones;
+    /**
+     * Tamaño de la población de individuos. Indica el tamaño de la población
+     * para cada generación.
+     */
     private int tamañoPoblacion;
+    /**
+     * Tipo de selección a utilizar. Valor entero que indica el tipo de
+     * selección que se va a relaizar.
+     *
+     * Para conocer los tipos y sus valores numericos vea dominio.Poblacion
+     */
     private int tipoSeleccion;
-    private int cantGrupos; //para seleccion por torneo
+    /**
+     * Cantidad de grupos en la selección por torneo. Indica la cantidad de
+     * grupos que se van a utilizar para la selección por torneo.
+     */
+    private int cantGrupos;
+    /**
+     * Tipo de cruza a utilizar. Valor entero que indica el tipo de cruza que se
+     * va a relaizar.
+     *
+     * Para conocer los tipos y sus valores numericos vea dominio.Individuo
+     */
     private int tipoCruza;
 
     /**
@@ -101,13 +118,14 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      * crea al individuo óptimo inalcanzable, que se tomará como base para la
      * creación de la población inicial.
      *
-     * @param pSeleccion Float que indica el porcentaje de la población que será
-     * seleccionada para la generación de las próximas iteraciones.
-     * @param pCruza Float que indica el porcentaje de la población que será
-     * cruzada para la generación de las próximas iteraciones.
-     * @param materiales Arreglo de materiales m1..m8 ingresados por el usuario.
+     * @param tipoSeleccion Tipo de selección que se realizará.
+     * @param cantGrupos Cantidad de grupos para la selección por torneo.(en
+     * caso de que no se realice puede ir cualquier valor entero).
+     * @param tipoCruza Tipo de cruza que se realizará.
+     * @param materiales Arreglo de materiales ingresado por el usuario
+     * [m1..m8].
      */
-    public Generaciones(int tipoSeleccion,int cantGrupos, int tipoCruza,
+    public Generaciones(int tipoSeleccion, int cantGrupos, int tipoCruza,
             int[] materiales) {
         this.tamañoPoblacion = Configuracion.getCANTIDAD_POBLACION();
         this.cantIteraciones = Configuracion.getCANTIDAD_ITERACIONES();
@@ -132,14 +150,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
      */
     @Override
     protected Boolean doInBackground() throws InterruptedException, Exception {
-//        archivador = new Archivador(Calendar.getInstance().getTime().getHours()
-//                + " " + Calendar.getInstance().getTime().getMinutes() + " "
-//                + Calendar.getInstance().getTime().getSeconds()+".txt");
         iteracionActual = 0;
         float probMutacion = 0;
         generarPoblacionInicial();
         generaciones.get(0).evaluarAptitud(materialesIng);
-//        archivador.abrirArchivo();
         while (cantIteraciones > iteracionActual) {
             if (pausado) {
                 synchronized (this) {
@@ -150,38 +164,24 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             ArrayList<Individuo> listaAnterior = (ArrayList<Individuo>) generacAnterior.getPoblado().clone();
             Poblacion copia = new Poblacion(listaAnterior, Configuracion.getPROB_FIJA(),
                     Configuracion.getRMIN(), iteracionActual);
-//            probMutacion = calcularProbMutacion(iteracionActual, probMutacion);
             iteracionActual++;
             Poblacion actual = new Poblacion(copia.seleccionXTipo(cSeleccion, copia.getPoblado(), tipoSeleccion, cantGrupos),
-                    Configuracion.getPROB_FIJA(),Configuracion.getRMIN(), iteracionActual);
+                    Configuracion.getPROB_FIJA(), Configuracion.getRMIN(), iteracionActual);
             actual.getPoblado().addAll(copia.cruzarPoblacion(cCruza, tipoCruza));
             actual.getPoblado().addAll(copia.mutarPoblacion(cMutacion));
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
-//            ArrayList<Individuo> prueba = (ArrayList<Individuo>) actual.getPoblado().clone();
-//            Collections.sort(prueba);
-
-//            System.out.println(new DecimalFormat("#.##").format(generacAnterior.getAptitudPromedio()));
-//            System.out.println(prueba.get(0).getUtilidad() +" , " +prueba.get(800).getUtilidad());
-//            for (Individuo indiv : actual.getPoblado()) {
-//                archivador.agregarRegistros(indiv);
-//            }
-//            archivador.agregar("-----------------------------");
-            Thread.sleep(8);
-            System.out.println(iteracionActual);
+            Thread.sleep(6);
+            System.out.println(iteracionActual);//SACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRR
             publish(actual);
             int progreso = 0;
             progreso = (int) (((float) iteracionActual) / ((float) cantIteraciones) * 100);
-            System.out.println(progreso);
+            System.out.println(progreso);//SACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRR
             setProgress(progreso);
             getPropertyChangeSupport().firePropertyChange("genParaGrafica", generaciones.get(iteracionActual - 1),
                     generaciones.get(iteracionActual));
         }
         Collections.sort(generaciones.get(cantIteraciones - 1).getPoblado());
-//        for (Individuo indiv : generaciones.get(cantIteraciones-1).getPoblado()) {
-//            archivador.agregarRegistros(indiv);
-//        }
-//        archivador.agregar("-----------------------------");
         System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
         System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
         System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
@@ -191,9 +191,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             System.out.println("Aptitud : " + generaciones.get(cantIteraciones - 1).getPoblado().get(i).getAptitud());
             System.out.println("Individuo : " + generaciones.get(cantIteraciones - 1).getPoblado().get(i).mostrarProductos());
             System.out.println("Utilidad : " + generaciones.get(cantIteraciones - 1).getPoblado().get(i).getUtilidad());
-
-
-//            archivador.cerrarArchivo();
         }
         System.out.print("Cant Elitista: ");
         System.out.println(Poblacion.getCont_selecElitista());
@@ -215,23 +212,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         return true;
     }
 
-//    public float[] aptitudMejorInd (int iteracion, int posicion){
-//        float[] mejoraptitud = new float[iteracion];
-//        for (int i = 0; i < iteracion; i++) {
-//            mejoraptitud[i] = generaciones.get(i).devolverIndividuo(posicion).getAptitud();                 
-//        }
-//        return mejoraptitud;
-//    }
-//    
-//    public float[] aptitudpromedio  (int iteracion) {
-//        float[] aptpormedio = new float[iteracion];
-//        
-//        for (int i = 0; i < iteracion; i++) {
-//            aptpormedio[i]=generaciones.get(i).getAptitudPromedio();
-//        }
-//             
-//        return aptpormedio;
-//         }
     /**
      * Genera la primera población, basandose en el individuo óptimo. Se toma a
      * al individuo óptimo inalcanzable como parámetro para la generación de los
@@ -351,26 +331,62 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         return cMutacion;
     }
 
+    /**
+     * Devuelve el valor de la iteración actual. Es un simple getter de
+     * "IteracionActual".
+     *
+     * @return Entero indicando la iteracion actual.
+     */
     public int getIteracionActual() {
         return iteracionActual;
     }
 
+    /**
+     * Asigna el nuevo valor a la iteración actual. Es un simple setter de
+     * "IteracionActual".
+     *
+     * @param iteracionActual nuevo valor para la iteración actual.
+     */
     public void setIteracionActual(int iteracionActual) {
         this.iteracionActual = iteracionActual;
     }
 
+    /**
+     * Devuelve el valor de la cantidad de iteraciones. Es un simple getter de
+     * "cantIteraciones".
+     *
+     * @return Entero indicando la cantidad de iteraciones.
+     */
     public int getCantIteraciones() {
         return cantIteraciones;
     }
 
+    /**
+     * Asigna el nuevo valor a la cantidad de iteraciones. Es un simple setter
+     * de "cantIteraciones".
+     *
+     * @param cantIteraciones nuevo valor para cantidad de iteraciones
+     */
     public void setCantIteraciones(int cantIteraciones) {
         this.cantIteraciones = cantIteraciones;
     }
 
+    /**
+     * Devuelve el valor del tamaño de las poblaciones. Es un simple getter de
+     * "tamañoPoblacion".
+     *
+     * @return Entero indicando el tamaño de las poblaciones.
+     */
     public int getTamañoPoblacion() {
         return tamañoPoblacion;
     }
 
+    /**
+     * Asigna el nuevo valor al tamaño de las poblaciones. Es un simple setter
+     * de "tamañoPoblacion".
+     *
+     * @param tamañoPoblacion nuevo valor para el tamaño de las poblaciones
+     */
     public void setTamañoPoblacion(int tamañoPoblacion) {
         this.tamañoPoblacion = tamañoPoblacion;
     }
@@ -405,6 +421,12 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         this.pausado = pausado;
     }
 
+    /**
+     * Devuelve los materiales ingresados por el usuario. Es un seimple getter
+     * de "materialesIng".
+     *
+     * @return Arreglo de enteros con los valores de los materiales ingresados.
+     */
     public int[] getMaterialesIng() {
         return materialesIng;
     }
@@ -438,7 +460,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                 getPropertyChangeSupport().firePropertyChange("genParaTabla", generaciones.get(iteracionActual - 1),
                         generaciones.get(iteracionActual));
             }
-            System.out.println(e.getActionCommand());
         }
     };
 

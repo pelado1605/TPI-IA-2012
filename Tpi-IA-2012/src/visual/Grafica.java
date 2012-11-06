@@ -21,7 +21,6 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  *
@@ -101,10 +100,8 @@ public class Grafica extends JFrame {
         return pclModelo;
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        Grafica demo = new Grafica("Line Chart Demo 2");
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
+    public XYDataset getDataset() {
+        return dataset;
     }
+    
 }

@@ -227,30 +227,27 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         int[] diferencia = calcDiferencia(matIngs);
         /*
          * Aca se va a preguntar por la factibilidad del individuo, es decir, si
-         * los materiales que solicita el individuo estan dentro de los ingre-
-         * -sados por el usario.
+         * los materiales ingresados por el usuario son suficientes para la demanda
+         * que presenta cada individuo.
          */
 
         if (factibilidad(matIngs) | esGoku) {
             /*
-             * En es este caso el individuo es factible, hay que ver la utilidad
+             * En este caso el individuo es factible, hay que ver la utilidad
              * y los materiales remanentes que deja.
-             */
-
-            /*
-             * Por ser factibles se le suma la utildidad. Ésta no sera lineal,
-             * sino que se elevará al cubo el valor
+             * 
+             * Por ser factibles se le suma una proporción de la utildidad
              */
 
             nuevaAptitud += Math.pow(getUtilidad(), 1.2) * PORC_APTITUD_X_UTILIDAD;
 
             /*
-             * Aca se trata la puntuacion po utilizacion de los recursos
+             * Aca se trata la puntuacion por la utilizacion de los recursos
              */
             if (!eficienteConRecursos(matIngs) & !esGoku) {
                 /*
-                 * Si hay remanente de materiales, se los descontara en
-                 * puntos a la aptitud.
+                 * Si hay remanente de materiales, se los descontara una proporción
+                 * en puntos a la aptitud.
                  */
                 int diferenciaTotal = 0;
                 for (int i = 0; i < 4; i++) {
@@ -260,17 +257,17 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
                 }
                 nuevaAptitud -= (diferenciaTotal * PORC_APTITUD_X_EFICIENCIA);
             } else {
+
                 /*
                  * El individuo que utilice los materiales de manera más
-                 * eficiente (que el remanente de materiales sea 0), obtendra un
-                 * premio en puntos de aptitud
+                 * eficiente, obtendra un premio en puntos de aptitud
                  */
                 nuevaAptitud += ((nuevaAptitud * 3) * PORC_APTITUD_X_EFICIENCIA);
             }
 
         } else {
             /*
-             * Aca, se castiga severamente al individuo con una aptitud muuuuy
+             * Aca, se castiga severamente al individuo con una aptitud muy
              * baja, debido a que no es factible porque pide mas materiales que
              * los ingresados/existentes.
              */
@@ -343,66 +340,6 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         }
         cont_cruzaMultipunto++;
         return hijos;
-        /*
-         Collections.sort(cortesList);
-         boolean bandera = true;
-         for (int i = 0; i < cortesList.size(); i++) {
-            
-         for (int j = cortesList.get(i); j < 4; j++) {
-         if (bandera) {
-         hijos[0].setProducto(j, getProducto(j));
-         hijos[1].setProducto(j, unIndividuo.getProducto(j));
-         } else {
-         hijos[1].setProducto(j, getProducto(j));
-         hijos[0].setProducto(j, unIndividuo.getProducto(j));
-         }
-         }
-         bandera = bandera ? false : true;
-         }
-
-         Individuo mascara = new Individuo(1, 1, 1, 1);
-         int cont = 0;
-         for (int i = 0; i < 4; i++) {
-         boolean flag = false;
-         for (Integer valor : cortesList) {
-         if (valor == i) {
-         flag = true;
-         }
-         }
-         if (flag) {
-         cont++;
-         }
-         if (cont % 2 == 0) {
-         mascara.setProducto(i, 0);
-         }
-         }
-         Individuo mascara2 = new Individuo();
-         for (int i = 0; i < 4; i++) {
-         mascara2.setProducto(i, mascara.getProducto(i) ^ 1);
-         }
-         for (int i = 0; i < 4; i++) {
-         int valor = (this.getProducto(i) * mascara.getProducto(i))
-         + (unIndividuo.getProducto(i) * mascara2.getProducto(i));
-         hijos[0].setProducto(i, valor);
-        
-         };
-         for (int i = 0; i < 4; i++) {
-         int valor = (this.getProducto(i) * mascara2.getProducto(i))
-         + (unIndividuo.getProducto(i) * mascara.getProducto(i));
-         hijos[1].setProducto(i, valor);
-         };
-
-         for (int i = 0; i < 4; i++) {
-         if (cortesList.get(i)) {
-         hijos[0].setProducto(i, this.getProducto(i));
-         hijos[1].setProducto(i, unIndividuo.getProducto(i));
-         } else {
-         hijos[1].setProducto(i, this.getProducto(i));
-         hijos[0].setProducto(i, unIndividuo.getProducto(i));
-         }
-         }
-         */
-
     }
 
     /**
@@ -913,27 +850,16 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         return Float.compare(otroIndividuo.getAptitud(), this.aptitud);
     }
 
+    /**
+     * Obtiene la relación con respecto al máximo teórico. Este método permite
+     * obtener la relacion entre la aptitud del individuo y la aptitud del
+     * máximo teórico.
+     *
+     * @return La relación entre las dos aptitudes (apt/aptMax).
+     */
     public float getPorcEficiencia() {
         float porcentaje = 0f;
-        porcentaje = aptitud/Generaciones.gokuFase4.getAptitud();
+        porcentaje = aptitud / Generaciones.gokuFase4.getAptitud();
         return porcentaje;
-    }
-
-    public static void main(String[] args) {
-        Individuo ind = new Individuo(43, 71, 18, 0);
-        int[] mIngresados = {5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000};
-        int[][] receta = ind.calcularReceta(mIngresados);
-        int[] desperdicios = ind.calcularDesperdicios(receta, mIngresados);
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(receta[i][j] + " ");
-            }
-            System.out.println();
-        }
-        for (int i = 0; i < 8; i++) {
-            System.out.print(desperdicios[i] + " ");
-        }
-
     }
 }

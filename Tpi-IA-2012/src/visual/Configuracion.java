@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import visual.validaciones.ValidacionDecimalesPositivos;
+import utilidad.validaciones.ValidacionDecimalesPositivos;
 
 /**
  *
@@ -85,7 +85,7 @@ public class Configuracion extends javax.swing.JDialog {
         cantIterLabel.setText("Cantidad de Iteraciones:");
 
         cantIterTextField.setEnabled(false);
-        cantIterTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        cantIterTextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         cantIterTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 cantIterTextFieldFocusGained(evt);
@@ -95,7 +95,7 @@ public class Configuracion extends javax.swing.JDialog {
         tamPobLabel.setText("Tamaño de la Poblacion:");
 
         tamPobTextField.setEnabled(false);
-        tamPobTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        tamPobTextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         tamPobTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tamPobTextFieldFocusGained(evt);
@@ -176,7 +176,7 @@ public class Configuracion extends javax.swing.JDialog {
         porTorneoTextField.setText("1");
         porTorneoTextField.setToolTipText("Cantidad de torneos");
         porTorneoTextField.setEnabled(false);
-        porTorneoTextField.setInputVerifier(new visual.validaciones.ValidacionEnterosPositivos());
+        porTorneoTextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
         porTorneoTextField.setPreferredSize(new java.awt.Dimension(6, 20));
         porTorneoTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -551,7 +551,7 @@ public class Configuracion extends javax.swing.JDialog {
         //Seleccion
         porcentSelecTextField.setText(String.valueOf(dominio.Configuracion.PORC_SELECCION_DEFAULT));
         elitRuletCheck.setSelected(true);
-        rMinTextField.setText(String.valueOf(dominio.Configuracion.RMIN_DEFAULT));               
+        rMinTextField.setText(String.valueOf(dominio.Configuracion.RMIN_DEFAULT));
         porTorneoTextField.setText(String.valueOf(5));
         //Cruza
         porcentCruzaTextField.setText(String.valueOf(dominio.Configuracion.PORC_CRUZA_DEFAULT));

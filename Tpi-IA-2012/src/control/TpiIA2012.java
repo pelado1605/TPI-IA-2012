@@ -54,6 +54,7 @@ public class TpiIA2012 {
         vPrincipal.getPararButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getPasoApasoButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getGraficasButton().addActionListener(actionListenerEjecutar);
+        vPrincipal.getLimpiarButton().addActionListener(actionListenerEjecutar);
         vPrincipal.getGraficaMenuItem().addActionListener(actionListenerEjecutar);
         vPrincipal.getConfigButton().addActionListener(actionListenerConfig);
         vPrincipal.getConfigMenuItem().addActionListener(actionListenerConfig);
@@ -62,7 +63,10 @@ public class TpiIA2012 {
     }
     /**
      * Escuchadores de acciones necesarios para la ejecución de la aplicación.
-     * Tiene las acciones a realizar según el evento ocurrido.
+     * Tiene las acciones a realizar según el evento ocurrido. Los eventos a los
+     * que responde son: Ejecución, Pausa, Parada y Paso a paso del algoritmo.
+     * Además tambien responde a los eventos de mostrar la gáfica y limpiar la
+     * pantalla.
      */
     ActionListener actionListenerEjecutar = new ActionListener() {
         @Override
@@ -96,16 +100,24 @@ public class TpiIA2012 {
                     generaciones.notify();
                 }
             }
-            if (e.getActionCommand().equals("Graficas")||
-                    e.getActionCommand().equals(
+            if (e.getActionCommand().equals("Graficas")
+                    || e.getActionCommand().equals(
                     "Mejor, Peor individuo y aptitud promedio")) {
                 grafica.pack();
                 RefineryUtilities.centerFrameOnScreen(grafica);
                 grafica.setVisible(true);
             }
-
+            if (e.getActionCommand().equals("Limpiar")) {
+                grafica.dispose();
+                grafica = new Grafica("Gráfica del avance de las generaciones");
+            }
         }
     };
+    /**
+     * Escuchadores de acciones necesarios para la configuración de la
+     * aplicación. Responde al evento de mostrar la configuración para revisarla
+     * o editarla.
+     */
     private ActionListener actionListenerConfig = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -127,25 +139,23 @@ public class TpiIA2012 {
         vPrincipal.getPararButton().removeAll();
         vPrincipal.getPausarButton().removeAll();
         int tSeleccion = configuracion.getTipoSelec();
-        System.out.println("SELECCION" + tSeleccion);//SSSSSSSSSAAAAAAAAAACCCCCCCCCAAAAAAAAAAAAARRRRRRRRRRRRR
         int cantGrupos = 0;
         if (tSeleccion == Poblacion.ELITISTA_TORNEO || tSeleccion == Poblacion.TORNEO) {
             cantGrupos = Integer.valueOf(configuracion.getPorTorneoTextField().getText());
         }
         int tCruza = configuracion.getTipoCruza();
-        System.out.println("CRUZA " + tCruza);//SSSSSSSSSAAAAAAAAAACCCCCCCCCAAAAAAAAAAAAARRRRRRRRRRRRR
-        generaciones = new Generaciones(tSeleccion, cantGrupos,tCruza, vPrincipal.getMatIngs());
+        generaciones = new Generaciones(tSeleccion, cantGrupos, tCruza, vPrincipal.getMatIngs());
         generaciones.addPCl(vPrincipal.getPclModelo());
         generaciones.addPCl(grafica.getPclModel());
-        vPrincipal.getPausarButton().addActionListener(generaciones.getAl());//para que imprima 2generac. en el comando
-        vPrincipal.getPararButton().addActionListener(generaciones.getAl());//lo mismo que arriba
-        vPrincipal.getPasoApasoButton().addActionListener(generaciones.getAl());//lo mismo que arriba
+        vPrincipal.getPausarButton().addActionListener(generaciones.getAl());
+        vPrincipal.getPararButton().addActionListener(generaciones.getAl());
+        vPrincipal.getPasoApasoButton().addActionListener(generaciones.getAl());
     }
 
     /**
      * El main del programa.
      *
-     * @param args the command line arguments
+     * @param args Los parametros de ejecución del sistema
      */
     public static void main(String[] args) {
         try {
@@ -162,6 +172,5 @@ public class TpiIA2012 {
             // handle exception
         }
         TpiIA2012 tpiIA2012 = new TpiIA2012();
-//        tpiIA2012.generaciones.execute();
     }
 }

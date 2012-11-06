@@ -200,12 +200,11 @@ public class Poblacion implements Cloneable {
                 valor = Math.abs(valor + 1);
             }
             if (valor >= rangos.size()) {
-                valor = rangos.size() - 1; //parche puesto por German, ver: 1.0.
+                valor = rangos.size() - 1;
             }
             seleccionados.add(entrada.get(valor));
             cont_selecRuleta++;
         }
-//        cont_selecRuleta++;
         return seleccionados;
     }
 
@@ -266,7 +265,6 @@ public class Poblacion implements Cloneable {
             i++;
             rangos.add(parteDecimal);
         }
-//        cont_selecRanking++;
         return seleccionados;
     }
 
@@ -349,17 +347,8 @@ public class Poblacion implements Cloneable {
         ArrayList<ArrayList<Individuo>> grupos = getSubGrupos(entrada.size(), cantGrupos, entrada);
         for (int i = 0; i < cantGrupos; i++) {
             ArrayList<Individuo> subgrupo = grupos.get(i);
-            //ejecutar seleccion a este grupo. La cantidad va a ser "cantidad/cantGrupos"
-            /*
-             *Si quiero para la seleccion de 200 individuos el 10% (20),
-             * y tengo 4 subgrupos, hago una seleccion de 5 individuos por cada 
-             * subgrupo.
-             * 
-             * hacer case para ver que seleccion se usa en cada subgrupo
-             * Tener en cuenta si cantidad no es multiplo de cantGrupos
-             */
             int cantidadXGrupo = cantidad / cantGrupos;
-            int tipoSeleccion = suerte.nextInt(7) + 1; //el 4 no entra porque es seleccion x torneo.
+            int tipoSeleccion = suerte.nextInt(7) + 1;
             seleccionados.addAll(seleccionXTipo(cantidadXGrupo, subgrupo, tipoSeleccion, 0));//el ultimo parametro (0) no altera al metodo
         }
         if (seleccionados.size() < cantidad) {
@@ -518,24 +507,8 @@ public class Poblacion implements Cloneable {
      * @return Arreglo de individuos mutados.
      */
     public ArrayList<Individuo> mutarPoblacion(int cantidad) {
-        //que sentido tiene poner probabilidad de mutar si tenes una cantidad que cumplir por mutación.
         ArrayList<Individuo> mutados = new ArrayList<>();
         ArrayList<Individuo> porMutar = getSubGrupos(cantidad, this.getPoblado());
-//        int cont = 0;
-//        int i = 0;
-//        while (cont < cantidad && i < poblado.size()) {
-//            if (suerte.nextFloat() <= probMutacion) {
-//                Individuo aMutar = poblado.get(i);
-//                aMutar.mutar();
-//                mutados.add(aMutar);
-//                cont++;
-//            }
-//            i++;
-//        }
-//
-//        if (cont < cantidad) {
-//            mutados.addAll(seleccionElitista(cantidad - cont));
-//        }
         for (Individuo individuo : porMutar) {
             Individuo nuevo = new Individuo(individuo);
             nuevo.mutar();

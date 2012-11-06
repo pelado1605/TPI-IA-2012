@@ -510,7 +510,6 @@ public class Recetas extends javax.swing.JDialog {
     private void aceptarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarButtonActionPerformed
         dispose();
     }//GEN-LAST:event_aceptarButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptarButton;
     private javax.swing.JPanel desperdiciosPanel;

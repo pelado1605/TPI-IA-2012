@@ -11,17 +11,23 @@ package dominio;
 public abstract class Configuracion {
 
     /**
-     * Tamaño de la población que se utilizará en el algoritmo. El número indica
-     * cuantos individuos existirán dentro de una población.
+     * Tamaño de la población que se utilizará en el algoritmo POR DEFECTO. El
+     * número indica cuantos individuos existirán dentro de una población.
      */
     public static final int CANTIDAD_POBLACION_DEFAULT = 250;
     /**
-     * Cantidad de iteraciones que realizará el algoritmo. El número indica
-     * cuantas veces se hará la selección, cruza y mutación de los individuos.
-     * Definirá la cantidad de generaciones que existirán.
+     * Cantidad de iteraciones que realizará el algoritmo POR DEFECTO. El número
+     * indica cuantas veces se hará la selección, cruza y mutación de los
+     * individuos. Definirá la cantidad de generaciones que existirán.
      */
     public static final int CANTIDAD_ITERACIONES_DEFAULT = 1000;
+    /**
+     * Porcentaje de la población que sera seleccionada POR DEFECTO.
+     */
     public static final float PORC_SELECCION_DEFAULT = 0.2f;
+    /**
+     * Porcentaje de la población que sera cruzada POR DEFECTO.
+     */
     public static final float PORC_CRUZA_DEFAULT = 0.65f;
     /**
      * Número de copias esperadas que se utilizará el algoritmo. Definido para
@@ -31,11 +37,15 @@ public abstract class Configuracion {
     /**
      * Probabilidad de mutación mínima. Utilizado para la mutación por
      * temperatura ascendente/descendente.
+     *
+     * @deprecated NO SE UTILIZA, se utiliza una mutación simple.
      */
     public static final float PROB_MUT_MIN_DEFAULT = 0.02f;
     /**
      * Probabilidad de mutación máxima. Utilizado para la mutación por
      * temperatura ascendente/descendente.
+     *
+     * @deprecated NO SE UTILIZA, se utiliza una mutación simple.
      */
     public static final float PROB_MUT_MAX_DEFAULT = 0.3f;
     /**
@@ -50,10 +60,11 @@ public abstract class Configuracion {
      * Factor Lambda para la mutación por temperatura. Incremento (o decremento)
      * de la probabilidad de mutación por temperatura ascendente (o descendente)
      * por cada iteración ejecutada.
+     *
+     * @deprecated NO SE UTILIZA, se utiliza mutación simple.
      */
     public static final float LAMBDA_DEFAULT = 0.005f;
-    
-        /**
+    /**
      * Tamaño de la población que se utilizará en el algoritmo. El número indica
      * cuantos individuos existirán dentro de una población.
      */
@@ -64,7 +75,15 @@ public abstract class Configuracion {
      * Definirá la cantidad de generaciones que existirán.
      */
     private static int CANTIDAD_ITERACIONES = CANTIDAD_ITERACIONES_DEFAULT;
+    /**
+     * Porcentaje de la población que sera seleccionada. Al inicio se le asigna
+     * el valor por defecto. Este puede ser cambiado en la configuración.
+     */
     private static float PORC_SELECCION = PORC_SELECCION_DEFAULT;
+    /**
+     * Porcentaje de la población que sera cruzada. Al inicio se le asigna el
+     * valor por defecto. Este puede ser cambiado en la configuración.
+     */
     private static float PORC_CRUZA = PORC_CRUZA_DEFAULT;
     /**
      * Número de copias esperadas que se utilizará el algoritmo. Definido para
@@ -74,11 +93,15 @@ public abstract class Configuracion {
     /**
      * Probabilidad de mutación mínima. Utilizado para la mutación por
      * temperatura ascendente/descendente.
+     *
+     * @deprecated NO SE UTILIZA. se utiliza una mutación simple.
      */
     private static float PROB_MUT_MIN = PROB_MUT_MIN_DEFAULT;
     /**
      * Probabilidad de mutación máxima. Utilizado para la mutación por
      * temperatura ascendente/descendente.
+     *
+     * @deprecated NO SE UTILIZA. se utiliza una mutación simple.
      */
     private static float PROB_MUT_MAX = PROB_MUT_MAX_DEFAULT;
     /**
@@ -93,9 +116,14 @@ public abstract class Configuracion {
      * Factor Lambda para la mutación por temperatura. Incremento (o decremento)
      * de la probabilidad de mutación por temperatura ascendente (o descendente)
      * por cada iteración ejecutada.
+     *
+     * @deprecated NO SE UTILIZA. se utiliza una mutación simple.
      */
     public static float LAMBDA = LAMBDA_DEFAULT;
 
+    /*
+     * Getters y setters de todas las variables definidas anteriormente.
+     */
     public static int getCANTIDAD_POBLACION() {
         return CANTIDAD_POBLACION;
     }
@@ -167,6 +195,4 @@ public abstract class Configuracion {
     public static void setLAMBDA(float LAMBDA) {
         Configuracion.LAMBDA = LAMBDA;
     }
-    
-    
 }
