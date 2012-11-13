@@ -134,7 +134,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      * Generador de números aleatorios de uso general. Se utiliza para distintos
      * métodos que necesiten de numeros aleatorios.
      */
-    private Random suerte = new Random();
+    private static Random suerte = new Random();
 
     /**
      * Constructor por defecto. Aplica todos los valores en cero.
@@ -862,4 +862,5 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         porcentaje = aptitud / Generaciones.gokuFase4.getAptitud();
         return porcentaje;
     }
+    
 }
