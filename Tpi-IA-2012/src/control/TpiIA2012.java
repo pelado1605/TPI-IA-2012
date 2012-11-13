@@ -8,6 +8,7 @@ import dominio.Generaciones;
 import dominio.Poblacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jfree.ui.RefineryUtilities;
@@ -133,11 +134,18 @@ public class TpiIA2012 {
         grafica.dispose();
         grafica = new Grafica("Gráfica del avance de las generaciones");
         if (generaciones != null) {
-            generaciones.removePCl(vPrincipal.getPclModelo());
-            generaciones.removePCl(grafica.getPclModel());
+            for (PropertyChangeListener pcl : generaciones.getPropertyChangeSupport().getPropertyChangeListeners()) {
+                generaciones.removePCl(pcl);
+            }
+            generaciones.getGeneraciones().removeAll(generaciones.getGeneraciones());
+            System.out.println("ELEMENTOS:"+generaciones.getGeneraciones().size());
+            vPrincipal.getPararButton().removeActionListener(generaciones.getAl());
+            vPrincipal.getPausarButton().removeActionListener(generaciones.getAl());
+            vPrincipal.getEjecutarButton().removeActionListener(generaciones.getAl());
+            vPrincipal.getPasoApasoButton().removeActionListener(generaciones.getAl());
+            vPrincipal.getGraficasButton().removeActionListener(generaciones.getAl());
+            generaciones = null;
         }
-        vPrincipal.getPararButton().removeAll();
-        vPrincipal.getPausarButton().removeAll();
         int tSeleccion = configuracion.getTipoSelec();
         int cantGrupos = 0;
         if (tSeleccion == Poblacion.ELITISTA_TORNEO || tSeleccion == Poblacion.TORNEO) {

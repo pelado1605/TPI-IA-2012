@@ -172,11 +172,9 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
             actual.evaluarAptitud(materialesIng);
             generaciones.add(actual);
             Thread.sleep(6);
-            System.out.println(iteracionActual);//SACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRR
             publish(actual);
             int progreso = 0;
             progreso = (int) (((float) iteracionActual) / ((float) cantIteraciones) * 100);
-            System.out.println(progreso);//SACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRR
             setProgress(progreso);
             getPropertyChangeSupport().firePropertyChange("genParaGrafica", generaciones.get(iteracionActual - 1),
                     generaciones.get(iteracionActual));

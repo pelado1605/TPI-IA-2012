@@ -243,6 +243,7 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_irATextFieldFocusGained
 
     private void inicializarTabla() {
+        modelo = null;
         modelo = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -308,9 +309,6 @@ public class VisorGeneraciones extends javax.swing.JFrame {
     private PropertyChangeListener pcl = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
-            System.out.println(String.valueOf("ultimo" + (generaciones.size() - 1)));
-            System.out.println(String.valueOf("nuevo" + evt.getNewValue()));
-            System.out.println(String.valueOf("viejo" + evt.getOldValue()));
             int maxValue = generaciones.size() - 1;
             if (evt.getPropertyName().equals("indice")) {
                 if (evt.getNewValue() == 0) {
