@@ -82,7 +82,7 @@ public class Configuracion extends javax.swing.JDialog {
         setIconImage(null);
         setResizable(false);
 
-        cantIterLabel.setText("Cantidad de Iteraciones:");
+        cantIterLabel.setText("Cantidad de Generaciones:");
 
         cantIterTextField.setEnabled(false);
         cantIterTextField.setInputVerifier(new utilidad.validaciones.ValidacionEnterosPositivos());
@@ -369,12 +369,12 @@ public class Configuracion extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tamPobLabel)
-                            .addComponent(cantIterLabel))
+                            .addComponent(cantIterLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tamPobLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cantIterTextField)
-                            .addComponent(tamPobTextField)))
+                            .addComponent(tamPobTextField)
+                            .addComponent(cantIterTextField)))
                     .addComponent(panelOperadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)

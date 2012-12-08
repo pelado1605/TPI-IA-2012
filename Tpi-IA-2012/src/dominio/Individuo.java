@@ -87,7 +87,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     /**
      * Base para el cálculo de la aptitud.
      */
-    private static int BASE;
+    public static int BASE;
     /**
      * Constante de clase para la cruza simple.
      */
@@ -224,7 +224,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
     public float evaluarAptitud(int[] matIngs, boolean esGoku) {
 
         float nuevaAptitud = BASE;
-        int[] diferencia = calcDiferencia(matIngs);
+        int[] diferencia;
         /*
          * Aca se va a preguntar por la factibilidad del individuo, es decir, si
          * los materiales ingresados por el usuario son suficientes para la demanda
@@ -249,10 +249,11 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
                  * Si hay remanente de materiales, se los descontara una proporción
                  * en puntos a la aptitud.
                  */
+                diferencia = calcDiferenciaMaximos(matIngs);
                 int diferenciaTotal = 0;
-                for (int i = 0; i < 4; i++) {
-                    if (diferencia[i] < 0) {
-                        diferenciaTotal += Math.abs(diferencia[i]);
+                for (int i = 0; i < 8; i++) {
+                    if (diferencia[i] > 0) {
+                        diferenciaTotal += diferencia[i];
                     }
                 }
                 nuevaAptitud -= (diferenciaTotal * PORC_APTITUD_X_EFICIENCIA);
@@ -271,6 +272,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
              * baja, debido a que no es factible porque pide mas materiales que
              * los ingresados/existentes.
              */
+            diferencia = calcDiferenciaMinimos(matIngs);
             int diferenciaTotal = 0;
             for (int i = 0; i < 8; i++) {
                 if (diferencia[i] < 0) {
@@ -427,13 +429,10 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
          * es menor pone 0 en la diferencia. Los valores de diferencia que
          * queden positivos, seran el remanente del material.
          */
-        int[] diferencia = calcDiferencia(matIngs);
+        int[] diferencia = calcDiferenciaMaximos(matIngs);
         boolean valor = true;
-        int[] rangos = calcularMaterialesRango();
-
-        for (int i = 0; i < rangos.length; i++) {
-            diferencia[i] -= rangos[i];
-            if ((diferencia[i]) > 0) {
+        for (int i = 0; i < diferencia.length; i++) {
+            if (diferencia[i] > 0) {
                 valor = false;
             }
         }
@@ -472,6 +471,18 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
         }
         return materiales;
     }
+    /**
+     * 
+     * @return 
+     */
+    public int[] calcularMaterialesMaximos() {
+        int[] materiales = new int[8];
+        for (int i = 0; i < materiales.length; i++) {
+            materiales[i] = p1 * MMaximos[0][i] + p2 * MMaximos[1][i]
+                    + p3 * MMaximos[2][i] + p4 * MMaximos[3][i];
+        }
+        return materiales;
+    }
 
     /**
      * Determina si la producción de la combinación de productos es factible.
@@ -485,7 +496,7 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      */
     public boolean factibilidad(int[] matIngs) {
 
-        int[] diferencia = calcDiferencia(matIngs);
+        int[] diferencia = calcDiferenciaMinimos(matIngs);
         boolean valor = true;
         for (int i = 0; i < diferencia.length; i++) {
             if (diferencia[i] < 0) {
@@ -503,11 +514,24 @@ public class Individuo implements Comparable<Individuo>, Cloneable {
      * @param matIngs Cantidad de materiales m1..m8 ingresados por el usuario.
      * @return Array de enteros con las diferencias entre ingresado y mínimo.
      */
-    private int[] calcDiferencia(int[] matIngs) {
+    private int[] calcDiferenciaMinimos(int[] matIngs) {
         int[] matMinimos = calcularMaterialesMinimos();
         int[] diferencia = new int[8];
         for (int i = 0; i < diferencia.length; i++) {
             diferencia[i] = matIngs[i] - matMinimos[i];
+        }
+        return diferencia;
+    }
+    /**
+     * 
+     * @param matIngs
+     * @return 
+     */
+    private int[] calcDiferenciaMaximos(int[] matIngs) {
+        int[] matMaximos = calcularMaterialesMaximos();
+        int[] diferencia = new int[8];
+        for (int i = 0; i < diferencia.length; i++) {
+            diferencia[i] = matIngs[i] - matMaximos[i];
         }
         return diferencia;
     }

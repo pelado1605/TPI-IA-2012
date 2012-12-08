@@ -78,7 +78,7 @@ public class Poblacion implements Cloneable {
      * Aleatorio para uso dentro de la clase. Random para usar en métodos que
      * necesiten valores aleatorios para su funcionamiento.
      */
-    private Random suerte = new Random();
+    private static Random suerte = new Random();
     /**
      * Sumatoria de todas las aptitudes de los individuos que conforman la
      * población. Se inicializa en 0.

@@ -136,6 +136,7 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
         this.tipoCruza = tipoCruza;
         this.cMutacion = tamañoPoblacion - cCruza - cSeleccion;
         this.materialesIng = materiales;
+
         crearAGoku();
     }
 
@@ -180,32 +181,9 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                     generaciones.get(iteracionActual));
         }
         Collections.sort(generaciones.get(cantIteraciones - 1).getPoblado());
-        System.out.println("Aptitud Goku : " + gokuFase4.getAptitud());
-        System.out.println("Indiv Goku : " + gokuFase4.mostrarProductos());
-        System.out.println("Utilidad Goku : " + gokuFase4.getUtilidad());
-        System.out.println();
         for (int i = 0; i < 1; i++) {
             Collections.sort(generaciones.get(cantIteraciones - 1).getPoblado());
-            System.out.println("Aptitud : " + generaciones.get(cantIteraciones - 1).getPoblado().get(i).getAptitud());
-            System.out.println("Individuo : " + generaciones.get(cantIteraciones - 1).getPoblado().get(i).mostrarProductos());
-            System.out.println("Utilidad : " + generaciones.get(cantIteraciones - 1).getPoblado().get(i).getUtilidad());
         }
-        System.out.print("Cant Elitista: ");
-        System.out.println(Poblacion.getCont_selecElitista());
-        System.out.print("Cant Ruleta: ");
-        System.out.println(Poblacion.getCont_selecRuleta());
-        System.out.print("Cant Ranking: ");
-        System.out.println(Poblacion.getCont_selecRanking());
-        System.out.print("Cant Control de copias: ");
-        System.out.println(Poblacion.getCont_selecContCopias());
-        System.out.print("Cant Torneo: ");
-        System.out.println(Poblacion.getCont_selecTorneo());
-        System.out.print("Cant CRUZA SIMPLE: ");
-        System.out.println(Individuo.getCont_cruzaSimple());
-        System.out.print("Cant CRUZA MULTIPUNTO: ");
-        System.out.println(Individuo.getCont_cruzaMultipunto());
-        System.out.print("Cant BINOMIAL: ");
-        System.out.println(Individuo.getCont_cruzaBinomial());
 
         return true;
     }
@@ -229,7 +207,6 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                     suerte.nextInt((int) (gokuFase4.getP4() * 1.2) + 1));
             nueva.add(nuevo);
         }
-        gokuFase4.calcularBase();
         Poblacion nuevaPob = new Poblacion(nueva, 0f, 0, 0);
         generaciones.add(nuevaPob);
         return nueva;
@@ -255,10 +232,10 @@ public class Generaciones extends SwingWorker<Boolean, Poblacion> {
                 }
             }
             superSayayin.setProducto(i, Collections.min(minimos));
-
         }
-        superSayayin.evaluarAptitud(materialesIng, true);
         gokuFase4 = superSayayin;
+        gokuFase4.calcularBase();
+        gokuFase4.evaluarAptitud(materialesIng, true);
     }
 
     /**

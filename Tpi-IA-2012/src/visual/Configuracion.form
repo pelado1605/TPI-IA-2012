@@ -38,13 +38,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tamPobLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantIterLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cantIterLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="tamPobLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cantIterTextField" max="32767" attributes="0"/>
-                          <Component id="tamPobTextField" max="32767" attributes="0"/>
+                          <Component id="tamPobTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cantIterTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="panelOperadores" alignment="0" max="32767" attributes="0"/>
@@ -90,7 +90,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="cantIterLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cantidad de Iteraciones:"/>
+        <Property name="text" type="java.lang.String" value="Cantidad de Generaciones:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cantIterTextField">

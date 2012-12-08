@@ -138,7 +138,6 @@ public class TpiIA2012 {
                 generaciones.removePCl(pcl);
             }
             generaciones.getGeneraciones().removeAll(generaciones.getGeneraciones());
-            System.out.println("ELEMENTOS:"+generaciones.getGeneraciones().size());
             vPrincipal.getPararButton().removeActionListener(generaciones.getAl());
             vPrincipal.getPausarButton().removeActionListener(generaciones.getAl());
             vPrincipal.getEjecutarButton().removeActionListener(generaciones.getAl());
