@@ -43,6 +43,7 @@ public class Creditos extends javax.swing.JDialog {
         titulo = new javax.swing.JLabel();
         subTitulo1 = new javax.swing.JLabel();
         imagen = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Acerca de...");
@@ -96,14 +97,17 @@ public class Creditos extends javax.swing.JDialog {
         rubenMail.setText("rrdibernardo@gmail.com");
 
         titulo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         titulo.setText("Asignación de Recursos AG");
 
         subTitulo1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         subTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        subTitulo1.setText("Aplicación de asignación de recursos mediante");
+        subTitulo1.setText("Aplicación de Asignación de Recursos mediante");
 
         imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/icons/Creditos.png"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("ver 1.0.2");
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -123,10 +127,13 @@ public class Creditos extends javax.swing.JDialog {
                         .addComponent(pie, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(subTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(subTitulo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(fondoLayout.createSequentialGroup()
+                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -134,7 +141,9 @@ public class Creditos extends javax.swing.JDialog {
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titulo)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titulo)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(subTitulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -192,6 +201,7 @@ public class Creditos extends javax.swing.JDialog {
     private javax.swing.JLabel germanMail;
     private javax.swing.JLabel ia;
     private javax.swing.JLabel imagen;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel pie;
     private javax.swing.JLabel realizadoPor;
     private javax.swing.JLabel ruben;
